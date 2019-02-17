@@ -26,7 +26,7 @@ public class grid {
             s.nextLine();
         }
         System.out.println(Arrays.deepToString(myGrid));
-
+//TODO: Read the last column correctly
     }
 
 
