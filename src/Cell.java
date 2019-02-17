@@ -45,4 +45,8 @@ public abstract class Cell extends Object{
         }
 
     }
+    public Paint getColor(){
+        return myColor;
+    }
+
 }
