@@ -6,9 +6,19 @@ public class grid {
     public static void main(String[] args) {
         readFile();
     }
+    //private int[][] intArray (with getter)
+    //private Cell[][] cellArray (with getter)
+    //private int height (with getter)
+    //private in width (with getter)
+
+    //constructor: Grid(String file)
+
+    //method: getCell(row, col)
+
+    //method: intArrayToCellArray
 
     private static void readFile() {
-        Scanner s = new Scanner(Play.class.getClassLoader().getResourceAsStream("gol-grid-1.csv"));
+        Scanner s = new Scanner(Play.class.getClassLoader().getResourceAsStream("gol-Grid-1.csv"));
         s.useDelimiter(",");
         var gameType = s.next();
         System.out.println(gameType);
@@ -28,6 +38,8 @@ public class grid {
         System.out.println(Arrays.deepToString(myGrid));
 //TODO: Read the last column correctly
     }
+
+
 
 
 
