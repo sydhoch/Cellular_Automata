@@ -41,7 +41,7 @@ public abstract class Cell extends Object{
      * Checks the neighbors and changes the state of the current cell if necessary
      * @param neighbors
      */
-    public abstract void checkNeighborStatus(Object[] neighbors);
+    public abstract void checkNeighborStatus(Cell[] neighbors);
 
 
     private void changeColor(int state){
@@ -63,10 +63,6 @@ public abstract class Cell extends Object{
 
     protected int getState(){
         return myState;
-    }
-
-    protected boolean equals(Cell o) {
-        return this.getState() == o.getState();
     }
 
 }
