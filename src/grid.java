@@ -3,21 +3,11 @@ import java.io.*;
 
 
 public class Grid {
-    public static void main(String[] args) {
-        readFile("gol-grid-1.csv");
-    }
-    //private int[][] intArray (with getter)
-    //private Cell[][] cellArray (with getter)
-    //private int height (with getter)
-    //private in width (with getter)
+    private int width;
+    private int height;
+    private String gameType;
 
-    //constructor: Grid(String file)
-
-    //method: getCell(row, col)
-
-    //method: intArrayToCellArray
-
-    public static String readFile(String gameFile) {
+    public int[][] getGrid(String gameFile) {
         Scanner s = new Scanner(Play.class.getClassLoader().getResourceAsStream(gameFile));
         s.useDelimiter(",");
         var gameType = s.next();
@@ -35,8 +25,24 @@ public class Grid {
             }
             s.nextLine();
         }
-        return Arrays.deepToString(myGrid);
+        return myGrid;
     }
+
+    public int getWidth() {
+        int myWidth = width;
+        return myWidth;
+    }
+
+    public int getHeight() {
+        int myHeight = height;
+        return myHeight;
+    }
+
+    public String getGameType() {
+        String myGameType = gameType;
+        return myGameType;
+    }
+
     }
 
 

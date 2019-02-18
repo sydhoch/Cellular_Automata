@@ -20,7 +20,7 @@ public abstract class Play extends Application {
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private static final Paint BACKGROUND = Color.GREY;
-    private static final String FILE_NAME = " ";
+    private static final String FILE_NAME = "gol-grid-.csv";
     private static final String TITLE = "Cell Simulation";
     private static final int CELL_SIZE = 10;
 
@@ -55,24 +55,26 @@ public abstract class Play extends Application {
     }
 
     public void start(Stage stage){
-        myGrid = createCellGrid(FILE_NAME);
+        myGrid = new Grid();
         myRoot = new Group();
-        myScene = setUpGame(gridWidth*CELL_SIZE, gridHeight*CELL_SIZE, BACKGROUND);
+        myGrid.getGrid(FILE_NAME);
+        myScene = setUpGame(myGrid.getWidth()*CELL_SIZE, myGrid.getHeight()*CELL_SIZE, BACKGROUND);
         stage.setScene(myScene);
         stage.setTitle(TITLE);
         stage.show();
-        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+      //  var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
         var animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(frame);
+       // animation.getKeyFrames().add(frame);
         animation.play();
     }
 
     private Scene setUpGame(int width, int height, Paint background){
         Scene scene = new Scene(myRoot, width, height, background);
-        displayStates();
+    //    displayStates();
         return scene;
     }
+/*
 
     private void displayStates(){
         myRoot.getChildren().removeAll();
@@ -92,6 +94,7 @@ public abstract class Play extends Application {
            //end game
         }
     }
+*/
 
     public Cell [] setNeighbors(int row, int col){
 //        int gridTop = 0;

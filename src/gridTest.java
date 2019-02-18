@@ -2,14 +2,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class gridTest {
+class GridTest {
 
     @Test
     void main() {
+       Grid myGrid = new Grid();
        String testFile = "test-1.csv";
-       String expected = "[[1, 0, 1], [0, 1, 1], [0, 0, 0]]";
-       String actual = Grid.readFile(testFile);
-       assertEquals(expected, actual);
+       int[][] expected = {{1, 0, 1}, {0, 1, 1}, {0, 0, 0}};
+       int[][] actual = myGrid.getGrid(testFile);
+       assertArrayEquals(expected, actual);
     }
 
    /* @Test
