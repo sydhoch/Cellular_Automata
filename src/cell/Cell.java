@@ -1,8 +1,7 @@
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
+package cell;
 
-import java.util.Objects;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public abstract class Cell extends Object{
     private int myState;
@@ -41,7 +40,7 @@ public abstract class Cell extends Object{
      * Checks the neighbors and changes the state of the current cell if necessary
      * @param neighbors
      */
-    public abstract void checkNeighborStatus(Object[] neighbors);
+    public abstract void checkNeighborStatus(Cell[] neighbors);
 
 
     private void changeColor(int state){
@@ -65,8 +64,8 @@ public abstract class Cell extends Object{
         return myState;
     }
 
-    protected boolean equals(Cell o) {
-        return this.getState() == o.getState();
+    protected int getNextState(){
+        return myNextState;
     }
 
 }

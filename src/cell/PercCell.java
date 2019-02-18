@@ -1,3 +1,7 @@
+package cell;
+
+import cell.Cell;
+
 public class PercCell extends Cell {
     //state == 0, open
     //state == 1, full
@@ -12,11 +16,14 @@ public class PercCell extends Cell {
      * @param neighbors
      */
     @Override
-    public void checkNeighborStatus(Object[] neighbors) {
-        setNextState(getState());
+    public void checkNeighborStatus(Cell[] neighbors) {
+        setNextState(this.getState());
         for(int i=0;i<neighbors.length;i++){
-            if(getState()==0){
-                if(neighbors[i].equals(1)){
+            System.out.println(i);
+            if(this.getState()==0){
+                Cell p = neighbors[i];
+
+                if(p.getState()==1){
                     setNextState(1);
                     break;
                 }

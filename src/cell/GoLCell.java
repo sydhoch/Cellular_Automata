@@ -1,3 +1,7 @@
+package cell;
+
+import cell.Cell;
+
 public class GoLCell extends Cell {
     //state == 0, dead
     //state == 1, alive
@@ -10,7 +14,7 @@ public class GoLCell extends Cell {
      * @param neighbors
      */
     @Override
-    public void checkNeighborStatus(Object[] neighbors){
+    public void checkNeighborStatus(Cell[] neighbors){
         setNextState(getState());
         int neighborsAlive = getNumOfAliveNeighbors(neighbors);
         if(getState()==1){
@@ -25,10 +29,10 @@ public class GoLCell extends Cell {
         }
     }
 
-    private int getNumOfAliveNeighbors(Object[] neighbors){
+    private int getNumOfAliveNeighbors(Cell[] neighbors){
         int aliveNeighbors=0;
         for(int i=0;i<neighbors.length;i++){
-            if(neighbors[i].equals(1)) {
+            if(neighbors[i].getState()==1) {
                 aliveNeighbors++;
             }
         }
