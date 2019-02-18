@@ -1,10 +1,14 @@
 public class GoLCell extends Cell {
     //state == 0, dead
     //state == 1, alive
-    public GoLCell(int state) {
-        super(state);
+    public GoLCell(int state,int col, int row) {
+        super(state,col,row);
     }
 
+    /**
+     * checks how many neighbors are alive and dies or comes back to life based on this number
+     * @param neighbors
+     */
     @Override
     public void checkNeighborStatus(Object[] neighbors){
         int neighborsAlive = getNumOfAliveNeighbors(neighbors);
@@ -19,14 +23,13 @@ public class GoLCell extends Cell {
             }
         }
     }
-
     @Override
-    public void changeState(){
+    protected void changeState(){
         if(getState()==1){
-            setState(0);
+            setNextState(0);
         }
         else{
-            setState(1);
+            setNextState(1);
         }
 
     }

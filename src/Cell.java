@@ -1,52 +1,70 @@
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
+
 import java.util.Objects;
 
 public abstract class Cell extends Object{
     private int myState;
-    private Paint myColor;
-    private static String zeroColor = "BLUE";
-    private static String oneColor = "RED";
-    private static String twoColor = "YELLOW";
+    private int myNextState;
+    private Rectangle myCellImage;
 
-    public Cell(int state){
+    private static int CELL_SIZE = 10;
+    private static String ZERO_COLOR = "BLUE";
+    private static String ONE_COLOR = "RED";
+    private static String TWO_COLOR = "YELLOW";
+
+    public Cell(int state,int col, int row){
+        myCellImage = new Rectangle(col*CELL_SIZE,row*CELL_SIZE,CELL_SIZE,CELL_SIZE);
         myState = state;
         changeColor(state);
     }
 
-    public int getState(){
-        return myState;
+    public void updateCell(){
+        myState = myNextState;
+        changeColor(myNextState);
     }
 
+    /**
+     *
+     * @returns the image of the cell
+     */
+    public Rectangle getRectangle(){
+        return myCellImage;
+    }
+
+    /**
+     * Checks the neighbors and changes the state of the current cell if necessary
+     * @param neighbors
+     */
     public abstract void checkNeighborStatus(Object[] neighbors);
 
-    public abstract void changeState();
+    protected abstract void changeState();
 
-    protected void setState(int state){
-        myState = state;
+
+    private void changeColor(int state){
+        if(state==0){
+            myCellImage.setFill(Color.valueOf(ZERO_COLOR));
+        }
+        else if(state==1){
+            myCellImage.setFill(Color.valueOf(ONE_COLOR));
+        }
+        else{
+            myCellImage.setFill(Color.valueOf(TWO_COLOR));
+        }
+
+    }
+
+    public void setNextState(int nextState){
+        myNextState = nextState;
+    }
+
+    protected int getState(){
+        return myState;
     }
 
     protected boolean equals(Cell o) {
         return this.getState() == o.getState();
-    }
-
-    private void setColor(String color){
-        myColor.valueOf(color);
-    }
-
-    private void changeColor(int state){
-        if(state==0){
-            setColor(zeroColor);
-        }
-        else if(state==1){
-            setColor(oneColor);
-        }
-        else{
-            setColor(twoColor);
-        }
-
-    }
-    public Paint getColor(){
-        return myColor;
     }
 
 }
