@@ -1,12 +1,16 @@
-import javafx.scene.Scene;
-import javafx.scene.paint.Paint;
-import javafx.stage.Stage;
+import cell.Cell;
 
-public class GoLPlay extends Play {
+public class GoLPlay extends Play{
 
-    public Scene setUpGame(int width, int height, Paint background){
+    public Cell[][] createCellGrid(String file){
+        int[][] intArray = super.readFile(file);
+        //convert ints to cells based on type
         return null;
     }
 
+
+    public boolean checkEnd(Cell[][] grid){
+        return false;
+    }
 
 }
