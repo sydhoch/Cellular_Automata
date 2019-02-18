@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
-public class Play extends Application {
+public abstract class Play extends Application {
     private static final int FRAMES_PER_SECOND = 60;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -56,12 +56,16 @@ public class Play extends Application {
     }
 
     private void step(double elapsedTime){
-        myGrid.updateStates();
+        setAndUpdateStates(myGrid);
         displayStates();
-        if(myGrid.checkEnd()){
+        if(checkEnd(myGrid)){
            //end game
         }
     }
+
+    public abstract void setAndUpdateStates(Grid grid);
+    public abstract int [] setNeighbors(int row, int col, Grid grid);
+    public abstract boolean checkEnd(Grid grid);
 
     public static void main(String[] args) {
         launch(args);
