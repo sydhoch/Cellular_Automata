@@ -2,21 +2,22 @@ import java.util.*;
 import java.io.*;
 
 
-public class grid {
+public class Grid {
+    private static String gameType;
+    private static int width;
+    private static int height;
+
     public static void main(String[] args) {
-        readFile();
+        readFile("gol-grid-1.csv");
     }
 
-    private static void readFile() {
-        Scanner s = new Scanner(Play.class.getClassLoader().getResourceAsStream("gol-grid-1.csv"));
+    public static String readFile(String fileName) {
+        Scanner s = new Scanner(Play.class.getClassLoader().getResourceAsStream(fileName));
         s.useDelimiter(",");
-        var gameType = s.next();
-        System.out.println(gameType);
+        gameType = s.next();
         s.nextLine();
-        var width = s.nextInt() - 1;
-        System.out.println(width);
-        var height = s.nextInt() - 1;
-        System.out.println(height);
+        width = s.nextInt();
+        height = s.nextInt();
         int[][] myGrid = new int[width][height];
         s.nextLine();
         for (int i = 0; i < height; i++) {
@@ -25,8 +26,7 @@ public class grid {
             }
             s.nextLine();
         }
-        System.out.println(Arrays.deepToString(myGrid));
-//TODO: Read the last column correctly
+    return Arrays.deepToString(myGrid);
     }
 
 
