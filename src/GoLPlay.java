@@ -22,7 +22,7 @@ public class GoLPlay extends Play{
     public int [] setNeighbors(int row, int col, Grid grid){
         int[] neighbors = new int[8];
         if(row == 0){
-            neighbors[0] = grid.getCell(grid.getHeight())
+            neighbors[0] = grid.getCell(grid.getHeight());
         }
     }
 
