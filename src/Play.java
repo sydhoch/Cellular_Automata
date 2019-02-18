@@ -32,18 +32,19 @@ public class Play extends Application {
         stage.setScene(myScene);
         stage.setTitle(TITLE);
         stage.show();
-        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+      //  var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
         var animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(frame);
+       // animation.getKeyFrames().add(frame);
         animation.play();
     }
 
     private Scene setUpGame(int width, int height, Paint background){
         Scene scene = new Scene(myRoot, width, height, background);
-        displayStates();
+    //    displayStates();
         return scene;
     }
+/*
 
     private void displayStates(){
         myRoot.getChildren().removeAll();
@@ -63,6 +64,7 @@ public class Play extends Application {
            //end game
         }
     }
+*/
 
     public static void main(String[] args) {
         launch(args);

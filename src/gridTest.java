@@ -10,7 +10,7 @@ class GridTest {
        String testFile = "test-1.csv";
        int[][] expected = {{1, 0, 1}, {0, 1, 1}, {0, 0, 0}};
        int[][] actual = myGrid.getGrid(testFile);
-       assertEquals(expected, actual);
+       assertArrayEquals(expected, actual);
     }
 
    /* @Test
