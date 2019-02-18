@@ -20,7 +20,7 @@ public abstract class Play extends Application {
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private static final Paint BACKGROUND = Color.GREY;
-    private static final String FILE_NAME = " ";
+    private static final String FILE_NAME = "gol-grid-1.csv";
     private static final String TITLE = "Cell Simulation";
     private static final int CELL_SIZE = 10;
 
@@ -79,18 +79,18 @@ public abstract class Play extends Application {
         for (int i = 0; i < gridHeight; i++) {
             for (int j = 0; j < gridWidth; j++) {
                 Rectangle r = new Rectangle(i*CELL_SIZE, j*CELL_SIZE, CELL_SIZE, CELL_SIZE);
-                r.setFill(myGrid[i][j].getColor());
+                r.setFill(Color.GREEN);//r.setFill(myGrid[i][j].getColor());
                 myRoot.getChildren().add(r);
             }
         }
     }
 
     private void step(double elapsedTime){
-        setAndUpdateStates();
-        displayStates();
-        if(checkEnd(myGrid)){
-           //end game
-        }
+//        setAndUpdateStates();
+//        displayStates();
+//        if(checkEnd(myGrid)){
+//           //end game
+//        }
     }
 
     public Cell [] setNeighbors(int row, int col){
@@ -118,7 +118,7 @@ public abstract class Play extends Application {
             for (int j = 0; j < gridWidth; j++) {
                 Cell[] neighbors = setNeighbors(i, j);
                 myGrid[i][j].checkNeighborStatus(neighbors);
-                myGrid[i][j].updateState();
+                //myGrid[i][j].updateState();
             }
         }
     }
@@ -127,8 +127,5 @@ public abstract class Play extends Application {
 
     public abstract boolean checkEnd(Cell[][] grid);
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 
 }
