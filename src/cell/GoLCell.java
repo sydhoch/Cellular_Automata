@@ -1,3 +1,7 @@
+package cell;
+
+import cell.Cell;
+
 public class GoLCell extends Cell {
     //state == 0, dead
     //state == 1, alive

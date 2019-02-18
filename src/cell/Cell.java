@@ -1,8 +1,7 @@
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
+package cell;
 
-import java.util.Objects;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public abstract class Cell extends Object{
     private int myState;
@@ -63,6 +62,10 @@ public abstract class Cell extends Object{
 
     protected int getState(){
         return myState;
+    }
+
+    protected int getNextState(){
+        return myNextState;
     }
 
 }

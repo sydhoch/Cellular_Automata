@@ -1,5 +1,5 @@
 public interface Play {
-    //2D array of Cell (myGrid)
+    //2D array of cell.Cell (myGrid)
     //checkOver
     //step
     //initialize
