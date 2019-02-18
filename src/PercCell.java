@@ -13,18 +13,15 @@ public class PercCell extends Cell {
      */
     @Override
     public void checkNeighborStatus(Object[] neighbors) {
+        setNextState(getState());
         for(int i=0;i<neighbors.length;i++){
             if(getState()==0){
                 if(neighbors[i].equals(1)){
-                    changeState();
+                    setNextState(1);
                     break;
                 }
             }
         }
-    }
 
-    @Override
-    protected void changeState(){
-        setNextState(1);
     }
 }

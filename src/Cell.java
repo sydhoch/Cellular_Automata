@@ -18,8 +18,12 @@ public abstract class Cell extends Object{
         myCellImage = new Rectangle(col*CELL_SIZE,row*CELL_SIZE,CELL_SIZE,CELL_SIZE);
         myState = state;
         changeColor(state);
+        setNextState(state);
     }
 
+    /**
+     * updates the cell to its next state
+     */
     public void updateCell(){
         myState = myNextState;
         changeColor(myNextState);
@@ -39,8 +43,6 @@ public abstract class Cell extends Object{
      */
     public abstract void checkNeighborStatus(Object[] neighbors);
 
-    protected abstract void changeState();
-
 
     private void changeColor(int state){
         if(state==0){
@@ -55,7 +57,7 @@ public abstract class Cell extends Object{
 
     }
 
-    public void setNextState(int nextState){
+    protected void setNextState(int nextState){
         myNextState = nextState;
     }
 

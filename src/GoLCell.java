@@ -11,27 +11,18 @@ public class GoLCell extends Cell {
      */
     @Override
     public void checkNeighborStatus(Object[] neighbors){
+        setNextState(getState());
         int neighborsAlive = getNumOfAliveNeighbors(neighbors);
         if(getState()==1){
             if(neighborsAlive<2 || neighborsAlive>3){
-                changeState();
+                setNextState(0);
             }
         }
         if(getState()==0){
             if(neighborsAlive==3){
-                changeState();
+                setNextState(1);
             }
         }
-    }
-    @Override
-    protected void changeState(){
-        if(getState()==1){
-            setNextState(0);
-        }
-        else{
-            setNextState(1);
-        }
-
     }
 
     private int getNumOfAliveNeighbors(Object[] neighbors){
