@@ -2,9 +2,9 @@ import java.util.*;
 import java.io.*;
 
 
-public class grid {
+public class Grid {
     public static void main(String[] args) {
-        readFile();
+        readFile("gol-grid-1.csv");
     }
     //private int[][] intArray (with getter)
     //private Cell[][] cellArray (with getter)
@@ -17,15 +17,15 @@ public class grid {
 
     //method: intArrayToCellArray
 
-    private static void readFile() {
-        Scanner s = new Scanner(Play.class.getClassLoader().getResourceAsStream("gol-Grid-1.csv"));
+    public static String readFile(String gameFile) {
+        Scanner s = new Scanner(Play.class.getClassLoader().getResourceAsStream(gameFile));
         s.useDelimiter(",");
         var gameType = s.next();
         System.out.println(gameType);
         s.nextLine();
-        var width = s.nextInt() - 1;
+        var width = s.nextInt();
         System.out.println(width);
-        var height = s.nextInt() - 1;
+        var height = s.nextInt();
         System.out.println(height);
         int[][] myGrid = new int[width][height];
         s.nextLine();
@@ -35,8 +35,8 @@ public class grid {
             }
             s.nextLine();
         }
-        System.out.println(Arrays.deepToString(myGrid));
-//TODO: Read the last column correctly
+        return Arrays.deepToString(myGrid);
+    }
     }
 
 
