@@ -27,7 +27,7 @@ public class Play extends Application {
     public void start(Stage stage){
         myGrid = new Grid(FILE_NAME);
         myRoot = new Group();
-        myScene = setupGame(myGrid.getWidth()*CELL_SIZE, myGrid.getHeight()*CELL_SIZE, BACKGROUND);
+        myScene = setUpGame(myGrid.getWidth()*CELL_SIZE, myGrid.getHeight()*CELL_SIZE, BACKGROUND);
         stage.setScene(myScene);
         stage.setTitle(TITLE);
         stage.show();

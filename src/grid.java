@@ -3,6 +3,10 @@ import java.io.*;
 
 
 public class Grid {
+    private static int width;
+    private static int height;
+    private static String gameType;
+
     public static void main(String[] args) {
         readFile("gol-grid-1.csv");
     }
@@ -27,6 +31,22 @@ public class Grid {
         }
         return Arrays.deepToString(myGrid);
     }
+
+    public int getWidth() {
+        int myWidth = width;
+        return myWidth;
+    }
+
+    public int getHeight() {
+        int myHeight = height;
+        return myHeight;
+    }
+
+    public String getGameType() {
+        String myGameType = gameType;
+        return myGameType;
+    }
+
     }
 
 
