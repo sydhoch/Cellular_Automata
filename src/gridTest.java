@@ -6,9 +6,10 @@ class GridTest {
 
     @Test
     void main() {
+       Grid myGrid = new Grid();
        String testFile = "test-1.csv";
-       String expected = "[[1, 0, 1], [0, 1, 1], [0, 0, 0]]";
-       String actual = Grid.readFile(testFile);
+       int[][] expected = {{1, 0, 1}, {0, 1, 1}, {0, 0, 0}};
+       int[][] actual = myGrid.getGrid(testFile);
        assertEquals(expected, actual);
     }
 

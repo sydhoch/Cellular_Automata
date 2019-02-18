@@ -15,7 +15,7 @@ public class Play extends Application {
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private static final Paint BACKGROUND = Color.GREY;
-    private static final String FILE_NAME = " ";
+    private static final String FILE_NAME = "gol-grid-.csv";
     private static final String TITLE = "Cell Simulation";
     private static final int CELL_SIZE = 10;
 
@@ -25,8 +25,9 @@ public class Play extends Application {
     private Group myRoot;
 
     public void start(Stage stage){
-        myGrid = new Grid(FILE_NAME);
+        myGrid = new Grid();
         myRoot = new Group();
+        myGrid.getGrid(FILE_NAME);
         myScene = setUpGame(myGrid.getWidth()*CELL_SIZE, myGrid.getHeight()*CELL_SIZE, BACKGROUND);
         stage.setScene(myScene);
         stage.setTitle(TITLE);
