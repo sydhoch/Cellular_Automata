@@ -6,45 +6,96 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CellTest {
-    private Cell c1;
-    private Cell c2;
-    private Cell c3;
-    private Cell c4;
-    private Cell c5;
-    private Cell c6;
-    private Cell c7;
-    private Cell c8;
-    private Cell c9;
-    private Cell[] neighbors = new Cell[8];
+    private Cell p0;
+    private Cell p1;
+    private Cell p2;
+    private Cell p;
+
+    private Cell g0;
+    private Cell g1;
+    private Cell g;
 
     @BeforeEach
     void setup(){
-         c1 = new PercCell(0,1,1);
-         c2 = new PercCell(1,1,1);
-         c3 = new PercCell(1,1,1);
-         c4 = new PercCell(2,1,1);
-         c5 = new PercCell(2,1,1);
-         c6 = new PercCell(0,1,1);
-         c7 = new PercCell(0,1,1);
-         c8 = new PercCell(0,1,1);
-         c9 = new PercCell(0,1,1);
-         neighbors[0] = c2;
-         neighbors[1] = c3;
-         neighbors[2] = c4;
-         neighbors[3] = c5;
-         neighbors[4] = c6;
-         neighbors[5] = c7;
-         neighbors[6] = c8;
-         neighbors[7] = c9;
+         //p = new PercCell(0,0,0);
+         p0 = new PercCell(0,0,0);
+         p1 = new PercCell(1,0,0);
+         p2 = new PercCell(2,0,0);
 
-         //c2 = new cell.GoLCell(0,1,1);
+         //g = new GoLCell(1,0,0);
+        g0 = new GoLCell(0,0,0);
+        g1 = new GoLCell(1,0,0);
     }
 
     @Test
-    public void percCheckNeighborStatus(){
-        c1.checkNeighborStatus(neighbors);
+    public void openPercCellFilled(){
+        Cell[] neighbors = {p0,p0,p0,p0,p1,p2,p2,p2};
+        p0.checkNeighborStatus(neighbors);
         int expected = 1;
-        int actual = c1.getNextState();
+        int actual = p0.getNextState();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void closedPercCellStayClosed(){
+        Cell[] neighbors = {p0,p0,p0,p0,p1,p2,p2,p2};
+        p2.checkNeighborStatus(neighbors);
+        int expected = 2;
+        int actual = p2.getNextState();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void fullPercCellStayFull(){
+        Cell[] neighbors = {p0,p0,p0,p0,p1,p2,p2,p2};
+        p1.checkNeighborStatus(neighbors);
+        int expected = 1;
+        int actual = p1.getNextState();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void emptyPercCellStayEmpty(){
+        Cell[] neighbors = {p0,p0,p0,p0,p2,p2,p2,p2};
+        p0.checkNeighborStatus(neighbors);
+        int expected = 0;
+        int actual = p0.getNextState();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void aliveGoLCellKilledByUnderPopulation(){
+        Cell[] neighbors = {g0,g0,g0,g0,g0,g0,g0,g1};
+        g1.checkNeighborStatus(neighbors);
+        int expected = 0;
+        int actual = g1.getNextState();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void aliveGoLCellKilledByOverPopulation(){
+        Cell[] neighbors = {g0,g0,g0,g0,g1,g1,g1,g1};
+        g1.checkNeighborStatus(neighbors);
+        int expected = 0;
+        int actual = g1.getNextState();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void deadGoLCellBroughtBack(){
+        Cell[] neighbors = {g0,g0,g0,g0,g0,g1,g1,g1};
+        g0.checkNeighborStatus(neighbors);
+        int expected = 1;
+        int actual = g0.getNextState();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void deadGoLCellStayDead(){
+        Cell[] neighbors = {g0,g0,g0,g0,g1,g1,g1,g1};
+        g0.checkNeighborStatus(neighbors);
+        int expected = 0;
+        int actual = g0.getNextState();
         assertEquals(expected,actual);
     }
 
