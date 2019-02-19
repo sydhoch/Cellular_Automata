@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 
-public abstract class Play extends Application {
+public class Play extends Application {
 
     private static final int FRAMES_PER_SECOND = 60;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -24,53 +24,29 @@ public abstract class Play extends Application {
     private static final String TITLE = "Cell Simulation";
     private static final int CELL_SIZE = 10;
 
-
-    private int gridWidth;
-    private int gridHeight;
     private Scene myScene;
     private Group myRoot;
     private Cell[][] myGrid;
 
 
-    //going to be called by the createCellGrid method
-    public int[][] readFile(String gameFile) {
-        Scanner s = new Scanner(Play.class.getClassLoader().getResourceAsStream(gameFile));
-        s.useDelimiter(",");
-        var gameType = s.next();
-        System.out.println(gameType);
-        s.nextLine();
-        gridWidth = s.nextInt();
-        System.out.println(gridWidth);
-        gridHeight = s.nextInt();
-        System.out.println(gridHeight);
-        int[][] myGrid = new int[gridWidth][gridHeight];
-        s.nextLine();
-        for (int i = 0; i < gridHeight; i++) {
-            for (int j = 0; j < gridWidth; j++) {
-                myGrid[i][j] = s.nextInt();
-            }
-            s.nextLine();
-        }
-        return myGrid;
-    }
-
     public void start(Stage stage){
-        myGrid = createCellGrid(FILE_NAME);
+        myGrid = new Grid();
         myRoot = new Group();
-        myScene = setUpGame(gridWidth*CELL_SIZE, gridHeight*CELL_SIZE, BACKGROUND);
+        myGrid.getGrid(FILE_NAME);
+        myScene = setUpGame(myGrid.getWidth()*CELL_SIZE, myGrid.getHeight()*CELL_SIZE, BACKGROUND);
         stage.setScene(myScene);
         stage.setTitle(TITLE);
         stage.show();
-        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+      //  var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
         var animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(frame);
+       // animation.getKeyFrames().add(frame);
         animation.play();
     }
 
     private Scene setUpGame(int width, int height, Paint background){
         Scene scene = new Scene(myRoot, width, height, background);
-        displayStates();
+    //    displayStates();
         return scene;
     }
 
@@ -86,10 +62,10 @@ public abstract class Play extends Application {
     }
 
     private void step(double elapsedTime){
-//        setAndUpdateStates();
-//        displayStates();
-//        if(checkEnd(myGrid)){
-//           //end game
+        setAndUpdateStates();
+        displayStates();
+        if(checkEnd(myGrid)){
+           //end game
 //        }
     }
 
@@ -122,10 +98,4 @@ public abstract class Play extends Application {
             }
         }
     }
-
-    public abstract Cell[][] createCellGrid(String file);
-
-    public abstract boolean checkEnd(Cell[][] grid);
-
-
 }
