@@ -15,7 +15,6 @@ public class GoLCell extends Cell {
      */
     @Override
     public void checkNeighborStatus(Cell[] neighbors){
-        setNextState(getState());
         int neighborsAlive = getNumOfAliveNeighbors(neighbors);
         if(getState()==1){
             if(neighborsAlive<2 || neighborsAlive>3){

@@ -100,7 +100,21 @@ public class CellTest {
     }
 
     @Test
-    public void updatePercCell() {
+    public void percChangeStateToFull() {
+        Cell[] neighbors = {p0,p0,p0,p0,p1,p2,p2,p2};
+        p0.checkNeighborStatus(neighbors);
+        p0.updateCell();
+        int expected = 1;
+        int actual = p0.getState();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void percUpdateCell_Works_With_No_NeighborCheck() {
+        p0.updateCell();
+        int expected = 0;
+        int actual = p0.getState();
+        assertEquals(expected,actual);
     }
 
     @Test
