@@ -13,11 +13,11 @@ import javafx.util.Duration;
 
 public class Play extends Application {
 
-    private static final int FRAMES_PER_SECOND = 60;
+    private static final int FRAMES_PER_SECOND = 1;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private static final Paint BACKGROUND = Color.GREY;
-    private static final String FILE_NAME = "perc-grid-1.csv";
+    private static final String FILE_NAME = "gol-grid-2.csv";
     private static final String TITLE = "Cell Simulation";
     private static final int CELL_SIZE = 100;
 
@@ -68,6 +68,10 @@ public class Play extends Application {
             for (int j = 0; j < myGrid.getWidth(); j++) {
                 Cell[] neighbors = myGrid.setNeighbors(i, j);
                 myGrid.getCell(i, j).checkNeighborStatus(neighbors);
+            }
+        }
+        for (int i = 0; i < myGrid.getHeight(); i++) {
+            for (int j = 0; j < myGrid.getWidth(); j++) {
                 myGrid.getCell(i, j).updateCell();
             }
         }

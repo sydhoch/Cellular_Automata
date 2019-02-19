@@ -9,9 +9,9 @@ public abstract class Cell extends Object{
     private Rectangle myCellImage;
 
     private static int CELL_SIZE = 100;
-    private static String ZERO_COLOR = "BLUE";
-    private static String ONE_COLOR = "RED";
-    private static String TWO_COLOR = "YELLOW";
+    private static String ZERO_COLOR = "WHITE";
+    private static String ONE_COLOR = "BLUE";
+    private static String TWO_COLOR = "BLACK";
 
     public Cell(int state,int col, int row){
         myCellImage = new Rectangle(col*CELL_SIZE,row*CELL_SIZE,CELL_SIZE,CELL_SIZE);
