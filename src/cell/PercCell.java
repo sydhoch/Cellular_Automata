@@ -19,7 +19,7 @@ public class PercCell extends Cell {
     public void checkNeighborStatus(Cell[] neighbors) {
         setNextState(this.getState());
         for(int i=0;i<neighbors.length;i++){
-            System.out.println(i);
+            //System.out.println(i);
             if(this.getState()==0){
                 Cell p = neighbors[i];
 

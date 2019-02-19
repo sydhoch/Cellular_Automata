@@ -10,9 +10,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.util.Arrays;
-import java.util.Scanner;
-
 
 public class Play extends Application {
 
@@ -20,82 +17,60 @@ public class Play extends Application {
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private static final Paint BACKGROUND = Color.GREY;
-    private static final String FILE_NAME = "gol-grid-1.csv";
+    private static final String FILE_NAME = "perc-grid-1.csv";
     private static final String TITLE = "Cell Simulation";
-    private static final int CELL_SIZE = 10;
+    private static final int CELL_SIZE = 100;
 
     private Scene myScene;
     private Group myRoot;
-    private Cell[][] myGrid;
+    private Grid myGrid;
 
 
-    public void start(Stage stage){
-        myGrid = new Grid();
+    public void start(Stage stage) {
+        myGrid = new Grid(FILE_NAME);
         myRoot = new Group();
         myGrid.getGrid(FILE_NAME);
-        myScene = setUpGame(myGrid.getWidth()*CELL_SIZE, myGrid.getHeight()*CELL_SIZE, BACKGROUND);
+        myScene = setUpGame(myGrid.getWidth() * CELL_SIZE, myGrid.getHeight() * CELL_SIZE, BACKGROUND);
         stage.setScene(myScene);
         stage.setTitle(TITLE);
         stage.show();
-      //  var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
         var animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
-       // animation.getKeyFrames().add(frame);
+        animation.getKeyFrames().add(frame);
         animation.play();
     }
 
-    private Scene setUpGame(int width, int height, Paint background){
+    private Scene setUpGame(int width, int height, Paint background) {
         Scene scene = new Scene(myRoot, width, height, background);
-    //    displayStates();
+        displayStates();
         return scene;
     }
 
-    private void displayStates(){
-        myRoot.getChildren().removeAll();
-        for (int i = 0; i < gridHeight; i++) {
-            for (int j = 0; j < gridWidth; j++) {
-                Rectangle r = new Rectangle(i*CELL_SIZE, j*CELL_SIZE, CELL_SIZE, CELL_SIZE);
-                r.setFill(Color.GREEN);//r.setFill(myGrid[i][j].getColor());
-                myRoot.getChildren().add(r);
+    private void displayStates() {
+        myRoot.getChildren().clear();
+        for (int i = 0; i < myGrid.getHeight(); i++) {
+            for (int j = 0; j < myGrid.getWidth(); j++) {
+                myRoot.getChildren().add(myGrid.getCell(i, j).getRectangle());
             }
         }
     }
 
-    private void step(double elapsedTime){
+    private void step(double elapsedTime) {
         setAndUpdateStates();
         displayStates();
-        if(checkEnd(myGrid)){
-           //end game
-//        }
     }
 
-    public Cell [] setNeighbors(int row, int col){
-//        int gridTop = 0;
-//        int gridBottom = gridHeight-1;
-//        int gridLeft = 0;
-//        int gridRight = gridHeight-1;
-//
-//        Cell[] neighbors = new int[8];
-//        //neighbors[0]
-//        if(row == gridTop && col == gridLeft){
-//           neighbors[0] = myGrid[gridBottom][gridRight].getState();
-//
-//        }
-//        else if(row == gridTop){
-//
-//        }
-//
-//        return neighbors;
-        return null;
-    }
+
 
     public void setAndUpdateStates() {
-        for (int i = 0; i < gridHeight; i++) {
-            for (int j = 0; j < gridWidth; j++) {
-                Cell[] neighbors = setNeighbors(i, j);
-                myGrid[i][j].checkNeighborStatus(neighbors);
-                //myGrid[i][j].updateState();
+        for (int i = 0; i < myGrid.getHeight(); i++) {
+            for (int j = 0; j < myGrid.getWidth(); j++) {
+                Cell[] neighbors = myGrid.setNeighbors(i, j);
+                myGrid.getCell(i, j).checkNeighborStatus(neighbors);
+                myGrid.getCell(i, j).updateCell();
             }
         }
     }
 }
+

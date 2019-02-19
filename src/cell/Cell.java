@@ -8,7 +8,7 @@ public abstract class Cell extends Object{
     private int myNextState;
     private Rectangle myCellImage;
 
-    private static int CELL_SIZE = 10;
+    private static int CELL_SIZE = 100;
     private static String ZERO_COLOR = "BLUE";
     private static String ONE_COLOR = "RED";
     private static String TWO_COLOR = "YELLOW";
