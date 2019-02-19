@@ -17,7 +17,6 @@ public class PercCell extends Cell {
      */
     @Override
     public void checkNeighborStatus(Cell[] neighbors) {
-        setNextState(this.getState());
         for(int i=0;i<neighbors.length;i++){
             if(this.getState()==0){
                 if(neighbors[i].getState()==1){
