@@ -1,6 +1,4 @@
 package cell;
-
-import cell.Cell;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -118,7 +116,31 @@ public class CellTest {
     }
 
     @Test
-    public void updateGoLCell() {
+    public void percStateStaysSameAfterUpdate() {
+        Cell[] neighbors = {p0,p0,p0,p0,p1,p2,p2,p2};
+        p0.checkNeighborStatus(neighbors);
+        p0.updateCell();
+        int expected = 1;
+        int actual = p0.getState();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void golUpdateCell_Works_With_No_NeighborCheck() {
+        g1.updateCell();
+        int expected = 1;
+        int actual = g1.getState();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void golUpdateStateFromDeadToAlive() {
+        Cell[] neighbors = {g0,g0,g0,g0,g0,g1,g1,g1};
+        g0.checkNeighborStatus(neighbors);
+        g0.updateCell();
+        int expected = 1;
+        int actual = g1.getState();
+        assertEquals(expected,actual);
     }
 
     @Test
