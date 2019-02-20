@@ -62,12 +62,11 @@ public class Play extends Application {
         return myGrid.getCell(i, j).getRectangle();
     }
 
+
     private void step(double elapsedTime) {
         setAndUpdateStates();
         displayStates();
     }
-
-
 
     private void setAndUpdateStates() {
         for (int i = 0; i < myGrid.getHeight(); i++) {
