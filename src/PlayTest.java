@@ -15,7 +15,12 @@ class PlayTest {
     }
 
     @Test
-    void displayStatesHasCorrectNumberOfCells(){
+    void displaysCorrectNumberOfCells(){
+
+    }
+
+    @Test
+    void displaysCorrectColors(){
 
     }
 

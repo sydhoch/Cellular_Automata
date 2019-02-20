@@ -50,9 +50,16 @@ public class Play extends Application {
         myRoot.getChildren().clear();
         for (int i = 0; i < myGrid.getHeight(); i++) {
             for (int j = 0; j < myGrid.getWidth(); j++) {
-                myRoot.getChildren().add(myGrid.getCell(i, j).getRectangle());
+                myRoot.getChildren().add(setRectangle(i, j));
             }
         }
+    }
+
+    private Rectangle setRectangle(int i, int j){
+        //Rectangle ret = new Rectangle(WINDOW_SIZE/myGrid.getHeight()*i, WINDOW_SIZE/myGrid.getWidth()*j, WINDOW_SIZE/myGrid.getHeight(), WINDOW_SIZE/myGrid.getWidth());
+        //ret.setFill(Paint.valueOf(myGrid.getCell(i, j).getColor()));
+        //return ret;
+        return myGrid.getCell(i, j).getRectangle();
     }
 
     private void step(double elapsedTime) {
