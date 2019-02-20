@@ -29,9 +29,9 @@ public class Grid {
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
                 if (gameType.equals("Perc")) {
-                    myGrid[i][j] = new PercCell(s.nextInt(), i, j);
+                    myGrid[i][j] = new PercCell(s.nextInt(), j, i);
                 } else if (gameType.equals("GoL")) {
-                    myGrid[i][j] = new GoLCell(s.nextInt(), i, j);
+                    myGrid[i][j] = new GoLCell(s.nextInt(), j, i);
                 }
             }
             s.nextLine();
@@ -52,7 +52,7 @@ public class Grid {
         return myGrid[row][col];
     }
 
-    public Cell[] setNeighbors(int row, int col) {
+    public Cell[] setNeighbors(int row, int col) { //breakUp
         Cell[] neighbors = new Cell[8];
         try {
             neighbors[0] = getCell(row - 1, col - 1);

@@ -14,5 +14,10 @@ class PlayTest {
 
     }
 
+    @Test
+    void displayStatesHasCorrectNumberOfCells(){
+
+    }
+
 
 }
