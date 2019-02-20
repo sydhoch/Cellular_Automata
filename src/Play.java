@@ -19,7 +19,7 @@ public class Play extends Application {
     private static final Paint BACKGROUND = Color.GREY;
     private static final String FILE_NAME = "perc-grid-1.csv";
     private static final String TITLE = "Cell Simulation";
-    private static final int CELL_SIZE = 100;
+    private static final int WINDOW_SIZE = 500;
 
     private Scene myScene;
     private Group myRoot;
@@ -29,8 +29,7 @@ public class Play extends Application {
     public void start(Stage stage) {
         myGrid = new Grid(FILE_NAME);
         myRoot = new Group();
-        myGrid.getGrid(FILE_NAME);
-        myScene = setUpGame(myGrid.getWidth() * CELL_SIZE, myGrid.getHeight() * CELL_SIZE, BACKGROUND);
+        myScene = setUpGame(WINDOW_SIZE, WINDOW_SIZE, BACKGROUND);
         stage.setScene(myScene);
         stage.setTitle(TITLE);
         stage.show();
@@ -63,7 +62,7 @@ public class Play extends Application {
 
 
 
-    public void setAndUpdateStates() {
+    private void setAndUpdateStates() {
         for (int i = 0; i < myGrid.getHeight(); i++) {
             for (int j = 0; j < myGrid.getWidth(); j++) {
                 Cell[] neighbors = myGrid.setNeighbors(i, j);

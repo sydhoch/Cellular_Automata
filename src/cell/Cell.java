@@ -68,4 +68,13 @@ public abstract class Cell extends Object{
         return myNextState;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Cell)){
+            return false;
+        }
+        else{
+            return this.getState() == ((Cell) obj).getState();
+        }
+    }
 }
