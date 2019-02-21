@@ -25,14 +25,14 @@ class GridTest {
        int row = 1;
        int col = 1;
        Grid myGrid = new Grid("test-1.csv");
-       Cell[] expected = {new GoLCell(1, 0, 0),
-               new GoLCell(0, 0, 0),
-               new GoLCell(1, 0, 0),
-               new GoLCell(0, 0, 0),
-               new GoLCell(1, 0, 0),
-               new GoLCell(0, 0, 0),
-               new GoLCell(0, 0, 0),
-               new GoLCell(0, 0, 0)};
+       Cell[] expected = {new GoLCell(1),
+               new GoLCell(0),
+               new GoLCell(1),
+               new GoLCell(0),
+               new GoLCell(1),
+               new GoLCell(0),
+               new GoLCell(0),
+               new GoLCell(0)};
        Cell[] actual = myGrid.setNeighbors(row, col);
        for(int i = 0; i < 8; i++){
            assertEquals(expected[i], actual[i]);
@@ -44,14 +44,14 @@ class GridTest {
         int row = 0;
         int col = 1;
         Grid myGrid = new Grid("test-1.csv");
-        Cell[] expected = {new GoLCell(0, 0, 0),
-                new GoLCell(0, 0, 0),
-                new GoLCell(0, 0, 0),
-                new GoLCell(1, 0, 0),
-                new GoLCell(1, 0, 0),
-                new GoLCell(0, 0, 0),
-                new GoLCell(1, 0, 0),
-                new GoLCell(1, 0, 0)};
+        Cell[] expected = {new GoLCell(0),
+                new GoLCell(0),
+                new GoLCell(0),
+                new GoLCell(1),
+                new GoLCell(1),
+                new GoLCell(0),
+                new GoLCell(1),
+                new GoLCell(1)};
         Cell[] actual = myGrid.setNeighbors(row, col);
         for(int i = 0; i < 8; i++){
             assertEquals(expected[i], actual[i]);
@@ -63,14 +63,14 @@ class GridTest {
         int row = 2;
         int col = 2;
         Grid myGrid = new Grid("test-1.csv");
-        Cell[] expected = {new GoLCell(1, 0, 0),
-                new GoLCell(1, 0, 0),
-                new GoLCell(0, 0, 0),
-                new GoLCell(0, 0, 0),
-                new GoLCell(0, 0, 0),
-                new GoLCell(0, 0, 0),
-                new GoLCell(1, 0, 0),
-                new GoLCell(1, 0, 0)};
+        Cell[] expected = {new GoLCell(1),
+                new GoLCell(1),
+                new GoLCell(0),
+                new GoLCell(0),
+                new GoLCell(0),
+                new GoLCell(0),
+                new GoLCell(1),
+                new GoLCell(1)};
         Cell[] actual = myGrid.setNeighbors(row, col);
         for(int i = 0; i < 8; i++){
             assertEquals(expected[i], actual[i]);

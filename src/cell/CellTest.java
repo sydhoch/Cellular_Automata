@@ -16,13 +16,13 @@ public class CellTest {
     @BeforeEach
     void setup(){
          //p = new PercCell(0,0,0);
-         p0 = new PercCell(0,0,0);
-         p1 = new PercCell(1,0,0);
-         p2 = new PercCell(2,0,0);
+         p0 = new PercCell(0);
+         p1 = new PercCell(1);
+         p2 = new PercCell(2);
 
          //g = new GoLCell(1,0,0);
-        g0 = new GoLCell(0,0,0);
-        g1 = new GoLCell(1,0,0);
+        g0 = new GoLCell(0);
+        g1 = new GoLCell(1);
     }
 
     @Test
