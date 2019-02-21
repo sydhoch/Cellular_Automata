@@ -5,8 +5,8 @@ import cell.Cell;
 public class GoLCell extends Cell {
     //state == 0, dead
     //state == 1, alive
-    public GoLCell(int state,int col, int row) {
-        super(state,col,row);
+    public GoLCell(int state) {
+        super(state);
     }
 
     /**

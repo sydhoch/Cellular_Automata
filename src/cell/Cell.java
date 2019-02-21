@@ -1,17 +1,10 @@
 package cell;
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-
 public abstract class Cell extends Object{
     private int myState;
     private int myNextState;
-    //private Rectangle myCellImage;
 
-    private static int CELL_SIZE = 100;
-
-    public Cell(int state,int col, int row){
-        //myCellImage = new Rectangle(col*CELL_SIZE,row*CELL_SIZE,CELL_SIZE,CELL_SIZE);
+    public Cell(int state){
         myState = state;
         setNextState(state);
     }

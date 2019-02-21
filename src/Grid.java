@@ -29,9 +29,9 @@ public class Grid {
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
                 if (gameType.equals("Perc")) {
-                    myGrid[i][j] = new PercCell(s.nextInt(), j, i);
+                    myGrid[i][j] = new PercCell(s.nextInt());
                 } else if (gameType.equals("GoL")) {
-                    myGrid[i][j] = new GoLCell(s.nextInt(), j, i);
+                    myGrid[i][j] = new GoLCell(s.nextInt());
                 }
             }
             s.nextLine();
