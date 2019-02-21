@@ -21,9 +21,9 @@ public class Play extends Application {
     private static final String FILE_NAME = "perc-grid-2.csv";
     private static final String TITLE = "Cell Simulation";
     private static final int WINDOW_SIZE = 500;
-    private static Paint ZERO_COLOR = Color.BLUE;
-    private static Paint ONE_COLOR = Color.RED;
-    private static Paint TWO_COLOR = Color.YELLOW;
+    private static Paint ZERO_COLOR = Color.WHITE;
+    private static Paint ONE_COLOR = Color.BLUE;
+    private static Paint TWO_COLOR = Color.BLACK;
 
     private Scene myScene;
     private Group myRoot;
