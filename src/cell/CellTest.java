@@ -144,18 +144,7 @@ public class CellTest {
     }
 
     @Test
-    public void getRectangle() {
-    }
+    public void testEquals() {
 
-    @Test
-    public void setNextState() {
-    }
-
-    @Test
-    public void getState() {
-    }
-
-    @Test
-    public void equals() {
     }
 }
