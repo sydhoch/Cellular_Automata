@@ -6,17 +6,14 @@ import javafx.scene.shape.Rectangle;
 public abstract class Cell extends Object{
     private int myState;
     private int myNextState;
-    private Rectangle myCellImage;
+    //private Rectangle myCellImage;
 
     private static int CELL_SIZE = 100;
-    private static String ZERO_COLOR = "BLUE";
-    private static String ONE_COLOR = "RED";
-    private static String TWO_COLOR = "YELLOW";
+
 
     public Cell(int state,int col, int row){
-        myCellImage = new Rectangle(col*CELL_SIZE,row*CELL_SIZE,CELL_SIZE,CELL_SIZE);
+        //myCellImage = new Rectangle(col*CELL_SIZE,row*CELL_SIZE,CELL_SIZE,CELL_SIZE);
         myState = state;
-        changeColor(state);
         setNextState(state);
     }
 
@@ -25,16 +22,15 @@ public abstract class Cell extends Object{
      */
     public void updateCell(){
         myState = myNextState;
-        changeColor(myNextState);
     }
 
     /**
      *
      * @returns the image of the cell
      */
-    public Rectangle getRectangle(){
-        return myCellImage;
-    }
+//    public Rectangle getRectangle(){
+//        return myCellImage;
+//    }
 
     /**
      * Checks the neighbors and changes the state of the current cell if necessary
@@ -43,24 +39,11 @@ public abstract class Cell extends Object{
     public abstract void checkNeighborStatus(Cell[] neighbors);
 
 
-    private void changeColor(int state){
-        if(state==0){
-            myCellImage.setFill(Color.valueOf(ZERO_COLOR));
-        }
-        else if(state==1){
-            myCellImage.setFill(Color.valueOf(ONE_COLOR));
-        }
-        else{
-            myCellImage.setFill(Color.valueOf(TWO_COLOR));
-        }
-
-    }
-
     protected void setNextState(int nextState){
         myNextState = nextState;
     }
 
-    protected int getState(){
+    public int getState(){
         return myState;
     }
 

@@ -20,6 +20,9 @@ public class Play extends Application {
     private static final String FILE_NAME = "gol-grid-2.csv";
     private static final String TITLE = "Cell Simulation";
     private static final int WINDOW_SIZE = 500;
+    private static Paint ZERO_COLOR = Color.BLUE;
+    private static Paint ONE_COLOR = Color.RED;
+    private static Paint TWO_COLOR = Color.YELLOW;
 
     private Scene myScene;
     private Group myRoot;
@@ -56,10 +59,22 @@ public class Play extends Application {
     }
 
     private Rectangle setRectangle(int i, int j) {
-        //Rectangle ret = new Rectangle(WINDOW_SIZE/myGrid.getHeight()*i, WINDOW_SIZE/myGrid.getWidth()*j, WINDOW_SIZE/myGrid.getHeight(), WINDOW_SIZE/myGrid.getWidth());
-        //ret.setFill(Paint.valueOf(myGrid.getCell(i, j).getColor()));
-        //return ret;
-        return myGrid.getCell(i, j).getRectangle();
+        Rectangle ret = new Rectangle(WINDOW_SIZE/myGrid.getHeight()*i, WINDOW_SIZE/myGrid.getWidth()*j, WINDOW_SIZE/myGrid.getHeight(), WINDOW_SIZE/myGrid.getWidth());
+        ret.setFill(setColor(myGrid.getCell(i, j).getState()));
+        return ret;
+    }
+
+    private Paint setColor(int state){
+        if(state==0){
+            return ZERO_COLOR;
+        }
+        else if(state==1){
+           return ONE_COLOR;
+        }
+        else{
+            return TWO_COLOR;
+        }
+
     }
 
 
