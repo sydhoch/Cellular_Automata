@@ -6,24 +6,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GridTest {
 
-//    @Test
-//    void main() {
-//       Grid myGrid = new Grid();
-//       String testFile = "test-1.csv";
-//       int[][] expected = {{1, 0, 1}, {0, 1, 1}, {0, 0, 0}};
-//       int[][] actual = myGrid.getGrid(testFile);
-//       assertArrayEquals(expected, actual);
-//    }
-
-   /* @Test
-    void checkDimensions() {
-        int width
-    }*/
+    @Test
+    void testReadFile() {
+       Grid myGrid = new Grid("test-1.csv");
+       Cell[][] expected = {{new GoLCell(1), new GoLCell(0), new GoLCell(1)}, {new GoLCell(0), new GoLCell(1), new GoLCell(1)}, {new GoLCell(0), new GoLCell(0), new GoLCell(0)}};
+       Cell[][] actual = myGrid.getGrid();
+       for(int i = 0; i < 3; i++){
+           for(int j =0; j < 3; j++){
+               assertEquals(expected[i][j].getState(), actual[i][j].getState());
+           }
+       }
+    }
 
    @Test
-    void checkNeighborsMiddle(){
-       int row = 1;
-       int col = 1;
+    void testNeighborsMiddle(){
        Grid myGrid = new Grid("test-1.csv");
        Cell[] expected = {new GoLCell(1),
                new GoLCell(0),
@@ -33,16 +29,11 @@ class GridTest {
                new GoLCell(0),
                new GoLCell(0),
                new GoLCell(0)};
-       Cell[] actual = myGrid.setNeighbors(row, col);
-       for(int i = 0; i < 8; i++){
-           assertEquals(expected[i], actual[i]);
-       }
+       compareCells(myGrid, expected, 1, 1);
    }
 
     @Test
-    void checkNeighborsEdge(){
-        int row = 0;
-        int col = 1;
+    void testNeighborsEdge(){
         Grid myGrid = new Grid("test-1.csv");
         Cell[] expected = {new GoLCell(0),
                 new GoLCell(0),
@@ -52,16 +43,11 @@ class GridTest {
                 new GoLCell(0),
                 new GoLCell(1),
                 new GoLCell(1)};
-        Cell[] actual = myGrid.setNeighbors(row, col);
-        for(int i = 0; i < 8; i++){
-            assertEquals(expected[i], actual[i]);
-        }
+        compareCells(myGrid, expected, 0, 1);
     }
 
     @Test
-    void checkNeighborsCorner(){
-        int row = 2;
-        int col = 2;
+    void testNeighborsCorner(){
         Grid myGrid = new Grid("test-1.csv");
         Cell[] expected = {new GoLCell(1),
                 new GoLCell(1),
@@ -71,9 +57,13 @@ class GridTest {
                 new GoLCell(0),
                 new GoLCell(1),
                 new GoLCell(1)};
+        compareCells(myGrid, expected, 2, 2);
+    }
+
+    void compareCells(Grid myGrid, Cell[] expected, int row, int col){
         Cell[] actual = myGrid.setNeighbors(row, col);
         for(int i = 0; i < 8; i++){
-            assertEquals(expected[i], actual[i]);
+            assertEquals(expected[i].getState(), actual[i].getState());
         }
     }
 }
