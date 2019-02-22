@@ -60,7 +60,9 @@ public class Play extends Application {
     }
 
     private Rectangle setRectangle(int i, int j) {
-        Rectangle ret = new Rectangle(WINDOW_SIZE/myGrid.getHeight()*i, WINDOW_SIZE/myGrid.getWidth()*j, WINDOW_SIZE/myGrid.getHeight(), WINDOW_SIZE/myGrid.getWidth());
+        int cellHeight = WINDOW_SIZE/myGrid.getHeight();
+        int cellWidth = WINDOW_SIZE/myGrid.getWidth();
+        Rectangle ret = new Rectangle(cellHeight*i, cellWidth*j, cellHeight, cellWidth);
         ret.setFill(setColor(myGrid.getCell(i, j).getState()));
         return ret;
     }
