@@ -14,7 +14,7 @@ public class Grid {
         myGrid = getGrid(file);
     }
 
-    public Cell[][] getGrid(String gameFile) {
+    private Cell[][] getGrid(String gameFile) {
         Scanner s = new Scanner(Play.class.getClassLoader().getResourceAsStream(gameFile));
         s.useDelimiter(",");
         var gameType = s.next();
@@ -52,7 +52,7 @@ public class Grid {
         return myGrid[row][col];
     }
 
-    public Cell[] setNeighbors(int row, int col) { //breakUp
+    public Cell[] setNeighbors(int row, int col) { //break up
         Cell[] neighbors = new Cell[8];
         try {
             neighbors[0] = getCell(row - 1, col - 1);
