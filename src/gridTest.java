@@ -8,7 +8,7 @@ class GridTest {
 
     @Test
     void testReadFile() {
-       Grid myGrid = new Grid("test-1.csv");
+       Grid myGrid = new Grid("gol-grid-3.csv");
        Cell[][] expected = {{new GoLCell(1), new GoLCell(0), new GoLCell(1)}, {new GoLCell(0), new GoLCell(1), new GoLCell(1)}, {new GoLCell(0), new GoLCell(0), new GoLCell(0)}};
        Cell[][] actual = myGrid.getGrid();
        for(int i = 0; i < 3; i++){
@@ -20,7 +20,7 @@ class GridTest {
 
    @Test
     void testNeighborsMiddle(){
-       Grid myGrid = new Grid("test-1.csv");
+       Grid myGrid = new Grid("gol-grid-3.csv");
        Cell[] expected = {new GoLCell(1),
                new GoLCell(0),
                new GoLCell(1),
@@ -34,7 +34,7 @@ class GridTest {
 
     @Test
     void testNeighborsEdge(){
-        Grid myGrid = new Grid("test-1.csv");
+        Grid myGrid = new Grid("gol-grid-3.csv");
         Cell[] expected = {new GoLCell(0),
                 new GoLCell(0),
                 new GoLCell(0),
@@ -48,7 +48,7 @@ class GridTest {
 
     @Test
     void testNeighborsCorner(){
-        Grid myGrid = new Grid("test-1.csv");
+        Grid myGrid = new Grid("gol-grid-3.csv");
         Cell[] expected = {new GoLCell(1),
                 new GoLCell(1),
                 new GoLCell(0),
