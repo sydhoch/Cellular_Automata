@@ -121,4 +121,9 @@ public class Grid {
         return neighbors;
     }
 
+    public Cell[][] getGrid(){
+        return myGrid;
+    }
+
+
 }
