@@ -11,14 +11,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static javafx.scene.input.KeyCode.SPACE;
 
 
 public class Play extends Application {
-
 
 
     private static final Paint BACKGROUND = Color.GREY;
@@ -36,16 +32,15 @@ public class Play extends Application {
     private Scene myScene;
     private Group myRoot;
     private Grid myGrid;
-    private boolean stepThroughMode;
     private Timeline myAnimation;
-
+    private UserInteraction mySideBar;
 
 
     public void start(Stage stage) {
         myGrid = new Grid(FILE_NAME);
         myRoot = new Group();
         myScene = setUpGame(WINDOW_WIDTH, SIM_SIZE, BACKGROUND);
-        stepThroughMode = false;
+        mySideBar = new UserInteraction(myGrid, myAnimation);
         stage.setScene(myScene);
         stage.setTitle(TITLE);
         stage.show();
@@ -58,6 +53,7 @@ public class Play extends Application {
 
     private Scene setUpGame(int width, int height, Paint background) {
         Scene scene = new Scene(myRoot, width, height, background);
+        mySideBar = new UserInteraction(myGrid, myAnimation);
         displayStates();
         return scene;
     }
@@ -72,54 +68,25 @@ public class Play extends Application {
         }
     }
 
-    private void setButtons(){
-
-    }
-
-    private void load(){
-        myGrid = new Grid("");
-    }
-
-    private void pause(){
-        myAnimation.pause();
-    }
-
-    private void resume(){
-        myAnimation.play();
-    }
-
-    private void stepThrough(){
-
-    }
-
-    private void speedUp(){
-        myAnimation.setRate(2);
-    }
-
-    private void slowDown(){
-        myAnimation.setRate(.5);
-    }
-
-    private void resetSpeed(){
-        myAnimation.setRate(1);
+    private void setButtons() {
+        myRoot.getChildren().addAll(mySideBar.getButtons());
+        myGrid = mySideBar.getGrid();
     }
 
     private Rectangle setRectangle(int i, int j) {
-        int cellHeight = SIM_SIZE /myGrid.getHeight();
-        int cellWidth = SIM_SIZE /myGrid.getWidth();
-        Rectangle ret = new Rectangle(cellHeight*i, cellWidth*j, cellHeight, cellWidth);
+        int cellHeight = SIM_SIZE / myGrid.getHeight();
+        int cellWidth = SIM_SIZE / myGrid.getWidth();
+        Rectangle ret = new Rectangle(cellHeight * i, cellWidth * j, cellHeight, cellWidth);
         ret.setFill(setColor(myGrid.getCell(i, j).getState()));
         return ret;
     }
 
-    private Paint setColor(int state){
-        if(state==0){
+    private Paint setColor(int state) {
+        if (state == 0) {
             return ZERO_COLOR;
-        }
-        else if(state==1){
-           return ONE_COLOR;
-        }
-        else{
+        } else if (state == 1) {
+            return ONE_COLOR;
+        } else {
             return TWO_COLOR;
         }
 
@@ -150,7 +117,7 @@ public class Play extends Application {
     }
 
     private void handleKeyInput(KeyCode code) {
-        if(code.equals(SPACE)){
+        if (code.equals(SPACE)) {
 
         }
     }
