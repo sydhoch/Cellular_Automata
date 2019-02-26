@@ -15,7 +15,7 @@ public class UserInteraction {
     private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
     private static final String SIDEBAR_RESOURCE = "SideBar";
     private static final int[] COLUMN_POSITION = {510, 610, 710};
-    private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220};
+    private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240};
     private static final Paint[][] PAINT_COLORS = {{Color.BLUE, Color.CYAN, Color.SKYBLUE}, {Color.ROYALBLUE, Color.PURPLE, Color.GOLD}, {Color.PALEGREEN, Color.LIGHTSALMON, Color.LIGHTGOLDENRODYELLOW}};
 
 
@@ -45,10 +45,10 @@ public class UserInteraction {
         buttons.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[8], "HalfSpeed", e -> slowDown()));
         buttons.add(makeButton(COLUMN_POSITION[1], ROW_POSITION[8], "NormalSpeed", e -> resetSpeed()));
         buttons.add(makeButton(COLUMN_POSITION[2], ROW_POSITION[8], "DoubleSpeed", e -> speedUp()));
-        buttons.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[9], "ColorLabel", null));
+        buttons.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[10], "ColorLabel", null));
         for(int i = 0; i < 3; i++){
             Paint[] paintColors = PAINT_COLORS[i];
-            buttons.add(makeButton(COLUMN_POSITION[i], ROW_POSITION[10], "ColorScheme" + String.valueOf(i), e -> setColors(paintColors)));
+            buttons.add(makeButton(COLUMN_POSITION[i], ROW_POSITION[11], "ColorScheme" + String.valueOf(i), e -> setColors(paintColors)));
         }
         return buttons;
     }
