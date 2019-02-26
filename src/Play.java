@@ -54,6 +54,7 @@ public class Play extends Application {
 
     private Scene setUpGame(int width, int height, Paint background) {
         Scene scene = new Scene(myRoot, width, height, background);
+        scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
         mySideBar = new UserInteraction(myGrid, myAnimation);
         displayStates();
         return scene;
@@ -116,10 +117,9 @@ public class Play extends Application {
             }
         }
     }
-
     private void handleKeyInput(KeyCode code) {
-        if (code.equals(SPACE)) {
-
+        if (code.equals(SPACE) && mySideBar.isStepThrough()) {
+            step(0);
         }
     }
 
