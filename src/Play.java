@@ -11,6 +11,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import static javafx.scene.input.KeyCode.S;
 import static javafx.scene.input.KeyCode.SPACE;
 
 
@@ -24,15 +25,14 @@ public class Play {
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private static final int SIM_SIZE = 500;
     private static final int WINDOW_WIDTH = SIM_SIZE + 300;
-    private static Paint ZERO_COLOR = Color.BLUE;
-    private static Paint ONE_COLOR = Color.RED;
-    private static Paint TWO_COLOR = Color.YELLOW;
+
 
     private Scene myScene;
     private Group myRoot;
     private Grid myGrid;
     private Timeline myAnimation;
     private UserInteraction mySideBar;
+    private Paint[] myColors;
 
 
     public Play() {
@@ -76,6 +76,7 @@ public class Play {
     private void setButtons() {
         myRoot.getChildren().addAll(mySideBar.getButtons());
         myGrid = mySideBar.getGrid();
+        myColors = mySideBar.getColors();
     }
 
     private Rectangle setRectangle(int i, int j) {
@@ -87,14 +88,7 @@ public class Play {
     }
 
     private Paint setCellColor(int state) {
-        if (state == 0) {
-            return ZERO_COLOR;
-        } else if (state == 1) {
-            return ONE_COLOR;
-        } else {
-            return TWO_COLOR;
-        }
-
+        return myColors[state];
     }
 
 

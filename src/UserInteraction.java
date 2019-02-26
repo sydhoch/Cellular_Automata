@@ -24,6 +24,7 @@ public class UserInteraction {
     private Timeline myAnimation;
     private ResourceBundle myResources;
     private boolean myStepThrough;
+    private Paint[] myColors;
 
     public UserInteraction(Grid grid, Timeline animation) {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SIDEBAR_RESOURCE);
@@ -31,6 +32,7 @@ public class UserInteraction {
         myAnimation = animation;
         myButtons = setButtons();
         myStepThrough = false;
+        myColors = PAINT_COLORS[0];
     }
 
     private List<Shape> setButtons(){
@@ -54,7 +56,11 @@ public class UserInteraction {
     }
 
     private void setColors(Paint[] paints){
+        myColors = paints;
+    }
 
+    public Paint[] getColors(){
+        return myColors;
     }
 
     private Text makeButton (int xpos, int ypos, String property, EventHandler<MouseEvent> handler) {
