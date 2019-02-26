@@ -79,11 +79,11 @@ public class Play extends Application {
         int cellHeight = SIM_SIZE / myGrid.getHeight();
         int cellWidth = SIM_SIZE / myGrid.getWidth();
         Rectangle ret = new Rectangle(cellHeight * i, cellWidth * j, cellHeight, cellWidth);
-        ret.setFill(setColor(myGrid.getCell(i, j).getState()));
+        ret.setFill(setCellColor(myGrid.getCell(i, j).getState()));
         return ret;
     }
 
-    private Paint setColor(int state) {
+    private Paint setCellColor(int state) {
         if (state == 0) {
             return ZERO_COLOR;
         } else if (state == 1) {

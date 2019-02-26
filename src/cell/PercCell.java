@@ -1,7 +1,5 @@
 package cell;
 
-import cell.Cell;
-
 public class PercCell extends Cell {
     //state == 0, open
     //state == 1, full

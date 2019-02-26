@@ -1,7 +1,5 @@
 package cell;
 
-import cell.Cell;
-
 public class GoLCell extends Cell {
     //state == 0, dead
     //state == 1, alive
@@ -16,12 +14,12 @@ public class GoLCell extends Cell {
     @Override
     public void checkNeighborStatus(Cell[] neighbors){
         int neighborsAlive = getNumOfAliveNeighbors(neighbors);
-        if(getState()==1){
+        if(this.getState()==1){
             if(neighborsAlive<2 || neighborsAlive>3){
                 setNextState(0);
             }
         }
-        if(getState()==0){
+        if(this.getState()==0){
             if(neighborsAlive==3){
                 setNextState(1);
             }

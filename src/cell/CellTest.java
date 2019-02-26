@@ -7,22 +7,18 @@ public class CellTest {
     private Cell p0;
     private Cell p1;
     private Cell p2;
-    private Cell p;
 
     private Cell g0;
     private Cell g1;
-    private Cell g;
 
     @BeforeEach
     void setup(){
-         //p = new PercCell(0,0,0);
          p0 = new PercCell(0);
          p1 = new PercCell(1);
          p2 = new PercCell(2);
 
-         //g = new GoLCell(1,0,0);
-        g0 = new GoLCell(0);
-        g1 = new GoLCell(1);
+         g0 = new GoLCell(0);
+         g1 = new GoLCell(1);
     }
 
     @Test
@@ -141,10 +137,5 @@ public class CellTest {
         int expected = 1;
         int actual = g1.getState();
         assertEquals(expected,actual);
-    }
-
-    @Test
-    public void testEquals() {
-
     }
 }
