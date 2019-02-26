@@ -1,36 +1,47 @@
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Region;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 
-import javax.imageio.ImageIO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class UserInteraction {
+    private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
+    private static final String SIDEBAR_RESOURCE = "SideBar";
+    private static final int[] colPos = {510, 600, 690};
+    private static final int[] rowPos = {20, 40, 60, 80, 100, 120, 140, 160, 180};
+
+
     private List<Shape> myButtons;
     private Grid myGrid;
     private Timeline myAnimation;
     private ResourceBundle myResources;
 
     public UserInteraction(Grid grid, Timeline animation) {
-        myResources = ResourceBundle.getBundle("SideBar");
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SIDEBAR_RESOURCE);
         myGrid = grid;
         myAnimation = animation;
-        myButtons = new ArrayList<>();
-        Text load = makeButton(510, 20, "Load File:", null);
-        Text file1 = makeButton(510, 40,"GoLSim1", e-> setGrid());
-        myButtons.add(load);
-        myButtons.add(file1);
+        myButtons = setButtons();
+    }
+
+    private List<Shape> setButtons(){
+        List<Shape> buttons = new ArrayList<>();
+        buttons.add(makeButton(colPos[0], rowPos[0], "LoadLabel", null));
+        buttons.add(makeButton(colPos[0], rowPos[1],"GoLSim1", e-> setGrid()));
+        buttons.add(makeButton(colPos[0], rowPos[2],"GoLSim2", e-> setGrid()));
+        //add rest of load buttons
+        buttons.add(makeButton(colPos[0], rowPos[5], "PauseButton", e -> pause()));
+        buttons.add(makeButton(colPos[1], rowPos[5], "ResumeButton", e -> resume()));
+        buttons.add(makeButton(colPos[2], rowPos[5], "StepThroughButton", e -> stepThrough()));
+        buttons.add(makeButton(colPos[0], rowPos[7], "SpeedLabel", null));
+        buttons.add(makeButton(colPos[0], rowPos[8], "HalfSpeed", e -> slowDown()));
+        buttons.add(makeButton(colPos[1], rowPos[8], "NormalSpeed", e -> resetSpeed()));
+        buttons.add(makeButton(colPos[2], rowPos[8], "DoubleSpeed", e -> speedUp()));
+        //add color+image views
+        return buttons;
     }
 
     private Text makeButton (int xpos, int ypos, String property, EventHandler<MouseEvent> handler) {
@@ -54,27 +65,27 @@ public class UserInteraction {
         return myButtons;
     }
 
-    public void pause(){
+    private void pause(){
         myAnimation.pause();
     }
 
-    public void resume(){
+    private void resume(){
         myAnimation.play();
     }
 
-    public void stepThrough(){
+    private void stepThrough(){
 
     }
 
-    public void speedUp(){
+    private void speedUp(){
         myAnimation.setRate(2);
     }
 
-    public void slowDown(){
+    private void slowDown(){
         myAnimation.setRate(.5);
     }
 
-    public void resetSpeed(){
+    private void resetSpeed(){
         myAnimation.setRate(1);
     }
 }

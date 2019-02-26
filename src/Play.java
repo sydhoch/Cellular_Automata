@@ -40,12 +40,13 @@ public class Play extends Application {
         myGrid = new Grid(FILE_NAME);
         myRoot = new Group();
         myScene = setUpGame(WINDOW_WIDTH, SIM_SIZE, BACKGROUND);
+        myAnimation = new Timeline();
+        //myScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + STYLESHEET).toExternalForm());
         mySideBar = new UserInteraction(myGrid, myAnimation);
         stage.setScene(myScene);
         stage.setTitle(TITLE);
         stage.show();
         var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
-        myAnimation = new Timeline();
         myAnimation.setCycleCount(Timeline.INDEFINITE);
         myAnimation.getKeyFrames().add(frame);
         myAnimation.play();
