@@ -11,6 +11,10 @@ public class CellTest {
     private Cell g0;
     private Cell g1;
 
+    private Cell r0;
+    private Cell r1;
+    private Cell r2;
+
     @BeforeEach
     void setup(){
          p0 = new PercCell(0);
@@ -19,7 +23,39 @@ public class CellTest {
 
          g0 = new GoLCell(0);
          g1 = new GoLCell(1);
+
+         r0 = new RPSCell(0);
+         r1 = new RPSCell(1);
+         r2 = new RPSCell(2);
     }
+
+    @Test
+    public void setRockToPaper(){
+        Cell[] neighbors = {r0,r1,r1,r1,r1,r2};
+        r0.checkNeighborStatus(neighbors);
+        int expected = 1;
+        int actual = r0.getNextState();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void rockStays(){
+        Cell[] neighbors = {r0,r1,r1,r1,r2};
+        r0.checkNeighborStatus(neighbors);
+        int expected = 0;
+        int actual = r0.getNextState();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void scissorsToRock(){
+        Cell[] neighbors = {r0,r0,r0,r0,r1,r1,r1,r1};
+        r2.checkNeighborStatus(neighbors);
+        int expected = 0;
+        int actual = r2.getNextState();
+        assertEquals(expected,actual);
+    }
+
 
     @Test
     public void openPercCellFilled(){
