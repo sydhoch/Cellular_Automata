@@ -1,8 +1,9 @@
 import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 
@@ -10,13 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static javafx.scene.input.KeyCode.SPACE;
-
 public class UserInteraction {
     private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
     private static final String SIDEBAR_RESOURCE = "SideBar";
-    private static final int[] colPos = {510, 610, 710};
-    private static final int[] rowPos = {20, 40, 60, 80, 100, 120, 140, 160, 180};
+    private static final int[] COLUMN_POSITION = {510, 610, 710};
+    private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220};
+    private static final Paint[][] PAINT_COLORS = {{Color.BLUE, Color.CYAN, Color.SKYBLUE}, {Color.ROYALBLUE, Color.PURPLE, Color.GOLD}, {Color.PALEGREEN, Color.LIGHTSALMON, Color.LIGHTGOLDENRODYELLOW}};
 
 
     private List<Shape> myButtons;
@@ -35,18 +35,26 @@ public class UserInteraction {
 
     private List<Shape> setButtons(){
         List<Shape> buttons = new ArrayList<>();
-        buttons.add(makeButton(colPos[0], rowPos[0], "LoadLabel", null));
-        buttons.add(makeButton(colPos[0], rowPos[1],"GoLSim1", e-> setGrid()));
-        buttons.add(makeButton(colPos[0], rowPos[2],"GoLSim2", e-> setGrid()));
+        buttons.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[0], "LoadLabel", null));
+        buttons.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[1],"GoLSim1", e-> setGrid()));
+        buttons.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[2],"GoLSim2", e-> setGrid()));
         //add rest of load buttons
-        buttons.add(makeButton(colPos[0], rowPos[5], "PauseResumeButton", e -> pauseOrResume()));
-        buttons.add(makeButton(colPos[1], rowPos[5], "StepThroughButton", e -> stepThrough()));
-        buttons.add(makeButton(colPos[0], rowPos[7], "SpeedLabel", null));
-        buttons.add(makeButton(colPos[0], rowPos[8], "HalfSpeed", e -> slowDown()));
-        buttons.add(makeButton(colPos[1], rowPos[8], "NormalSpeed", e -> resetSpeed()));
-        buttons.add(makeButton(colPos[2], rowPos[8], "DoubleSpeed", e -> speedUp()));
-        //add color+image views
+        buttons.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[5], "PauseResumeButton", e -> pauseOrResume()));
+        buttons.add(makeButton(COLUMN_POSITION[1], ROW_POSITION[5], "StepThroughButton", e -> stepThrough()));
+        buttons.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[7], "SpeedLabel", null));
+        buttons.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[8], "HalfSpeed", e -> slowDown()));
+        buttons.add(makeButton(COLUMN_POSITION[1], ROW_POSITION[8], "NormalSpeed", e -> resetSpeed()));
+        buttons.add(makeButton(COLUMN_POSITION[2], ROW_POSITION[8], "DoubleSpeed", e -> speedUp()));
+        buttons.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[9], "ColorLabel", null));
+        for(int i = 0; i < 3; i++){
+            Paint[] paintColors = PAINT_COLORS[i];
+            buttons.add(makeButton(COLUMN_POSITION[i], ROW_POSITION[10], "ColorScheme" + String.valueOf(i), e -> setColors(paintColors)));
+        }
         return buttons;
+    }
+
+    private void setColors(Paint[] paints){
+
     }
 
     private Text makeButton (int xpos, int ypos, String property, EventHandler<MouseEvent> handler) {
@@ -58,6 +66,10 @@ public class UserInteraction {
     }
 
     private void setGrid(){
+//        FileChooser fileChooser = new FileChooser();
+//        fileChooser.setTitle("Open Resource File");
+//        fileChooser.getExtensionFilters().add(
+//                new FileChooser.ExtensionFilter("Text Files", "*.txt"),
         myGrid = new Grid("gol-grid-1.csv"); //doesn't work (need to stop animation?)
     }
 
