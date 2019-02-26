@@ -105,13 +105,13 @@ public class Play {
     }
 
 
-    private void step(double elapsedTime) {
+    protected void step(double elapsedTime) {
         setNextStates();
         updateStates();
         displayStates();
     }
 
-    private void setNextStates() {
+    protected void setNextStates() {
         for (int i = 0; i < myGrid.getHeight(); i++) {
             for (int j = 0; j < myGrid.getWidth(); j++) {
                 Cell[] neighbors = myGrid.setNeighbors(i, j);
@@ -120,7 +120,7 @@ public class Play {
         }
     }
 
-    private void updateStates() {
+    protected void updateStates() {
         for (int i = 0; i < myGrid.getHeight(); i++) {
             for (int j = 0; j < myGrid.getWidth(); j++) {
                 myGrid.getCell(i, j).updateCell();
