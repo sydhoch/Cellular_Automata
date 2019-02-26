@@ -19,7 +19,6 @@ public class Play {
 
     private static final Paint BACKGROUND = Color.GREY;
     private static final String FILE_NAME = "gol-grid-2.csv";
-    //private static final String TITLE = "Cell Simulation";
     private static final int FRAMES_PER_SECOND = 1;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -43,13 +42,6 @@ public class Play {
         myAnimation = new Timeline();
         //myScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + STYLESHEET).toExternalForm());
         mySideBar = new UserInteraction(myGrid, myAnimation);
-//        stage.setScene(myScene);
-//        stage.setTitle(TITLE);
-//        stage.show();
-//        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
-//        myAnimation.setCycleCount(Timeline.INDEFINITE);
-//        myAnimation.getKeyFrames().add(frame);
-//        myAnimation.play();
     }
 
     public Scene getScene(){
@@ -132,6 +124,10 @@ public class Play {
         if (code.equals(SPACE)) {
 
         }
+    }
+
+    protected Grid getGrid(){
+        return myGrid;
     }
 
 
