@@ -14,12 +14,11 @@ import javafx.util.Duration;
 import static javafx.scene.input.KeyCode.SPACE;
 
 
-public class Play extends Application {
+public class Play {
 
 
     private static final Paint BACKGROUND = Color.GREY;
     private static final String FILE_NAME = "gol-grid-2.csv";
-    private static final String TITLE = "Cell Simulation";
     private static final int FRAMES_PER_SECOND = 1;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -36,16 +35,20 @@ public class Play extends Application {
     private UserInteraction mySideBar;
 
 
-    public void start(Stage stage) {
+    public Play() {
         myGrid = new Grid(FILE_NAME);
         myRoot = new Group();
         myScene = setUpGame(WINDOW_WIDTH, SIM_SIZE, BACKGROUND);
         myAnimation = new Timeline();
         //myScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + STYLESHEET).toExternalForm());
         mySideBar = new UserInteraction(myGrid, myAnimation);
-        stage.setScene(myScene);
-        stage.setTitle(TITLE);
-        stage.show();
+    }
+
+    public Scene getScene(){
+        return myScene;
+    }
+
+    public void startAnimation(){
         var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
         myAnimation.setCycleCount(Timeline.INDEFINITE);
         myAnimation.getKeyFrames().add(frame);
@@ -95,13 +98,13 @@ public class Play extends Application {
     }
 
 
-    private void step(double elapsedTime) {
+    protected void step(double elapsedTime) {
         setNextStates();
         updateStates();
         displayStates();
     }
 
-    private void setNextStates() {
+    protected void setNextStates() {
         for (int i = 0; i < myGrid.getHeight(); i++) {
             for (int j = 0; j < myGrid.getWidth(); j++) {
                 Cell[] neighbors = myGrid.setNeighbors(i, j);
@@ -110,7 +113,7 @@ public class Play extends Application {
         }
     }
 
-    private void updateStates() {
+    protected void updateStates() {
         for (int i = 0; i < myGrid.getHeight(); i++) {
             for (int j = 0; j < myGrid.getWidth(); j++) {
                 myGrid.getCell(i, j).updateCell();
@@ -121,6 +124,10 @@ public class Play extends Application {
         if (code.equals(SPACE) && mySideBar.isStepThrough()) {
             step(0);
         }
+    }
+
+    protected Grid getGrid(){
+        return myGrid;
     }
 
 
