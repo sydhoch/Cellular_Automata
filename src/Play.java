@@ -92,27 +92,13 @@ public class Play {
 
 
     protected void step(double elapsedTime) {
-        setNextStates();
-        updateStates();
+        myGrid.setNextStates();
+        myGrid.updateStates();
         displayStates();
     }
 
-    protected void setNextStates() {
-        for (int i = 0; i < myGrid.getHeight(); i++) {
-            for (int j = 0; j < myGrid.getWidth(); j++) {
-                Cell[] neighbors = myGrid.setNeighbors(i, j);
-                myGrid.getCell(i, j).checkNeighborStatus(neighbors);
-            }
-        }
-    }
 
-    protected void updateStates() {
-        for (int i = 0; i < myGrid.getHeight(); i++) {
-            for (int j = 0; j < myGrid.getWidth(); j++) {
-                myGrid.getCell(i, j).updateCell();
-            }
-        }
-    }
+
     private void handleKeyInput(KeyCode code) {
         if (code.equals(SPACE) && mySideBar.isStepThrough()) {
             step(0);

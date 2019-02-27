@@ -39,7 +39,22 @@ public class Grid {
         return myGrid;
     }
 
+    protected void setNextStates() {
+        for (int i = 0; i < myHeight; i++) {
+            for (int j = 0; j < myWidth; j++) {
+                Cell[] neighbors = setNeighbors(i, j);
+                getCell(i, j).checkNeighborStatus(neighbors);
+            }
+        }
+    }
 
+    protected void updateStates() {
+        for (int i = 0; i < myHeight; i++) {
+            for (int j = 0; j < myWidth; j++) {
+                getCell(i, j).updateCell();
+            }
+        }
+    }
     public int getWidth() {
         return myWidth;
     }
