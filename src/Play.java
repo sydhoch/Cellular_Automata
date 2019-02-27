@@ -1,10 +1,8 @@
-import cell.Cell;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -15,7 +13,6 @@ import static javafx.scene.input.KeyCode.SPACE;
 public class Play {
 
 
-    private static final Paint BACKGROUND = Color.GREY;
     private static final String FILE_NAME = "gol-grid-2.csv";
     private static final int FRAMES_PER_SECOND = 1;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -37,7 +34,7 @@ public class Play {
     public Play() {
         myGrid = new Grid(FILE_NAME);
         myRoot = new Group();
-        myScene = setUpGame(WINDOW_WIDTH, SIM_SIZE, BACKGROUND);
+        myScene = setUpGame(WINDOW_WIDTH, SIM_SIZE);
         myAnimation = new Timeline();
         mySideBar = new UserInteraction(myGrid, myAnimation);
         displayStates();
@@ -54,10 +51,9 @@ public class Play {
         myAnimation.play();
     }
 
-    private Scene setUpGame(int width, int height, Paint background) {
-        Scene scene = new Scene(myRoot, width, height, background);
+    private Scene setUpGame(int width, int height) {
+        Scene scene = new Scene(myRoot, width, height);
         scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
-        //System.out.println(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + STYLESHEET));//.toExternalForm());
         scene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + STYLESHEET).toExternalForm());
         return scene;
     }

@@ -14,7 +14,7 @@ public class SegPlay extends Play {
     }
     */
 
-    @Override
+    //@Override
     protected void setNextStates() {
         for (int i = 0; i < getGrid().getHeight(); i++) {
             for (int j = 0; j < getGrid().getWidth(); j++) {
@@ -24,7 +24,7 @@ public class SegPlay extends Play {
         }
     }
 
-    @Override
+    //@Override
     protected void updateStates() {
 //        for (int i = 0; i < myGrid.getHeight(); i++) {
 //            for (int j = 0; j < myGrid.getWidth(); j++) {
