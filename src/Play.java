@@ -1,17 +1,14 @@
 import cell.Cell;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import static javafx.scene.input.KeyCode.S;
 import static javafx.scene.input.KeyCode.SPACE;
 
 
@@ -25,6 +22,8 @@ public class Play {
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private static final int SIM_SIZE = 500;
     private static final int WINDOW_WIDTH = SIM_SIZE + 300;
+    private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
+    private static final String STYLESHEET = "default.css";
 
 
     private Scene myScene;
@@ -40,8 +39,8 @@ public class Play {
         myRoot = new Group();
         myScene = setUpGame(WINDOW_WIDTH, SIM_SIZE, BACKGROUND);
         myAnimation = new Timeline();
-        //myScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + STYLESHEET).toExternalForm());
         mySideBar = new UserInteraction(myGrid, myAnimation);
+        displayStates();
     }
 
     public Scene getScene(){
@@ -58,8 +57,8 @@ public class Play {
     private Scene setUpGame(int width, int height, Paint background) {
         Scene scene = new Scene(myRoot, width, height, background);
         scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
-        mySideBar = new UserInteraction(myGrid, myAnimation);
-        displayStates();
+        //System.out.println(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + STYLESHEET));//.toExternalForm());
+        scene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + STYLESHEET).toExternalForm());
         return scene;
     }
 

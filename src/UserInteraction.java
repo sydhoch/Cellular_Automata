@@ -15,9 +15,9 @@ public class UserInteraction {
     private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
     private static final String SIDEBAR_RESOURCE = "SideBar";
     private static final int[] COLUMN_POSITION = {510, 610, 710};
-    private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240};
-    private static final Paint[][] PAINT_COLORS = {{Color.BLUE, Color.CYAN, Color.SKYBLUE}, {Color.ROYALBLUE, Color.PURPLE, Color.GOLD}, {Color.PALEGREEN, Color.LIGHTSALMON, Color.LIGHTGOLDENRODYELLOW}};
-
+    private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360};
+    private static final Paint[][] PAINT_COLORS = {{Color.BLUE, Color.CYAN, Color.SKYBLUE}, {Color.GOLD, Color.PURPLE, Color.ROYALBLUE}, {Color.PALEGREEN, Color.LIGHTSALMON, Color.LIGHTGOLDENRODYELLOW}};
+    private static final Double[] SPEED = {.5, 1.0, 2.0};
 
     private List<Shape> myButtons;
     private Grid myGrid;
@@ -42,15 +42,16 @@ public class UserInteraction {
         buttons.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[2],"GoLSim2", e-> setGrid()));
         //add rest of load buttons
         buttons.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[5], "PauseResumeButton", e -> pauseOrResume()));
-        buttons.add(makeButton(COLUMN_POSITION[1], ROW_POSITION[5], "StepThroughButton", e -> stepThrough()));
-        buttons.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[7], "SpeedLabel", null));
-        buttons.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[8], "HalfSpeed", e -> slowDown()));
-        buttons.add(makeButton(COLUMN_POSITION[1], ROW_POSITION[8], "NormalSpeed", e -> resetSpeed()));
-        buttons.add(makeButton(COLUMN_POSITION[2], ROW_POSITION[8], "DoubleSpeed", e -> speedUp()));
-        buttons.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[10], "ColorLabel", null));
+        buttons.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[7], "StepThroughButton", e -> stepThrough()));
+        buttons.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[9], "SpeedLabel", null));
+        for(int i = 0; i < 3; i++) {
+            int speed = i;
+            buttons.add(makeButton(COLUMN_POSITION[i], ROW_POSITION[10], "Speed" + String.valueOf(i), e -> setSpeed(speed)));
+        }
+        buttons.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[12], "ColorLabel", null));
         for(int i = 0; i < 3; i++){
             Paint[] paintColors = PAINT_COLORS[i];
-            buttons.add(makeButton(COLUMN_POSITION[i], ROW_POSITION[11], "ColorScheme" + String.valueOf(i), e -> setColors(paintColors)));
+            buttons.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[13+i], "ColorScheme" + String.valueOf(i), e -> setColors(paintColors)));
         }
         return buttons;
     }
@@ -107,16 +108,8 @@ public class UserInteraction {
         myStepThrough = !myStepThrough;
     }
 
-    private void speedUp(){
-        myAnimation.setRate(2);
-    }
-
-    private void slowDown(){
-        myAnimation.setRate(.5);
-    }
-
-    private void resetSpeed(){
-        myAnimation.setRate(1);
+    private void setSpeed(int i){
+        myAnimation.setRate(SPEED[i]);
     }
 
     public boolean isStepThrough(){
