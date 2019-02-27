@@ -1,14 +1,12 @@
 import cell.Cell;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import static javafx.scene.input.KeyCode.SPACE;
@@ -24,15 +22,16 @@ public class Play {
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private static final int SIM_SIZE = 500;
     private static final int WINDOW_WIDTH = SIM_SIZE + 300;
-    private static Paint ZERO_COLOR = Color.BLUE;
-    private static Paint ONE_COLOR = Color.RED;
-    private static Paint TWO_COLOR = Color.YELLOW;
+    private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
+    private static final String STYLESHEET = "default.css";
+
 
     private Scene myScene;
     private Group myRoot;
     private Grid myGrid;
     private Timeline myAnimation;
     private UserInteraction mySideBar;
+    private Paint[] myColors;
 
 
     public Play() {
@@ -40,8 +39,8 @@ public class Play {
         myRoot = new Group();
         myScene = setUpGame(WINDOW_WIDTH, SIM_SIZE, BACKGROUND);
         myAnimation = new Timeline();
-        //myScene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + STYLESHEET).toExternalForm());
         mySideBar = new UserInteraction(myGrid, myAnimation);
+        displayStates();
     }
 
     public Scene getScene(){
@@ -57,8 +56,9 @@ public class Play {
 
     private Scene setUpGame(int width, int height, Paint background) {
         Scene scene = new Scene(myRoot, width, height, background);
-        mySideBar = new UserInteraction(myGrid, myAnimation);
-        displayStates();
+        scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
+        //System.out.println(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + STYLESHEET));//.toExternalForm());
+        scene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + STYLESHEET).toExternalForm());
         return scene;
     }
 
@@ -75,6 +75,7 @@ public class Play {
     private void setButtons() {
         myRoot.getChildren().addAll(mySideBar.getButtons());
         myGrid = mySideBar.getGrid();
+        myColors = mySideBar.getColors();
     }
 
     private Rectangle setRectangle(int i, int j) {
@@ -86,14 +87,7 @@ public class Play {
     }
 
     private Paint setCellColor(int state) {
-        if (state == 0) {
-            return ZERO_COLOR;
-        } else if (state == 1) {
-            return ONE_COLOR;
-        } else {
-            return TWO_COLOR;
-        }
-
+        return myColors[state];
     }
 
 
@@ -119,10 +113,9 @@ public class Play {
             }
         }
     }
-
     private void handleKeyInput(KeyCode code) {
-        if (code.equals(SPACE)) {
-
+        if (code.equals(SPACE) && mySideBar.isStepThrough()) {
+            step(0);
         }
     }
 
