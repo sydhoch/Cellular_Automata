@@ -16,7 +16,7 @@ public class Play {
 
 
     private static final Paint BACKGROUND = Color.GREY;
-    private static final String FILE_NAME = "rps-grid-1.csv";
+    private static final String FILE_NAME = "fire-grid-1.csv";
     private static final int FRAMES_PER_SECOND = 1;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
