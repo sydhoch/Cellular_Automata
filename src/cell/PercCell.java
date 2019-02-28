@@ -1,14 +1,12 @@
 package cell;
 
-import cell.Cell;
-
 public class PercCell extends Cell {
     //state == 0, open
     //state == 1, full
     //state == 2, closed
 
-    public PercCell(int state,int col, int row) {
-        super(state,col,row);
+    public PercCell(int state) {
+        super(state);
     }
 
     /**

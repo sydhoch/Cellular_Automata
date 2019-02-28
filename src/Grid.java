@@ -14,7 +14,7 @@ public class Grid {
         myGrid = getGrid(file);
     }
 
-    public Cell[][] getGrid(String gameFile) {
+    private Cell[][] getGrid(String gameFile) {
         Scanner s = new Scanner(Play.class.getClassLoader().getResourceAsStream(gameFile));
         s.useDelimiter(",");
         var gameType = s.next();
@@ -29,9 +29,9 @@ public class Grid {
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
                 if (gameType.equals("Perc")) {
-                    myGrid[i][j] = new PercCell(s.nextInt(), i, j);
+                    myGrid[i][j] = new PercCell(s.nextInt());
                 } else if (gameType.equals("GoL")) {
-                    myGrid[i][j] = new GoLCell(s.nextInt(), i, j);
+                    myGrid[i][j] = new GoLCell(s.nextInt());
                 }
             }
             s.nextLine();
@@ -52,7 +52,7 @@ public class Grid {
         return myGrid[row][col];
     }
 
-    public Cell[] setNeighbors(int row, int col) {
+    public Cell[] setNeighbors(int row, int col) { //break up
         Cell[] neighbors = new Cell[8];
         try {
             neighbors[0] = getCell(row - 1, col - 1);
@@ -120,5 +120,10 @@ public class Grid {
         }
         return neighbors;
     }
+
+    public Cell[][] getGrid(){
+        return myGrid;
+    }
+
 
 }

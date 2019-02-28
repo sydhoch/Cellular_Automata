@@ -7,23 +7,55 @@ public class CellTest {
     private Cell p0;
     private Cell p1;
     private Cell p2;
-    private Cell p;
 
     private Cell g0;
     private Cell g1;
-    private Cell g;
+
+    private Cell r0;
+    private Cell r1;
+    private Cell r2;
 
     @BeforeEach
     void setup(){
-         //p = new PercCell(0,0,0);
-         p0 = new PercCell(0,0,0);
-         p1 = new PercCell(1,0,0);
-         p2 = new PercCell(2,0,0);
+         p0 = new PercCell(0);
+         p1 = new PercCell(1);
+         p2 = new PercCell(2);
 
-         //g = new GoLCell(1,0,0);
-        g0 = new GoLCell(0,0,0);
-        g1 = new GoLCell(1,0,0);
+         g0 = new GoLCell(0);
+         g1 = new GoLCell(1);
+
+         r0 = new RPSCell(0);
+         r1 = new RPSCell(1);
+         r2 = new RPSCell(2);
     }
+
+    @Test
+    public void setRockToPaper(){
+        Cell[] neighbors = {r0,r1,r1,r1,r1,r2};
+        r0.checkNeighborStatus(neighbors);
+        int expected = 1;
+        int actual = r0.getNextState();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void rockStays(){
+        Cell[] neighbors = {r0,r1,r1,r1,r2};
+        r0.checkNeighborStatus(neighbors);
+        int expected = 0;
+        int actual = r0.getNextState();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void scissorsToRock(){
+        Cell[] neighbors = {r0,r0,r0,r0,r1,r1,r1,r1};
+        r2.checkNeighborStatus(neighbors);
+        int expected = 0;
+        int actual = r2.getNextState();
+        assertEquals(expected,actual);
+    }
+
 
     @Test
     public void openPercCellFilled(){
@@ -141,21 +173,5 @@ public class CellTest {
         int expected = 1;
         int actual = g1.getState();
         assertEquals(expected,actual);
-    }
-
-    @Test
-    public void getRectangle() {
-    }
-
-    @Test
-    public void setNextState() {
-    }
-
-    @Test
-    public void getState() {
-    }
-
-    @Test
-    public void equals() {
     }
 }
