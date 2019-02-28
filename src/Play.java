@@ -3,10 +3,14 @@ import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+
+import java.util.ResourceBundle;
 
 import static javafx.scene.input.KeyCode.SPACE;
 
@@ -14,7 +18,7 @@ import static javafx.scene.input.KeyCode.SPACE;
 public class Play {
 
 
-    private static final String FILE_NAME = "gol-grid-2.csv";
+    private static final String FILE_NAME = "gol-grid-1.csv";
     private static final int FRAMES_PER_SECOND = 1;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -22,6 +26,8 @@ public class Play {
     private static final int WINDOW_WIDTH = SIM_SIZE + 300;
     private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
     private static final String STYLESHEET = "default.css";
+    private static final String IMAGES_RESOURCE = "Images";
+    private static final String IMAGE_FOLDER = "images/";
 
 
     private Scene myScene;
@@ -30,28 +36,33 @@ public class Play {
     private Timeline myAnimation;
     private UserInteraction mySideBar;
     private Paint[] myColors;
+    private boolean myImage;
+    private int myCellHeight;
+    private int myCellWidth;
+    private ResourceBundle myImages;
 
 
     public Play() {
         GridMaker maker = new GridMaker(FILE_NAME);
-        if(maker.getGameType().equals("Seg")){
+        if (maker.getGameType().equals("Seg")) {
             myGrid = new SegGrid(FILE_NAME);
-        }
-        else{
+        } else {
             myGrid = new Grid(FILE_NAME);
         }
         myRoot = new Group();
         myScene = setUpGame(WINDOW_WIDTH, SIM_SIZE);
         myAnimation = new Timeline();
         mySideBar = new UserInteraction(myGrid, myAnimation);
+        myImages = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + IMAGES_RESOURCE);
+        myImage = true;
         displayStates();
     }
 
-    public Scene getScene(){
+    public Scene getScene() {
         return myScene;
     }
 
-    public void startAnimation(){
+    public void startAnimation() {
         var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
         myAnimation.setCycleCount(Timeline.INDEFINITE);
         myAnimation.getKeyFrames().add(frame);
@@ -70,7 +81,7 @@ public class Play {
         setButtons();
         for (int i = 0; i < myGrid.getHeight(); i++) {
             for (int j = 0; j < myGrid.getWidth(); j++) {
-                myRoot.getChildren().add(setRectangle(i, j));
+                myRoot.getChildren().add(setView(i, j));
             }
         }
     }
@@ -78,28 +89,43 @@ public class Play {
     private void setButtons() {
         myRoot.getChildren().addAll(mySideBar.getButtons());
         myGrid = mySideBar.getGrid();
-        myColors = mySideBar.getColors();
+        myImage = mySideBar.getImages();
     }
 
-    private Node setRectangle(int i, int j) {
-        int cellHeight = SIM_SIZE / myGrid.getHeight();
-        int cellWidth = SIM_SIZE / myGrid.getWidth();
-        Rectangle ret = new Rectangle(cellHeight * i, cellWidth * j, cellHeight, cellWidth);
-        ret.setFill(setCellColor(myGrid.getCell(i, j).getState()));
-        return ret;
+    private Node setView(int i, int j) {
+        myCellHeight = SIM_SIZE / myGrid.getHeight();
+        myCellWidth = SIM_SIZE / myGrid.getWidth();
+        if (myImage) {
+            return setImage(i, j);
+        } else {
+            myColors = mySideBar.getColors();
+            return setRectangle(i, j);
+        }
     }
 
-    private Paint setCellColor(int state) {
-        return myColors[state];
+    private Rectangle setRectangle(int i, int j) {
+        Rectangle rect = new Rectangle(myCellWidth * i, myCellHeight * j, myCellWidth, myCellHeight);
+        rect.setFill(myColors[myGrid.getCell(i, j).getState()]);
+        return rect;
     }
 
+
+    private ImageView setImage(int i, int j) {
+        String image_file = IMAGE_FOLDER + myImages.getString(myGrid.getType() + myGrid.getCell(i, j).getState());
+        Image preImage = new Image(this.getClass().getClassLoader().getResourceAsStream(image_file));
+        ImageView img = new ImageView(preImage);
+        img.setX(myCellWidth*i);
+        img.setY(myCellHeight*j);
+        img.setFitWidth(myCellWidth);
+        img.setFitHeight(myCellHeight);
+        return img;
+    }
 
     protected void step(double elapsedTime) {
         myGrid.setNextStates();
         myGrid.updateStates();
         displayStates();
     }
-
 
 
     private void handleKeyInput(KeyCode code) {

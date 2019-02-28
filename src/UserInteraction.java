@@ -15,8 +15,8 @@ public class UserInteraction {
     private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
     private static final String SIDEBAR_RESOURCE = "SideBar";
     private static final int[] COLUMN_POSITION = {510, 610, 710, 740, 770};
-    private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360};
-    private static final Paint[][] PAINT_COLORS = {{Color.BLUE, Color.CYAN, Color.SKYBLUE}, {Color.GOLD, Color.PURPLE, Color.ROYALBLUE}, {Color.PALEGREEN, Color.LIGHTSALMON, Color.LIGHTGOLDENRODYELLOW}};
+    private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420};
+    private static final Paint[][] PAINT_COLORS = {{Color.BLUE, Color.CYAN, Color.SKYBLUE}, {Color.RED, Color.MISTYROSE, Color.MAROON}};
     private static final Double[] SPEED = {.5, 1.0, 2.0};
     private static final String[] SIMULATION_TYPES = {"Fire", "GoL", "Perc", "RPS", "Seg", "PP"};
 
@@ -26,6 +26,7 @@ public class UserInteraction {
     private ResourceBundle myResources;
     private boolean myStepThrough;
     private Paint[] myColors;
+    private boolean myImages;
 
     public UserInteraction(Grid grid, Timeline animation) {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SIDEBAR_RESOURCE);
@@ -34,6 +35,7 @@ public class UserInteraction {
         myButtons = setButtons();
         myStepThrough = false;
         myColors = PAINT_COLORS[0];
+        myImages = true;
     }
 
     private List<Shape> setButtons() {
@@ -73,18 +75,28 @@ public class UserInteraction {
 
     private void addColorButtons(List<Shape> shapes) {
         shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[15], "ColorLabel", null));
-        for (int i = 0; i < 3; i++) {
+        shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[16], "Images", e -> setImages()));
+        for (int i = 0; i < 2; i++) {
             Paint[] paintColors = PAINT_COLORS[i];
-            shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[16 + i], "ColorScheme" + String.valueOf(i), e -> setColors(paintColors)));
+            shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[17 + i], "ColorScheme" + String.valueOf(i), e -> setColors(paintColors)));
         }
     }
 
     private void setColors(Paint[] paints) {
+        myImages = false;
         myColors = paints;
     }
 
     public Paint[] getColors() {
         return myColors;
+    }
+
+    private void setImages(){
+        myImages = true;
+    }
+
+    public boolean getImages(){
+        return myImages;
     }
 
     private Text makeButton(int xpos, int ypos, String property, EventHandler<MouseEvent> handler) {
@@ -96,8 +108,8 @@ public class UserInteraction {
     }
 
     private void setGrid(int simType, int simNum) {
-        String gridName = SIMULATION_TYPES[simType].toLowerCase() + "-grid-" + String.valueOf(simNum) + ".csv";
-        myGrid = new Grid(gridName); //doesn't work (need to stop animation?)
+        String gridName = SIMULATION_TYPES[simType].toLowerCase() + "-grid-" + String.valueOf(simNum+1) + ".csv";
+        myGrid = new Grid(gridName);
     }
 
     public Grid getGrid() {

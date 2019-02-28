@@ -8,7 +8,7 @@ public class GridMaker {
     private Cell[][] myGrid;
     private String myGameType;
 
-    public GridMaker(String gameFile){
+    public GridMaker(String gameFile) {
         myGrid = getGrid(gameFile);
     }
 
@@ -30,12 +30,11 @@ public class GridMaker {
                     myGrid[i][j] = new PercCell(s.nextInt());
                 } else if (myGameType.equals("GoL")) {
                     myGrid[i][j] = new GoLCell(s.nextInt());
-                } else if(myGameType.equals("RPS")){
+                } else if (myGameType.equals("RPS")) {
                     myGrid[i][j] = new RPSCell(s.nextInt());
-                }else if(myGameType.equals("Seg")){
+                } else if (myGameType.equals("Seg")) {
                     myGrid[i][j] = new SegCell(s.nextInt());
-                }
-                else if(myGameType.equals("Fire")){
+                } else if (myGameType.equals("Fire")) {
                     myGrid[i][j] = new FireCell(s.nextInt());
                 }
             }
@@ -44,15 +43,19 @@ public class GridMaker {
         return myGrid;
     }
 
-    public int getWidth() { return myWidth; }
+    public int getWidth() {
+        return myWidth;
+    }
 
-    public int getHeight() { return myHeight; }
+    public int getHeight() {
+        return myHeight;
+    }
 
     public Cell[][] getGrid() {
         return myGrid;
     }
 
-    public String getGameType(){
+    public String getGameType() {
         return myGameType;
     }
 

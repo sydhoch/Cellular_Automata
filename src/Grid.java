@@ -9,12 +9,18 @@ public class Grid {
     private int myWidth;
     private int myHeight;
     private Cell[][] myGrid;
+    private String myType;
 
     public Grid(String file) {
         GridMaker maker = new GridMaker(file);
         myHeight = maker.getHeight();
         myWidth = maker.getWidth();
         myGrid = maker.getGrid();
+        myType = maker.getGameType();
+    }
+
+    public String getType(){
+        return myType;
     }
 
     protected void setNextStates() {
