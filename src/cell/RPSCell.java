@@ -18,7 +18,7 @@ public class RPSCell extends Cell{
     @Override
     public void checkNeighborStatus(Cell[] neighbors){
         setEnemy();
-        if(getNeighborsOfState(enemy,neighbors)>THRESHOLD){
+        if(getNeighborsOfState(enemy,neighbors).size()>THRESHOLD){
             this.setNextState(enemy);
         }
     }
