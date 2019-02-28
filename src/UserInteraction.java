@@ -101,6 +101,9 @@ public class UserInteraction {
         if(maker.getGameType().equals("Seg")){
             myGrid = new SegGrid(gridName);
         }
+        if(maker.getGameType().equals("PP")){
+            myGrid = new PPGrid(gridName);
+        }
         else{
             myGrid = new Grid(gridName); //doesn't work (need to stop animation?)
         }

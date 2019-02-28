@@ -51,7 +51,7 @@ public class PPCell extends Cell {
                 handleBabies();
             }
         }
-        if (this.getState() == 2) {
+        if (this.getState() == 2&& this.getEnergy()>0) {
             cells = getNeighborsOfState(1, neighbors2);
             count = cells.size();
             if (count != 0) {
