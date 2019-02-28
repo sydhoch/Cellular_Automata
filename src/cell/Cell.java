@@ -31,6 +31,17 @@ public abstract class Cell extends Object{
     public abstract void checkNeighborStatus(Cell[] neighbors);
 
 
+    protected int getNeighborsOfState(int state, Cell[] neighbors){
+        int count = 0;
+        for(int i=0;i<neighbors.length;i++){
+            if(neighbors[i].getState()==state){
+                count++;
+            }
+        }
+        return count;
+    }
+
+
     public void setNextState(int nextState){
         myNextState = nextState;
     }

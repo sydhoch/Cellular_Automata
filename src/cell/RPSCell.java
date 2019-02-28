@@ -18,7 +18,7 @@ public class RPSCell extends Cell{
     @Override
     public void checkNeighborStatus(Cell[] neighbors){
         setEnemy();
-        if(checkEnemyNumber(neighbors)>THRESHOLD){
+        if(getNeighborsOfState(enemy,neighbors)>THRESHOLD){
             this.setNextState(enemy);
         }
     }
@@ -30,15 +30,5 @@ public class RPSCell extends Cell{
         else{
             enemy=this.getState()+1;
         }
-    }
-
-    private int checkEnemyNumber(Cell[] neighbors){
-        int enemyCount=0;
-        for(int i=0;i<neighbors.length;i++){
-            if(neighbors[i].getState()==enemy){
-                enemyCount++;
-            }
-        }
-        return enemyCount;
     }
 }
