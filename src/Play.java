@@ -18,7 +18,7 @@ public class Play {
 
 
     private static final Paint BACKGROUND = Color.GREY;
-    private static final String FILE_NAME = "gol-grid-2.csv";
+    private static final String FILE_NAME = "gol-grid-1.csv";
     private static final int FRAMES_PER_SECOND = 1;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -65,8 +65,8 @@ public class Play {
     private void displayStates() {
         myRoot.getChildren().clear();
         setButtons();
-        for (int i = 0; i < myGrid.getHeight(); i++) {
-            for (int j = 0; j < myGrid.getWidth(); j++) {
+        for (int i = 0; i < myGrid.getHeight() - 1; i++) {
+            for (int j = 0; j < myGrid.getWidth() - 1; j++) {
                 myRoot.getChildren().add(setRectangle(i, j));
             }
         }

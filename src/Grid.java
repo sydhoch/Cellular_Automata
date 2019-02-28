@@ -21,17 +21,18 @@ public class Grid {
         //System.out.println(gameType);
         s.nextLine();
         myWidth = s.nextInt();
-        //System.out.println(myWidth);
+        System.out.println(myWidth);
         myHeight = s.nextInt();
-        //System.out.println(myHeight);
+        System.out.println(myHeight + "height");
         Cell[][] myGrid = new Cell[myWidth][myHeight];
         s.nextLine();
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
+                int temp = s.nextInt();
                 if (gameType.equals("Perc")) {
-                    myGrid[i][j] = new PercCell(s.nextInt());
+                    myGrid[j][i] = new PercCell(temp);
                 } else if (gameType.equals("GoL")) {
-                    myGrid[i][j] = new GoLCell(s.nextInt());
+                    myGrid[j][i] = new GoLCell(temp);
                 }
             }
             s.nextLine();
@@ -51,7 +52,7 @@ public class Grid {
     public Cell getCell(int row, int col) {
         return myGrid[row][col];
     }
-
+//TODO: figure out error
     public Cell[] setNeighbors(int row, int col) { //break up
         Cell[] neighbors = new Cell[8];
         try {

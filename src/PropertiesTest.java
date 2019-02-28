@@ -10,13 +10,20 @@ public class PropertiesTest {
     ResourceBundle myResources;
     @BeforeEach
     void initialize() {
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "gol.properties");
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Test");
     }
 
 
     @Test
     void getCorrectGameName() {
-        String expected = "GoL";
+        String expected = "Fake Simulation";
+        String actual = myResources.getString("TypeOfSimulation");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void getCorrectFile() {
+        String expected = "Fake Simulation";
         String actual = myResources.getString("TypeOfSimulation");
         assertEquals(expected, actual);
     }
