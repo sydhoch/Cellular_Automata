@@ -31,7 +31,7 @@ public abstract class Cell extends Object{
     public abstract void checkNeighborStatus(Cell[] neighbors);
 
 
-    protected void setNextState(int nextState){
+    public void setNextState(int nextState){
         myNextState = nextState;
     }
 

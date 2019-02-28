@@ -16,7 +16,7 @@ public class Play {
 
 
     private static final Paint BACKGROUND = Color.GREY;
-    private static final String FILE_NAME = "gol-grid-2.csv";
+    private static final String FILE_NAME = "seg-grid-1.csv";
     private static final int FRAMES_PER_SECOND = 1;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -35,7 +35,13 @@ public class Play {
 
 
     public Play() {
-        myGrid = new Grid(FILE_NAME);
+        GridMaker maker = new GridMaker(FILE_NAME);
+        if(maker.getGameType().equals("Seg")){
+            myGrid = new SegGrid(FILE_NAME);
+        }
+        else{
+            myGrid = new Grid(FILE_NAME);
+        }
         myRoot = new Group();
         myScene = setUpGame(WINDOW_WIDTH, SIM_SIZE, BACKGROUND);
         myAnimation = new Timeline();
@@ -103,10 +109,6 @@ public class Play {
         if (code.equals(SPACE) && mySideBar.isStepThrough()) {
             step(0);
         }
-    }
-
-    protected Grid getGrid(){
-        return myGrid;
     }
 
 

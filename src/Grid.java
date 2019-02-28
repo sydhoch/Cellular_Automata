@@ -11,32 +11,10 @@ public class Grid {
     private Cell[][] myGrid;
 
     public Grid(String file) {
-        myGrid = getGrid(file);
-    }
-
-    private Cell[][] getGrid(String gameFile) {
-        Scanner s = new Scanner(Play.class.getClassLoader().getResourceAsStream(gameFile));
-        s.useDelimiter(",");
-        var gameType = s.next();
-        //System.out.println(gameType);
-        s.nextLine();
-        myWidth = s.nextInt();
-        //System.out.println(myWidth);
-        myHeight = s.nextInt();
-        //System.out.println(myHeight);
-        Cell[][] myGrid = new Cell[myWidth][myHeight];
-        s.nextLine();
-        for (int i = 0; i < myHeight; i++) {
-            for (int j = 0; j < myWidth; j++) {
-                if (gameType.equals("Perc")) {
-                    myGrid[i][j] = new PercCell(s.nextInt());
-                } else if (gameType.equals("GoL")) {
-                    myGrid[i][j] = new GoLCell(s.nextInt());
-                }
-            }
-            s.nextLine();
-        }
-        return myGrid;
+        GridMaker maker = new GridMaker(file);
+        myHeight = maker.getHeight();
+        myWidth = maker.getWidth();
+        myGrid = maker.getGrid();
     }
 
     protected void setNextStates() {
@@ -55,15 +33,8 @@ public class Grid {
             }
         }
     }
-    public int getWidth() {
-        return myWidth;
-    }
 
-    public int getHeight() {
-        return myHeight;
-    }
-
-    public Cell getCell(int row, int col) {
+    protected Cell getCell(int row, int col) {
         return myGrid[row][col];
     }
 
@@ -136,9 +107,12 @@ public class Grid {
         return neighbors;
     }
 
+    protected int getWidth() { return myWidth; }
+
+    protected int getHeight() { return myHeight; }
+
     public Cell[][] getGrid() {
         return myGrid;
     }
-
 
 }

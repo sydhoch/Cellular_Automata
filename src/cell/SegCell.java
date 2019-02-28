@@ -15,7 +15,7 @@ public class SegCell extends Cell{
     @Override
     public void checkNeighborStatus(Cell[] neighbors){
         if(this.getState()==0){
-            setSatisfaction(100);
+            setSatisfaction(1);
         }
         else{
             setSatisfaction(computeSatisfaction(neighbors,this.getState()));
@@ -23,8 +23,8 @@ public class SegCell extends Cell{
     }
 
     private double computeSatisfaction(Cell[] neighbors,int type){
-        int neighborCount = 0;
-        int sameTypeNeighbor = 0;
+        float neighborCount = 0;
+        float sameTypeNeighbor = 0;
         for(Cell neighbor:neighbors){
             if(neighbor.getState()!=0) {
                 neighborCount++;
@@ -34,6 +34,9 @@ public class SegCell extends Cell{
             }
 
         }
+        if(neighborCount==0){
+            return 1;
+        }
         return sameTypeNeighbor/neighborCount;
     }
 
@@ -41,7 +44,5 @@ public class SegCell extends Cell{
         mySatisfaction=satisfaction;
     }
 
-    public double getSatisfaction(){
-        return mySatisfaction;
-    }
+    public boolean isSatisfied(){ return mySatisfaction>THRESHOLD; }
 }
