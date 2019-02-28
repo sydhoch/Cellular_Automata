@@ -17,6 +17,12 @@ public class FireCell extends Cell{
         //west = neighbors[3]
         //east = neighbors[4]
         //north = neighbors[6]
+        Cell[] neighbors2 = new Cell[4];
+        neighbors2[0] = neighbors[1];
+        neighbors2[1] = neighbors[3];
+        neighbors2[2] = neighbors[4];
+        neighbors2[3] = neighbors[6];
+
         if(this.getState()==2){
             setNextState(0);
         }

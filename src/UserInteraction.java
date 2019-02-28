@@ -16,7 +16,7 @@ public class UserInteraction {
     private static final String SIDEBAR_RESOURCE = "SideBar";
     private static final int[] COLUMN_POSITION = {510, 610, 710, 740, 770};
     private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360};
-    private static final Paint[][] PAINT_COLORS = {{Color.BLUE, Color.CYAN, Color.SKYBLUE}, {Color.GOLD, Color.PURPLE, Color.ROYALBLUE}, {Color.PALEGREEN, Color.LIGHTSALMON, Color.LIGHTGOLDENRODYELLOW}};
+    private static final Paint[][] PAINT_COLORS = {{Color.SKYBLUE, Color.CYAN, Color.BLUE}, {Color.GOLD, Color.PURPLE, Color.ROYALBLUE}, {Color.PALEGREEN, Color.LIGHTSALMON, Color.LIGHTGOLDENRODYELLOW}};
     private static final Double[] SPEED = {.5, 1.0, 2.0};
     private static final String[] SIMULATION_TYPES = {"Fire", "GoL", "Perc", "RPS", "Seg"};
 
