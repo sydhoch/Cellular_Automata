@@ -28,7 +28,7 @@ public class SegGrid extends Grid{
                 SegCell cell = (SegCell) getCell(i,j);
                 if(!cell.isSatisfied()){
                     if(emptyCells.size()!=0){
-                        Cell empty = (Cell)emptyCells.get(random.nextInt(emptyCells.size()));
+                        Cell empty = emptyCells.get(random.nextInt(emptyCells.size()));
                         empty.setNextState(cell.getState());
                         cell.setNextState(0);
                     }
@@ -36,6 +36,4 @@ public class SegGrid extends Grid{
             }
         }
     }
-
-
 }
