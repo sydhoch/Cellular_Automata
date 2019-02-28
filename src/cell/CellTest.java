@@ -15,6 +15,10 @@ public class CellTest {
     private Cell r1;
     private Cell r2;
 
+    private SegCell s0;
+    private SegCell s1;
+    private SegCell s2;
+
     @BeforeEach
     void setup(){
          p0 = new PercCell(0);
@@ -27,7 +31,48 @@ public class CellTest {
          r0 = new RPSCell(0);
          r1 = new RPSCell(1);
          r2 = new RPSCell(2);
+
+         s0 = new SegCell(0);
+         s1 = new SegCell(1);
+         s2 = new SegCell(2);
     }
+
+    @Test
+    public void satisfactionWithNoNeighbors(){
+        Cell[] neighbors = {s0,s0,s0,s0};
+        s1.checkNeighborStatus(neighbors);
+        boolean expected = true;
+        boolean actual = s1.isSatisfied();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void notSatisfied(){
+        Cell[] neighbors = {s2,s2,s2,s0};
+        s1.checkNeighborStatus(neighbors);
+        boolean expected = false;
+        boolean actual = s1.isSatisfied();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void notSatisfied2(){
+        Cell[] neighbors = {s0,s2,s2,s0};
+        s1.checkNeighborStatus(neighbors);
+        boolean expected = false;
+        boolean actual = s1.isSatisfied();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void Satisfied(){
+        Cell[] neighbors = {s1,s1,s2,s0};
+        s1.checkNeighborStatus(neighbors);
+        boolean expected = true;
+        boolean actual = s1.isSatisfied();
+        assertEquals(expected,actual);
+    }
+
 
     @Test
     public void setRockToPaper(){

@@ -33,7 +33,13 @@ public class Play {
 
 
     public Play() {
-        myGrid = new Grid(FILE_NAME);
+        GridMaker maker = new GridMaker(FILE_NAME);
+        if(maker.getGameType().equals("Seg")){
+            myGrid = new SegGrid(FILE_NAME);
+        }
+        else{
+            myGrid = new Grid(FILE_NAME);
+        }
         myRoot = new Group();
         myScene = setUpGame(WINDOW_WIDTH, SIM_SIZE);
         myAnimation = new Timeline();
@@ -100,10 +106,6 @@ public class Play {
         if (code.equals(SPACE) && mySideBar.isStepThrough()) {
             step(0);
         }
-    }
-
-    protected Grid getGrid(){
-        return myGrid;
     }
 
 
