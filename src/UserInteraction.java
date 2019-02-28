@@ -18,7 +18,7 @@ public class UserInteraction {
     private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360};
     private static final Paint[][] PAINT_COLORS = {{Color.BLUE, Color.CYAN, Color.SKYBLUE}, {Color.GOLD, Color.PURPLE, Color.ROYALBLUE}, {Color.PALEGREEN, Color.LIGHTSALMON, Color.LIGHTGOLDENRODYELLOW}};
     private static final Double[] SPEED = {.5, 1.0, 2.0};
-    private static final String[] SIMULATION_TYPES = {"Fire", "GoL", "Perc", "RPS", "Seg"};
+    private static final String[] SIMULATION_TYPES = {"Fire", "GoL", "Perc", "RPS", "Seg", "PP"};
 
     private List<Shape> myButtons;
     private Grid myGrid;
@@ -47,7 +47,7 @@ public class UserInteraction {
 
     private void addLoadingButtons(List<Shape> shapes) {
         shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[0], "LoadLabel", null));
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < SIMULATION_TYPES.length; i++) {
             shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[1 + i], SIMULATION_TYPES[i], null));
             for (int j = 0; j < 3; j++) {
                 int type = i;
@@ -58,24 +58,24 @@ public class UserInteraction {
     }
 
     private void addTimelineButtons(List<Shape> shapes) {
-        shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[7], "PauseResumeButton", e -> pauseOrResume()));
-        shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[9], "StepThroughButton", e -> stepThrough()));
+        shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[8], "PauseResumeButton", e -> pauseOrResume()));
+        shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[10], "StepThroughButton", e -> stepThrough()));
     }
 
 
     private void addSpeedButtons(List<Shape> shapes) {
-        shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[11], "SpeedLabel", null));
+        shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[12], "SpeedLabel", null));
         for (int i = 0; i < 3; i++) {
             int speed = i;
-            shapes.add(makeButton(COLUMN_POSITION[i], ROW_POSITION[12], "Speed" + String.valueOf(i), e -> setSpeed(speed)));
+            shapes.add(makeButton(COLUMN_POSITION[i], ROW_POSITION[13], "Speed" + String.valueOf(i), e -> setSpeed(speed)));
         }
     }
 
     private void addColorButtons(List<Shape> shapes) {
-        shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[14], "ColorLabel", null));
+        shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[15], "ColorLabel", null));
         for (int i = 0; i < 3; i++) {
             Paint[] paintColors = PAINT_COLORS[i];
-            shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[15 + i], "ColorScheme" + String.valueOf(i), e -> setColors(paintColors)));
+            shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[16 + i], "ColorScheme" + String.valueOf(i), e -> setColors(paintColors)));
         }
     }
 

@@ -1,6 +1,7 @@
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Paint;
@@ -74,7 +75,7 @@ public class Play {
         myColors = mySideBar.getColors();
     }
 
-    private Rectangle setRectangle(int i, int j) {
+    private Node setRectangle(int i, int j) {
         int cellHeight = SIM_SIZE / myGrid.getHeight();
         int cellWidth = SIM_SIZE / myGrid.getWidth();
         Rectangle ret = new Rectangle(cellHeight * i, cellWidth * j, cellHeight, cellWidth);
