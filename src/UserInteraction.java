@@ -82,7 +82,7 @@ public class UserInteraction {
         }
     }
 
-    private void setColors(Paint[] paints) {
+    public void setColors(Paint[] paints) {
         myImages = false;
         myColors = paints;
     }
@@ -108,12 +108,11 @@ public class UserInteraction {
     }
 
     private void setGrid(int simType, int simNum) {
-        String gridName = SIMULATION_TYPES[simType].toLowerCase() + "-grid-" + String.valueOf(simNum) + ".csv";
-        GridMaker maker = new GridMaker(gridName);
-        if (maker.getGameType().equals("Seg")) {
+        String gridName = SIMULATION_TYPES[simType].toLowerCase() + "-grid-" + String.valueOf(simNum+1) + ".csv";
+        if (SIMULATION_TYPES[simType].equals("Seg")) {
             myGrid = new SegGrid(gridName);
         }
-        if(maker.getGameType().equals("PP")){
+        if(SIMULATION_TYPES[simType].equals("PP")){
             myGrid = new PPGrid(gridName);
         }
         else{
