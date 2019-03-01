@@ -9,10 +9,11 @@ public class GridMaker {
     private String myGameType;
 
     public GridMaker(String gameFile) {
-        myGrid = getGrid(gameFile);
+        myGrid = makeGrid(gameFile);
     }
 
-    private Cell[][] getGrid(String gameFile) {
+    private Cell[][] makeGrid(String gameFile) {
+        System.out.println(gameFile);
         Scanner s = new Scanner(Play.class.getClassLoader().getResourceAsStream(gameFile));
         s.useDelimiter(",");
         myGameType = s.next();

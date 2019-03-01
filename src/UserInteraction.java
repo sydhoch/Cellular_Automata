@@ -108,9 +108,8 @@ public class UserInteraction {
     }
 
     private void setGrid(int simType, int simNum) {
-        String gridName = SIMULATION_TYPES[simType].toLowerCase() + "-grid-" + String.valueOf(simNum) + ".csv";
-        GridMaker maker = new GridMaker(gridName);
-        if (maker.getGameType().equals("Seg")) {
+        String gridName = SIMULATION_TYPES[simType].toLowerCase() + "-grid-" + String.valueOf(simNum+1) + ".csv";
+        if (SIMULATION_TYPES[simType].equals("Seg")) {
             myGrid = new SegGrid(gridName);
         } else {
             myGrid = new Grid(gridName);

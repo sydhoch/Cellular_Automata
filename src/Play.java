@@ -21,7 +21,7 @@ import static javafx.scene.input.KeyCode.SPACE;
 
 
 public class Play {
-    private static final String FILE_NAME = "gol-grid-1.csv";
+    private static final String FILE_NAME = "rps-grid-1.csv";
     private static final int FRAMES_PER_SECOND = 1;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -115,6 +115,8 @@ public class Play {
     }
 
     private ImageView setImage(int i, int j) {
+//        System.out.println(i + "    " + j);
+//        System.out.println(myGrid.getType());
         String image_file = IMAGE_FOLDER + myImages.getString(myGrid.getType() + myGrid.getCell(i, j).getState());
         Image preImage = new Image(this.getClass().getClassLoader().getResourceAsStream(image_file));
         ImageView img = new ImageView(preImage);
