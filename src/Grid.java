@@ -41,6 +41,7 @@ public class Grid {
     }
 
     protected Cell getCell(int row, int col) {
+        System.out.println(row + "    " + col);
         return myGrid[row][col];
     }
 
@@ -94,7 +95,7 @@ public class Grid {
             neighbors[5] = getCell(row + 1, col - 1);
         }
 
-        if (row == myWidth - 1) {
+        if (row == myHeight - 1) {
             neighbors[6] = getCell(0, col);
         } else {
             neighbors[6] = getCell(row + 1, col);

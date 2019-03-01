@@ -16,7 +16,7 @@ import static javafx.scene.input.KeyCode.SPACE;
 
 
 public class Play {
-    private static final String FILE_NAME = "gol-grid-1.csv";
+    private static final String FILE_NAME = "rps-grid-1.csv";
     private static final int FRAMES_PER_SECOND = 1;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -44,8 +44,7 @@ public class Play {
 
 
     public Play() {
-        GridMaker maker = new GridMaker(FILE_NAME);
-        if (maker.getGameType().equals("Seg")) {
+        if (FILE_NAME.substring(0,3).equals("Seg")) {
             myGrid = new SegGrid(FILE_NAME);
         } else {
             myGrid = new Grid(FILE_NAME);
