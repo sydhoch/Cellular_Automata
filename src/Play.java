@@ -134,9 +134,9 @@ public class Play {
     }
 
     protected void step(double elapsedTime) {
-//        myGrid.setNextStates();
-//        myGrid.updateStates();
-//        displayStates();
+        myGrid.setNextStates();
+        myGrid.updateStates();
+        displayStates();
     }
 
 
