@@ -19,6 +19,10 @@ public class CellTest {
     private SegCell s1;
     private SegCell s2;
 
+    private FireCell f0;
+    private FireCell f1;
+    private FireCell f2;
+
     @BeforeEach
     void setup(){
          p0 = new PercCell(0);
@@ -35,10 +39,34 @@ public class CellTest {
          s0 = new SegCell(0);
          s1 = new SegCell(1);
          s2 = new SegCell(2);
+
+         f0 = new FireCell(0);
+         f1 = new FireCell(1);
+         f2 = new FireCell(2);
     }
 
     @Test
-    public void satisfactionWithNoNeighbors(){
+    public void FireBurningToEmpty(){
+        Cell[] neighbors = {f0,f1,f2};
+        f2.checkNeighborStatus(neighbors);
+        int expected = 0;
+        int actual = f2.getNextState();
+        assertEquals(expected,actual);
+
+    }
+
+    @Test
+    public void FireEmptyToEmpty(){
+        Cell[] neighbors = {f0,f1,f2};
+        f0.checkNeighborStatus(neighbors);
+        int expected = 0;
+        int actual = f0.getNextState();
+        assertEquals(expected,actual);
+    }
+
+
+    @Test
+    public void SegSatisfactionWithNoNeighbors(){
         Cell[] neighbors = {s0,s0,s0,s0};
         s1.checkNeighborStatus(neighbors);
         boolean expected = true;
@@ -47,7 +75,7 @@ public class CellTest {
     }
 
     @Test
-    public void notSatisfied(){
+    public void SegNotSatisfied(){
         Cell[] neighbors = {s2,s2,s2,s0};
         s1.checkNeighborStatus(neighbors);
         boolean expected = false;
@@ -56,7 +84,7 @@ public class CellTest {
     }
 
     @Test
-    public void notSatisfied2(){
+    public void SegNotSatisfied2(){
         Cell[] neighbors = {s0,s2,s2,s0};
         s1.checkNeighborStatus(neighbors);
         boolean expected = false;
@@ -65,7 +93,7 @@ public class CellTest {
     }
 
     @Test
-    public void Satisfied(){
+    public void SegSatisfied(){
         Cell[] neighbors = {s1,s1,s2,s0};
         s1.checkNeighborStatus(neighbors);
         boolean expected = true;
@@ -75,7 +103,7 @@ public class CellTest {
 
 
     @Test
-    public void setRockToPaper(){
+    public void RPSSetRockToPaper(){
         Cell[] neighbors = {r0,r1,r1,r1,r1,r2};
         r0.checkNeighborStatus(neighbors);
         int expected = 1;
@@ -84,7 +112,7 @@ public class CellTest {
     }
 
     @Test
-    public void rockStays(){
+    public void RPSRockStays(){
         Cell[] neighbors = {r0,r1,r1,r1,r2};
         r0.checkNeighborStatus(neighbors);
         int expected = 0;
@@ -93,7 +121,7 @@ public class CellTest {
     }
 
     @Test
-    public void scissorsToRock(){
+    public void RPSScissorsToRock(){
         Cell[] neighbors = {r0,r0,r0,r0,r1,r1,r1,r1};
         r2.checkNeighborStatus(neighbors);
         int expected = 0;
