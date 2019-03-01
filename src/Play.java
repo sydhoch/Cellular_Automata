@@ -3,14 +3,9 @@ import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-
-import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
-
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -21,7 +16,7 @@ import static javafx.scene.input.KeyCode.SPACE;
 
 
 public class Play {
-    private static final String FILE_NAME = "rps-grid-1.csv";
+    private static final String FILE_NAME = "gol-grid-1.csv";
     private static final int FRAMES_PER_SECOND = 1;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -32,6 +27,7 @@ public class Play {
     private static final String STYLESHEET = "default.css";
     private static final String IMAGES_RESOURCE = "Images";
     private static final String IMAGE_FOLDER = "images/";
+    private static final String SETTINGS = "Test";
 
 
     private Scene myScene;
@@ -44,6 +40,7 @@ public class Play {
     private int myCellHeight;
     private int myCellWidth;
     private ResourceBundle myImages;
+    private ResourceBundle mySettings;
 
 
     public Play() {
@@ -58,7 +55,8 @@ public class Play {
         myAnimation = new Timeline();
         mySideBar = new UserInteraction(myGrid, myAnimation);
         myImages = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + IMAGES_RESOURCE);
-        myImage = true;
+        mySettings = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SETTINGS);
+        setDefaultImages();
         displayStates();
     }
 
@@ -108,6 +106,17 @@ public class Play {
         }
     }
 
+    private void setDefaultImages() {
+        myImage = !mySettings.containsKey("Color0");
+        Paint[] userColors = new Paint[3];
+        for(int i = 0; i < 3; i++){
+            if(mySettings.containsKey("Color" + i)){
+                userColors[i] = Paint.valueOf(mySettings.getString("Color" + i));
+            }
+        }
+        mySideBar.setColors(userColors);
+    }
+
     private Rectangle setRectangle(int i, int j) {
         Rectangle rect = new Rectangle(myCellWidth * i, myCellHeight * j, myCellWidth, myCellHeight);
         rect.setFill(myColors[myGrid.getCell(i, j).getState()]);
@@ -115,13 +124,11 @@ public class Play {
     }
 
     private ImageView setImage(int i, int j) {
-//        System.out.println(i + "    " + j);
-//        System.out.println(myGrid.getType());
         String image_file = IMAGE_FOLDER + myImages.getString(myGrid.getType() + myGrid.getCell(i, j).getState());
         Image preImage = new Image(this.getClass().getClassLoader().getResourceAsStream(image_file));
         ImageView img = new ImageView(preImage);
-        img.setX(myCellWidth*i);
-        img.setY(myCellHeight*j);
+        img.setX(myCellWidth * i);
+        img.setY(myCellHeight * j);
         img.setFitWidth(myCellWidth);
         img.setFitHeight(myCellHeight);
         return img;

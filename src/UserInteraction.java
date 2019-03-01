@@ -82,7 +82,7 @@ public class UserInteraction {
         }
     }
 
-    private void setColors(Paint[] paints) {
+    public void setColors(Paint[] paints) {
         myImages = false;
         myColors = paints;
     }
