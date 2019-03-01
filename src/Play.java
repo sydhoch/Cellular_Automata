@@ -16,7 +16,7 @@ import static javafx.scene.input.KeyCode.SPACE;
 
 
 public class Play {
-    private static final String FILE_NAME = "rps-grid-2.csv";
+    private static final String FILE_NAME = "pp-grid-1.csv";
     private static final int FRAMES_PER_SECOND = 1;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -46,7 +46,11 @@ public class Play {
     public Play() {
         if (FILE_NAME.substring(0,3).equals("Seg")) {
             myGrid = new SegGrid(FILE_NAME);
-        } else {
+        }
+        if(FILE_NAME.substring(0,2).equals("pp")){
+            myGrid = new PPGrid(FILE_NAME);
+        }
+        else{
             myGrid = new Grid(FILE_NAME);
         }
         myRoot = new Group();
@@ -93,6 +97,7 @@ public class Play {
         myGrid = mySideBar.getGrid();
         myImage = mySideBar.getImages();
     }
+
 
     private Node setView(int i, int j) {
         myCellWidth = SIM_SIZE / myGrid.getHeight();

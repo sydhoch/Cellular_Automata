@@ -111,8 +111,12 @@ public class UserInteraction {
         String gridName = SIMULATION_TYPES[simType].toLowerCase() + "-grid-" + String.valueOf(simNum+1) + ".csv";
         if (SIMULATION_TYPES[simType].equals("Seg")) {
             myGrid = new SegGrid(gridName);
-        } else {
-            myGrid = new Grid(gridName);
+        }
+        if(SIMULATION_TYPES[simType].equals("PP")){
+            myGrid = new PPGrid(gridName);
+        }
+        else{
+            myGrid = new Grid(gridName); //doesn't work (need to stop animation?)
         }
     }
 

@@ -13,7 +13,7 @@ public class GoLCell extends Cell {
      */
     @Override
     public void checkNeighborStatus(Cell[] neighbors){
-        int neighborsAlive = getNumOfAliveNeighbors(neighbors);
+        int neighborsAlive = getNeighborsOfState(1,neighbors).size();
         if(this.getState()==1){
             if(neighborsAlive<2 || neighborsAlive>3){
                 setNextState(0);
@@ -24,16 +24,6 @@ public class GoLCell extends Cell {
                 setNextState(1);
             }
         }
-    }
-
-    private int getNumOfAliveNeighbors(Cell[] neighbors){
-        int aliveNeighbors=0;
-        for(int i=0;i<neighbors.length;i++){
-            if(neighbors[i].getState()==1) {
-                aliveNeighbors++;
-            }
-        }
-        return aliveNeighbors;
     }
 
 
