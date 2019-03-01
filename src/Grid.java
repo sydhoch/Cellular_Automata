@@ -41,7 +41,6 @@ public class Grid {
     }
 
     protected Cell getCell(int row, int col) {
-        System.out.println(row + "    " + col);
         return myGrid[row][col];
     }
 

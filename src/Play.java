@@ -16,7 +16,7 @@ import static javafx.scene.input.KeyCode.SPACE;
 
 
 public class Play {
-    private static final String FILE_NAME = "rps-grid-1.csv";
+    private static final String FILE_NAME = "rps-grid-2.csv";
     private static final int FRAMES_PER_SECOND = 1;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -95,8 +95,8 @@ public class Play {
     }
 
     private Node setView(int i, int j) {
-        myCellHeight = SIM_SIZE / myGrid.getHeight();
-        myCellWidth = SIM_SIZE / myGrid.getWidth();
+        myCellWidth = SIM_SIZE / myGrid.getHeight();
+        myCellHeight = SIM_SIZE / myGrid.getWidth();
         if (myImage) {
             return setImage(i, j);
         } else {
@@ -134,9 +134,9 @@ public class Play {
     }
 
     protected void step(double elapsedTime) {
-        myGrid.setNextStates();
-        myGrid.updateStates();
-        displayStates();
+//        myGrid.setNextStates();
+//        myGrid.updateStates();
+//        displayStates();
     }
 
 
