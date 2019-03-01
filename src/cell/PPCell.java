@@ -1,5 +1,6 @@
 package cell;
 
+import javax.swing.plaf.synth.SynthDesktopIconUI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -26,6 +27,7 @@ public class PPCell extends Cell {
         //west = neighbors[3]
         //east = neighbors[4]
         //north = neighbors[6]
+        //System.out.println(this.getState());
         Cell[] neighbors2 = new Cell[4]; ///make get immediate neighbors in cell class too?
         neighbors2[0] = neighbors[1];
         neighbors2[1] = neighbors[3];
@@ -37,24 +39,24 @@ public class PPCell extends Cell {
         int count;
         if (this.getState() == 1 & !this.getStateWasSet()) {
             List<Cell> beforeCells = getNeighborsOfState(0, neighbors2);
-            for(int i=0;i<beforeCells.size();i++){
-                if(!((PPCell)beforeCells.get(i)).getStateWasSet()){
-                    cells.add(beforeCells.get(i));
-                }
-            }
-            count = cells.size();
+            count = getCount(cells, beforeCells);
             if (count != 0) {
+                handleBabies();
                 PPCell moveTo = (PPCell)cells.get(random.nextInt(count));
                 moveTo.setNextState(1);
                 moveTo.setNextWasSet(true);
                 moveTo.setBabyTime(this.getBabyTime() + 1);
-                handleBabies();
             }
         }
-        if (this.getState() == 2&& this.getEnergy()>0) {
-            cells = getNeighborsOfState(1, neighbors2);
-            count = cells.size();
+        if(this.getState()==2 && this.getEnergy()<=0){
+            this.setNextState(0);
+            this.setNextWasSet(true);
+        }
+        if (this.getState() == 2 && this.getEnergy()>0) {
+            List<Cell> beforeCells = getNeighborsOfState(1, neighbors2);
+            count = getCount(cells, beforeCells);
             if (count != 0) {
+                System.out.println("in here");
                 PPCell moveTo = (PPCell) cells.get(random.nextInt(count));
                 moveTo.setNextState(this.getState());
                 moveTo.setNextWasSet(true);
@@ -62,13 +64,8 @@ public class PPCell extends Cell {
                 moveTo.setEnergy(this.getEnergy()+1);
             }
             else{
-                List<Cell> beforeCells = getNeighborsOfState(0, neighbors2);
-                for(int i=0;i<beforeCells.size();i++){
-                    if(((PPCell)beforeCells.get(i)).getStateWasSet()==false){
-                        cells.add(cells.get(i));
-                    }
-                }
-                count = cells.size();
+                beforeCells = getNeighborsOfState(0, neighbors2);
+                count = getCount(cells, beforeCells);
                 if (count != 0) {
                     PPCell moveTo = (PPCell) cells.get(random.nextInt(count));
                     moveTo.setNextState(this.getState());
@@ -81,10 +78,26 @@ public class PPCell extends Cell {
         }
     }
 
+    private int getCount(List<Cell> cells, List<Cell> beforeCells) {
+        int count;
+        if(beforeCells.size()>0) {
+            for (int i = 0; i < beforeCells.size(); i++) {
+                if (!((PPCell) beforeCells.get(i)).getStateWasSet()) {
+                    cells.add(beforeCells.get(i));
+                }
+            }
+        }
+        count = cells.size();
+        return count;
+    }
+
     private void handleBabies(){
         if(this.getBabyTime()<BABY){
-            if((this.getStateWasSet()==false)){
+            System.out.println("in this one");
+            if(!this.getStateWasSet()){
+                System.out.println("but not this one");
                 this.setNextState(0);
+                this.setNextWasSet(true);
             }
         }
         else{

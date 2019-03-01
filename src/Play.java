@@ -91,6 +91,8 @@ public class Play {
         int cellHeight = SIM_SIZE / myGrid.getHeight();
         int cellWidth = SIM_SIZE / myGrid.getWidth();
         Rectangle ret = new Rectangle(cellHeight * i, cellWidth * j, cellHeight, cellWidth);
+        //System.out.println(myGrid.getCell(i, j).getState());
+        myGrid.getCell(i, j).getState();
         ret.setFill(setCellColor(myGrid.getCell(i, j).getState()));
         return ret;
     }

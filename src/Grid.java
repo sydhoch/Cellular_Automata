@@ -1,8 +1,4 @@
 import cell.Cell;
-import cell.GoLCell;
-import cell.PercCell;
-
-import java.util.Scanner;
 
 
 public class Grid {
@@ -20,7 +16,7 @@ public class Grid {
     protected void setNextStates() {
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
-                Cell[] neighbors = setNeighbors(i, j);
+                Cell[] neighbors = setNeighborsToroidal(i, j);
                 getCell(i, j).checkNeighborStatus(neighbors);
             }
         }
@@ -38,7 +34,7 @@ public class Grid {
         return myGrid[row][col];
     }
 
-    public Cell[] setNeighbors(int row, int col) { //break up
+    public Cell[] setNeighborsToroidal(int row, int col) { //break up
         Cell[] neighbors = new Cell[8];
         if (row == 0 && col == 0) {
             neighbors[0] = getCell(myHeight - 1, myWidth - 1);
