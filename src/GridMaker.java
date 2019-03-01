@@ -17,12 +17,9 @@ public class GridMaker {
         Scanner s = new Scanner(Play.class.getClassLoader().getResourceAsStream(gameFile));
         s.useDelimiter(",");
         myGameType = s.next();
-        //System.out.println(gameType);
         s.nextLine();
         myWidth = s.nextInt();
-        //System.out.println(myWidth);
         myHeight = s.nextInt();
-        //System.out.println(myHeight);
         Cell[][] myGrid = new Cell[myWidth][myHeight];
         s.nextLine();
         for (int i = 0; i < myHeight; i++) {

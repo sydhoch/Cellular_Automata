@@ -1,11 +1,15 @@
 import cell.Cell;
 
+import java.util.ResourceBundle;
+
 
 public class Grid {
     private int myWidth;
     private int myHeight;
     private Cell[][] myGrid;
     private String myType;
+    public static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
+    ResourceBundle myResources;
 
     public Grid(String file) {
         GridMaker maker = new GridMaker(file);
