@@ -1,130 +1,120 @@
 import cell.Cell;
-import cell.GoLCell;
-import cell.PercCell;
-
-import java.util.Scanner;
 
 
 public class Grid {
     private int myWidth;
     private int myHeight;
     private Cell[][] myGrid;
+    private String myType;
 
     public Grid(String file) {
-        myGrid = getGrid(file);
+        GridMaker maker = new GridMaker(file);
+        myHeight = maker.getHeight();
+        myWidth = maker.getWidth();
+        myGrid = maker.getGrid();
+        myType = maker.getGameType();
     }
 
-    private Cell[][] getGrid(String gameFile) {
-        Scanner s = new Scanner(Play.class.getClassLoader().getResourceAsStream(gameFile));
-        s.useDelimiter(",");
-        var gameType = s.next();
-        //System.out.println(gameType);
-        s.nextLine();
-        myWidth = s.nextInt();
-        System.out.println(myWidth);
-        myHeight = s.nextInt();
-        System.out.println(myHeight + "height");
-        Cell[][] myGrid = new Cell[myWidth][myHeight];
-        s.nextLine();
+    public String getType(){
+        return myType;
+    }
+
+    protected void setNextStates() {
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
-                int temp = s.nextInt();
-                if (gameType.equals("Perc")) {
-                    myGrid[j][i] = new PercCell(temp);
-                } else if (gameType.equals("GoL")) {
-                    myGrid[j][i] = new GoLCell(temp);
-                }
+                Cell[] neighbors = setNeighborsToroidal(i, j);
+                getCell(i, j).checkNeighborStatus(neighbors);
             }
-            s.nextLine();
         }
-        return myGrid;
     }
 
-
-    public int getWidth() {
-        return myWidth;
+    protected void updateStates() {
+        for (int i = 0; i < myHeight; i++) {
+            for (int j = 0; j < myWidth; j++) {
+                getCell(i, j).updateCell();
+            }
+        }
     }
 
-    public int getHeight() {
-        return myHeight;
-    }
-
-    public Cell getCell(int row, int col) {
+    protected Cell getCell(int row, int col) {
         return myGrid[row][col];
     }
-//TODO: figure out error
-    public Cell[] setNeighbors(int row, int col) { //break up
+
+    public Cell[] setNeighborsToroidal(int row, int col) { //break up
         Cell[] neighbors = new Cell[8];
-        try {
+        if (row == 0 && col == 0) {
+            neighbors[0] = getCell(myHeight - 1, myWidth - 1);
+        } else if (row == 0) {
+            neighbors[0] = getCell(myHeight - 1, col - 1);
+        } else if (col == 0) {
+            neighbors[0] = getCell(row - 1, myWidth - 1);
+        } else {
             neighbors[0] = getCell(row - 1, col - 1);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            if (row == 0 && col == 0) {
-                neighbors[0] = getCell(myHeight - 1, myWidth - 1);
-            } else if (row == 0) {
-                neighbors[0] = getCell(myHeight - 1, col - 1);
-            } else if (col == 0) {
-                neighbors[0] = getCell(row - 1, myWidth - 1);
-            }
         }
-        try {
-            neighbors[1] = getCell(row - 1, col);
-        } catch (ArrayIndexOutOfBoundsException e) {
+
+        if (row == 0) {
             neighbors[1] = getCell(myHeight - 1, col);
+        } else {
+            neighbors[1] = getCell(row - 1, col);
         }
-        try {
+
+        if (row == 0 && col == myWidth - 1) {
+            neighbors[2] = getCell(myHeight - 1, 0);
+        } else if (row == 0) {
+            neighbors[2] = getCell(myHeight - 1, col + 1);
+        } else if (col == myWidth - 1) {
+            neighbors[2] = getCell(row - 1, 0);
+        } else {
             neighbors[2] = getCell(row - 1, col + 1);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            if (row == 0 && col == myWidth - 1) {
-                neighbors[2] = getCell(myHeight - 1, 0);
-            } else if (row == 0) {
-                neighbors[2] = getCell(myHeight - 1, col + 1);
-            } else if (col == myWidth - 1) {
-                neighbors[2] = getCell(row - 1, 0);
-            }
         }
-        try {
+
+        if (col == 0) {
+            neighbors[3] = getCell(row, myWidth - 1);
+        } else {
             neighbors[3] = getCell(row, col - 1);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            neighbors[3] = getCell(row, myWidth-1);
         }
-        try {
-            neighbors[4] = getCell(row, col + 1);
-        } catch (ArrayIndexOutOfBoundsException e) {
+
+        if (col == myWidth - 1) {
             neighbors[4] = getCell(row, 0);
+        } else {
+            neighbors[4] = getCell(row, col + 1);
         }
-        try {
+
+        if (row == myHeight - 1 && col == 0) {
+            neighbors[5] = getCell(0, myWidth - 1);
+        } else if (row == myHeight - 1) {
+            neighbors[5] = getCell(0, col - 1);
+        } else if (col == 0) {
+            neighbors[5] = getCell(row + 1, myWidth - 1);
+        } else {
             neighbors[5] = getCell(row + 1, col - 1);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            if (row == myHeight - 1 && col == 0) {
-                neighbors[5] = getCell(0, myWidth - 1);
-            } else if (row == myHeight - 1) {
-                neighbors[5] = getCell(0, col - 1);
-            } else if (col == 0) {
-                neighbors[5] = getCell(row + 1, myWidth - 1);
-            }
         }
-        try {
-            neighbors[6] = getCell(row + 1, col);
-        } catch (ArrayIndexOutOfBoundsException e) {
+
+        if (row == myWidth - 1) {
             neighbors[6] = getCell(0, col);
+        } else {
+            neighbors[6] = getCell(row + 1, col);
         }
-        try {
+
+
+        if (row == myHeight - 1 && col == myWidth - 1) {
+            neighbors[7] = getCell(0, 0);
+        } else if (row == myHeight - 1) {
+            neighbors[7] = getCell(0, col + 1);
+        } else if (col == myWidth - 1) {
+            neighbors[7] = getCell(row + 1, 0);
+        } else {
             neighbors[7] = getCell(row + 1, col + 1);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            if (row == myHeight - 1 && col == myWidth - 1) {
-                neighbors[7] = getCell(0, 0);
-            } else if (row == myHeight - 1) {
-                neighbors[7] = getCell(0, col + 1);
-            } else if (col == myWidth - 1) {
-                neighbors[7] = getCell(row + 1, 0);
-            }
         }
         return neighbors;
     }
 
-    public Cell[][] getGrid(){
+    protected int getWidth() { return myWidth; }
+
+    protected int getHeight() { return myHeight; }
+
+    public Cell[][] getGrid() {
         return myGrid;
     }
-
 
 }

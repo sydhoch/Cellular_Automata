@@ -1,4 +1,6 @@
 package cell;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Cell extends Object{
     private int myState;
@@ -31,7 +33,18 @@ public abstract class Cell extends Object{
     public abstract void checkNeighborStatus(Cell[] neighbors);
 
 
-    protected void setNextState(int nextState){
+    protected List<Cell> getNeighborsOfState(int state, Cell[] neighbors){
+        List<Cell> cellList = new ArrayList<>();
+        for(int i=0;i<neighbors.length;i++){
+            if(neighbors[i].getState()==state){
+                cellList.add(neighbors[i]);
+            }
+        }
+        return cellList;
+    }
+
+
+    public void setNextState(int nextState){
         myNextState = nextState;
     }
 
