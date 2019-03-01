@@ -123,7 +123,7 @@ public class Play {
 
     protected void step(double elapsedTime) {
         myGrid.setNextStates();
-        myGrid.updateStates();
+        myGrid.updateStates(git );
         displayStates();
     }
 
