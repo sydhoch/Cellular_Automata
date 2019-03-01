@@ -16,6 +16,7 @@ public class SegCell extends Cell{
     public void checkNeighborStatus(Cell[] neighbors){
         if(this.getState()==0){
             setSatisfaction(1);
+            //setSatisfaction(100);
         }
         else{
             setSatisfaction(computeSatisfaction(neighbors,this.getState()));
@@ -44,5 +45,9 @@ public class SegCell extends Cell{
         mySatisfaction=satisfaction;
     }
 
+
     public boolean isSatisfied(){ return mySatisfaction>THRESHOLD; }
+    public double getSatisfaction(){
+        return mySatisfaction;
+    }
 }

@@ -80,17 +80,42 @@ public class CellTest {
         s1.checkNeighborStatus(neighbors);
         boolean expected = false;
         boolean actual = s1.isSatisfied();
+    }
+
+    @Test
+    public void setRockToPaper(){
+        Cell[] neighbors = {r0,r1,r1,r1,r1,r2};
+        r0.checkNeighborStatus(neighbors);
+        int expected = 1;
+        int actual = r0.getNextState();
         assertEquals(expected,actual);
     }
 
     @Test
-    public void SegNotSatisfied2(){
-        Cell[] neighbors = {s0,s2,s2,s0};
+    public void SegNotSatisfied2() {
+        Cell[] neighbors = {s0, s2, s2, s0};
         s1.checkNeighborStatus(neighbors);
         boolean expected = false;
         boolean actual = s1.isSatisfied();
+    }
+
+    public void rockStays(){
+        Cell[] neighbors = {r0,r1,r1,r1,r2};
+        r0.checkNeighborStatus(neighbors);
+        int expected = 0;
+        int actual = r0.getNextState();
         assertEquals(expected,actual);
     }
+
+    @Test
+    public void scissorsToRock(){
+        Cell[] neighbors = {r0,r0,r0,r0,r1,r1,r1,r1};
+        r2.checkNeighborStatus(neighbors);
+        int expected = 0;
+        int actual = r2.getNextState();
+        assertEquals(expected,actual);
+    }
+
 
     @Test
     public void SegSatisfied(){

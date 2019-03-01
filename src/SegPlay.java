@@ -25,6 +25,7 @@ public class SegPlay extends Play {
 //    }
 
     //@Override
+
     protected void updateStates() {
 //        for (int i = 0; i < myGrid.getHeight(); i++) {
 //            for (int j = 0; j < myGrid.getWidth(); j++) {

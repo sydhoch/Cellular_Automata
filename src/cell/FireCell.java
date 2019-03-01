@@ -1,10 +1,13 @@
 package cell;
+
 import java.lang.Math;
+
 
 public class FireCell extends Cell{
     //0 = empty
     //1 = tree
     //2 = burning
+
     private static final double PROB_CATCH = .15;
 
     public FireCell(int state){
@@ -17,6 +20,7 @@ public class FireCell extends Cell{
         //west = neighbors[3]
         //east = neighbors[4]
         //north = neighbors[6]
+
         Cell[] neighbors2 = new Cell[4];
         neighbors2[0] = neighbors[1];
         neighbors2[1] = neighbors[3];
@@ -36,5 +40,6 @@ public class FireCell extends Cell{
                 }
             }
         }
+
     }
 }

@@ -3,9 +3,14 @@ import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+
+import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
+
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -16,14 +21,13 @@ import static javafx.scene.input.KeyCode.SPACE;
 
 
 public class Play {
-
-
     private static final String FILE_NAME = "gol-grid-1.csv";
     private static final int FRAMES_PER_SECOND = 1;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private static final int SIM_SIZE = 500;
     private static final int WINDOW_WIDTH = SIM_SIZE + 300;
+
     private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
     private static final String STYLESHEET = "default.css";
     private static final String IMAGES_RESOURCE = "Images";
@@ -73,6 +77,7 @@ public class Play {
         Scene scene = new Scene(myRoot, width, height);
         scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
         scene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + STYLESHEET).toExternalForm());
+
         return scene;
     }
 
@@ -109,7 +114,6 @@ public class Play {
         return rect;
     }
 
-
     private ImageView setImage(int i, int j) {
         String image_file = IMAGE_FOLDER + myImages.getString(myGrid.getType() + myGrid.getCell(i, j).getState());
         Image preImage = new Image(this.getClass().getClassLoader().getResourceAsStream(image_file));
@@ -133,7 +137,6 @@ public class Play {
             step(0);
         }
     }
-
 
 }
 

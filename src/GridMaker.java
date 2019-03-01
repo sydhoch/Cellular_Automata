@@ -43,6 +43,27 @@ public class GridMaker {
         return myGrid;
     }
 
+//    private Cell[][] getGrid(String gameFile) {
+//        Scanner s = new Scanner(Play.class.getClassLoader().getResourceAsStream(gameFile));
+//        s.useDelimiter(",");
+//        var gameType = s.next();
+//        //System.out.println(gameType);
+//        s.nextLine();
+//        myWidth = s.nextInt();
+//        System.out.println(myWidth);
+//        myHeight = s.nextInt();
+//        System.out.println(myHeight + "height");
+//        Cell[][] myGrid = new Cell[myWidth][myHeight];
+//        s.nextLine();
+//        for (int i = 0; i < myHeight; i++) {
+//            for (int j = 0; j < myWidth; j++) {
+//                int temp = s.nextInt();
+//                if (gameType.equals("Perc")) {
+//                    myGrid[j][i] = new PercCell(temp);
+//                } else if (gameType.equals("GoL")) {
+//                    myGrid[j][i] = new GoLCell(temp);
+//                }
+
     public int getWidth() {
         return myWidth;
     }
