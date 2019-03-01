@@ -50,7 +50,11 @@ public class Play {
         GridMaker maker = new GridMaker(FILE_NAME);
         if (maker.getGameType().equals("Seg")) {
             myGrid = new SegGrid(FILE_NAME);
-        } else {
+        }
+        if(maker.getGameType().equals("PP")){
+            myGrid = new PPGrid(FILE_NAME);
+        }
+        else{
             myGrid = new Grid(FILE_NAME);
         }
         myRoot = new Group();
@@ -96,6 +100,7 @@ public class Play {
         myGrid = mySideBar.getGrid();
         myImage = mySideBar.getImages();
     }
+
 
     private Node setView(int i, int j) {
         myCellHeight = SIM_SIZE / myGrid.getHeight();

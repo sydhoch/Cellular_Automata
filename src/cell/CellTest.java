@@ -23,6 +23,10 @@ public class CellTest {
     private FireCell f1;
     private FireCell f2;
 
+    private PPCell pp0;
+    private PPCell pp1;
+    private PPCell pp2;
+
     @BeforeEach
     void setup(){
          p0 = new PercCell(0);
@@ -43,11 +47,33 @@ public class CellTest {
          f0 = new FireCell(0);
          f1 = new FireCell(1);
          f2 = new FireCell(2);
+
+         pp0 = new PPCell(0);
+         pp1 = new PPCell(1);
+         pp2 = new PPCell(2);
+    }
+
+    @Test
+    public void PPfishMoved(){
+        Cell[] neighbors = {pp0,pp1,pp0,pp0,pp0,pp0,pp0};
+        pp1.checkNeighborStatus(neighbors);
+        int expected = 0;
+        int actual = pp1.getNextState();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void PPsharkMoved(){
+        Cell[] neighbors = {pp1,pp1,pp1,pp1,pp1,pp1,pp1};
+        pp2.checkNeighborStatus(neighbors);
+        int expected = 0;
+        int actual = pp2.getNextState();
+        assertEquals(expected,actual);
     }
 
     @Test
     public void FireBurningToEmpty(){
-        Cell[] neighbors = {f0,f1,f2};
+        Cell[] neighbors = {f0,f1,f2,f0,f0,f0,f0};
         f2.checkNeighborStatus(neighbors);
         int expected = 0;
         int actual = f2.getNextState();
@@ -57,7 +83,7 @@ public class CellTest {
 
     @Test
     public void FireEmptyToEmpty(){
-        Cell[] neighbors = {f0,f1,f2};
+        Cell[] neighbors = {f0,f1,f2,f0,f0,f0,f0};
         f0.checkNeighborStatus(neighbors);
         int expected = 0;
         int actual = f0.getNextState();

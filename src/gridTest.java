@@ -61,7 +61,7 @@ class GridTest {
     }
 
     void compareCells(Grid myGrid, Cell[] expected, int row, int col){
-        Cell[] actual = myGrid.setNeighbors(row, col);
+        Cell[] actual = myGrid.setNeighborsToroidal(row, col);
         for(int i = 0; i < 8; i++){
             assertEquals(expected[i].getState(), actual[i].getState());
         }

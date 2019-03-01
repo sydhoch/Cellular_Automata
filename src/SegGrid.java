@@ -1,7 +1,7 @@
 import cell.Cell;
 
 import java.util.*;
-import java.lang.Math;
+
 import cell.SegCell;
 
 public class SegGrid extends Grid{
@@ -15,9 +15,9 @@ public class SegGrid extends Grid{
         for (int i = 0; i < getHeight(); i++) {
             for (int j = 0; j < getWidth(); j++) {
                 if(getCell(i,j).getState()==0){
-                    emptyCells.add((SegCell)getCell(i,j));
+                    emptyCells.add(getCell(i,j));
                 }
-                Cell[] neighbors = setNeighbors(i, j);
+                Cell[] neighbors = setNeighborsToroidal(i, j);
                 getCell(i, j).checkNeighborStatus(neighbors);
 
             }
