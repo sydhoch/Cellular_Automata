@@ -1,4 +1,4 @@
-import cell.Cell;
+import cell.*;
 
 import java.util.*;
 
@@ -9,7 +9,7 @@ public class Grid {
     private int myWidth;
     private int myHeight;
     private Cell[][] myGrid;
-    private String myType;
+    private SimType myGameType;
     private Shape myShape;
     private Arrangement myArr;
     private Edge myEdge;
@@ -17,16 +17,47 @@ public class Grid {
     private Map<Integer, List<Integer[]>> myCellStates;
 
     public Grid(String file) {
-        GridMaker maker = new GridMaker(file);
-        myHeight = maker.getHeight();
-        myWidth = maker.getWidth();
-        myGrid = maker.getGrid();
-        myType = maker.getGameType();
         myCellStates = new HashMap<>();
+        myGrid = makeGrid(file);
     }
 
-    public String getType(){
-        return myType;
+    private Cell[][] makeGrid(String gameFile) {
+        Scanner s = new Scanner(Play.class.getClassLoader().getResourceAsStream(gameFile));
+        String csv = "";
+        while (s.hasNext()) {
+            csv = csv + s.next();
+        }
+        String[] seperatedVals = csv.split(",");
+        myGameType = SimType.valueOf(seperatedVals[0].toUpperCase());
+        myWidth = Integer.valueOf(seperatedVals[4]);
+        myHeight = Integer.valueOf(seperatedVals[5]);
+        Cell[][] grid = new Cell[myHeight][myWidth];
+        int cell = 8;
+        for (int i = 0; i < myHeight; i++) {
+            for (int j = 0; j < myWidth; j++) {
+                int state = Integer.valueOf(seperatedVals[cell]);
+                if (myGameType.equals(SimType.PERC)) {
+                    grid[i][j] = new PercCell(state);
+                } else if (myGameType.equals(SimType.GOL)) {
+                    grid[i][j] = new GoLCell(state);
+                } else if (myGameType.equals(SimType.RPS)) {
+                    grid[i][j] = new RPSCell(state);
+                } else if (myGameType.equals(SimType.SEG)) {
+                    grid[i][j] = new SegCell(state);
+                } else if (myGameType.equals(SimType.FIRE)) {
+                    grid[i][j] = new FireCell(state);
+                } else if (myGameType.equals(SimType.PP)) {
+                    grid[i][j] = new PPCell(state);
+                }
+                addToMap(i, j, grid[i][j]);
+                cell++;
+            }
+        }
+        return grid;
+    }
+
+    public SimType getType(){
+        return myGameType;
     }
 
     protected void setNextStates() {

@@ -15,7 +15,7 @@ public class UserInteraction {
     private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
     private static final String SIDEBAR_RESOURCE = "SideBar";
     private static final int[] COLUMN_POSITION = {510, 610, 710, 740, 770};
-    private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420};
+    private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500};
     private static final Paint[][] PAINT_COLORS = {{Color.BLUE, Color.CYAN, Color.SKYBLUE}, {Color.RED, Color.MISTYROSE, Color.MAROON}};
     private static final Double[] SPEED = {.5, 1.0, 2.0};
     private static final SimType[] SIMULATION_TYPES = {SimType.FIRE, SimType.GOL, SimType.PERC, SimType.PP, SimType.RPS, SimType.SEG};
@@ -49,9 +49,9 @@ public class UserInteraction {
     }
 
     private void addLoadingButtons(List<Shape> shapes) {
-        shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[0], "LoadLabel", null));
+        shapes.add(new Text(COLUMN_POSITION[0], ROW_POSITION[0], "LoadLabel"));
         for (int i = 0; i < SIMULATION_TYPES.length; i++) {
-            shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[1 + i], SIMULATION_TYPES[i].toString(), null));
+            shapes.add(new Text(COLUMN_POSITION[0], ROW_POSITION[1 + i], SIMULATION_TYPES[i].toString()));
             for (int j = 0; j < 3; j++) {
                 int type = i;
                 int num = j;
@@ -67,7 +67,7 @@ public class UserInteraction {
 
 
     private void addSpeedButtons(List<Shape> shapes) {
-        shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[12], "SpeedLabel", null));
+        shapes.add(new Text(COLUMN_POSITION[0], ROW_POSITION[12], "SpeedLabel"));
         for (int i = 0; i < 3; i++) {
             int speed = i;
             shapes.add(makeButton(COLUMN_POSITION[i], ROW_POSITION[13], "Speed" + String.valueOf(i), e -> setSpeed(speed)));
@@ -75,7 +75,7 @@ public class UserInteraction {
     }
 
     private void addColorButtons(List<Shape> shapes) {
-        shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[15], "ColorLabel", null));
+        shapes.add(new Text(COLUMN_POSITION[0], ROW_POSITION[15], "ColorLabel"));
         shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[16], "Images", e -> setImages()));
         for (int i = 0; i < 2; i++) {
             Paint[] paintColors = PAINT_COLORS[i];
@@ -84,7 +84,10 @@ public class UserInteraction {
     }
 
     private void addSimInfo(List<Shape> shapes){
-
+        for(int i = 0; i < 3; i++) {
+            shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[20+i], myGrid.getType().toString() + i, null));
+            shapes.add(new Text(COLUMN_POSITION[3], ROW_POSITION[20+i], String.valueOf(myGrid.getCellsInState(i).size())));
+        }
     }
 
     public void setColors(Paint[] paints) {
@@ -114,15 +117,7 @@ public class UserInteraction {
 
     private void setGrid(int simType, int simNum) {
         String gridName = SIMULATION_TYPES[simType].toString().toLowerCase() + "-grid-" + String.valueOf(simNum+1) + ".csv";
-        if (SIMULATION_TYPES[simType].equals("Seg")) {
-            myGrid = new SegGrid(gridName);
-        }
-        if(SIMULATION_TYPES[simType].equals("PP")){
-            myGrid = new PPGrid(gridName);
-        }
-        else{
             myGrid = new Grid(gridName); //doesn't work (need to stop animation?)
-        }
     }
 
     public Grid getGrid() {
