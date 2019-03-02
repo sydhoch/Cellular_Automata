@@ -19,6 +19,8 @@ public class Grid {
         return myType;
     }
 
+    //method that processes grid into hashmap of different states
+
     protected void setNextStates() {
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {

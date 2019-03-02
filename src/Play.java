@@ -78,7 +78,6 @@ public class Play {
         Scene scene = new Scene(myRoot, width, height);
         scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
         scene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + STYLESHEET).toExternalForm());
-
         return scene;
     }
 

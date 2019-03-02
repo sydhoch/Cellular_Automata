@@ -19,7 +19,6 @@ public class SegGrid extends Grid{
                 }
                 Cell[] neighbors = setNeighborsToroidal(i, j);
                 getCell(i, j).checkNeighborStatus(neighbors);
-
             }
         }
         Random random = new Random();

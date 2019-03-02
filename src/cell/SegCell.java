@@ -1,5 +1,7 @@
 package cell;
 
+import java.util.ArrayList;
+
 public class SegCell extends Cell{
     //0 = empty
     //1 = jewish
