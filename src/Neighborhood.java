@@ -1,8 +1,8 @@
 public class Neighborhood {
-//    public Neighborhood(shape, arrangement, edge){
-//       setshape;
-//       setarr;
-//       setedge;
-//
-//    }
+    public Neighborhood(Shape shape, Arrangement arr, Edge edge){
+       setshape;
+       setarr;
+       setedge;
+
+    }
 }
