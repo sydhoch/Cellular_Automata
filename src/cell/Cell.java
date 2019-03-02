@@ -32,9 +32,9 @@ public abstract class Cell extends Object{
      * Checks the neighbors and changes the state of the current cell if necessary
      * @param neighbors
      */
-    //public abstract void checkNeighborStatus(Cell[] neighbors);
+    public abstract void checkNeighborStatus(Cell[] neighbors);
 
-    public abstract void checkNeighborStatus(Cell[] neighbors, HashMap<Integer, ArrayList<Cell>> cellStates);
+    //public abstract void checkNeighborStatus(Cell[] neighbors, HashMap<Integer, ArrayList<Cell>> cellStates);
 
     protected List<Cell> getNeighborsOfState(int state, Cell[] neighbors){
         List<Cell> cellList = new ArrayList<>();

@@ -1,9 +1,11 @@
 import cell.Cell;
 
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 public class Grid {
+    private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
+
     private int myWidth;
     private int myHeight;
     private Cell[][] myGrid;
@@ -11,8 +13,8 @@ public class Grid {
     private Shape myShape;
     private Arrangement myArr;
     private Edge myEdge;
-    public static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
-    ResourceBundle myResources;
+    private ResourceBundle myResources;
+    private Map<Integer, List<Integer[]>> myCellStates;
 
     public Grid(String file) {
         GridMaker maker = new GridMaker(file);
@@ -20,19 +22,18 @@ public class Grid {
         myWidth = maker.getWidth();
         myGrid = maker.getGrid();
         myType = maker.getGameType();
+        myCellStates = new HashMap<>();
     }
 
     public String getType(){
         return myType;
     }
 
-    //method that processes grid into hashmap of different states
-
     protected void setNextStates() {
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
-                Cell[] neighbors = setNeighborsToroidal(i, j);
-                getCell(i, j).checkNeighborStatus(neighbors);
+                //Cell[] neighbors = setNeighborsToroidal(i, j);
+                //getCell(i, j).checkNeighborStatus(neighbors);
             }
         }
     }
@@ -44,6 +45,7 @@ public class Grid {
             }
         }
     }
+
 
     protected Cell getCell(int row, int col) {
         return myGrid[row][col];
@@ -129,6 +131,10 @@ public class Grid {
 
     public Cell[][] getGrid() {
         return myGrid;
+    }
+
+    public List<Integer[]> getCellsInState(int state){
+        return myCellStates.get(state);
     }
 
 }
