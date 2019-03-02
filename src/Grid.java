@@ -1,5 +1,7 @@
 import cell.Cell;
 
+import java.util.ResourceBundle;
+
 
 public class Grid {
     private int myWidth;
@@ -9,6 +11,8 @@ public class Grid {
     private Shape myShape;
     private Arrangement myArr;
     private Edge myEdge;
+    public static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
+    ResourceBundle myResources;
 
     public Grid(String file) {
         GridMaker maker = new GridMaker(file);
