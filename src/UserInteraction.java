@@ -18,7 +18,7 @@ public class UserInteraction {
     private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420};
     private static final Paint[][] PAINT_COLORS = {{Color.BLUE, Color.CYAN, Color.SKYBLUE}, {Color.RED, Color.MISTYROSE, Color.MAROON}};
     private static final Double[] SPEED = {.5, 1.0, 2.0};
-    private static final String[] SIMULATION_TYPES = {"Fire", "GoL", "Perc", "RPS", "Seg", "PP"};
+    private static final SimType[] SIMULATION_TYPES = {SimType.FIRE, SimType.GOL, SimType.PERC, SimType.PP, SimType.RPS, SimType.SEG};
 
     private List<Shape> myButtons;
     private Grid myGrid;
@@ -50,7 +50,7 @@ public class UserInteraction {
     private void addLoadingButtons(List<Shape> shapes) {
         shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[0], "LoadLabel", null));
         for (int i = 0; i < SIMULATION_TYPES.length; i++) {
-            shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[1 + i], SIMULATION_TYPES[i], null));
+            shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[1 + i], SIMULATION_TYPES[i].toString(), null));
             for (int j = 0; j < 3; j++) {
                 int type = i;
                 int num = j;
@@ -100,7 +100,7 @@ public class UserInteraction {
     }
 
     private Text makeButton(int xpos, int ypos, String property, EventHandler<MouseEvent> handler) {
-        Text result = new Text(xpos, ypos, myResources.getString(property));
+        Text result = new Text(xpos, ypos, myResources.getString(property.toString()));
         if (handler != null) {
             result.setOnMouseClicked(handler);
         }
@@ -108,7 +108,7 @@ public class UserInteraction {
     }
 
     private void setGrid(int simType, int simNum) {
-        String gridName = SIMULATION_TYPES[simType].toLowerCase() + "-grid-" + String.valueOf(simNum+1) + ".csv";
+        String gridName = SIMULATION_TYPES[simType].toString().toLowerCase() + "-grid-" + String.valueOf(simNum+1) + ".csv";
         if (SIMULATION_TYPES[simType].equals("Seg")) {
             myGrid = new SegGrid(gridName);
         }

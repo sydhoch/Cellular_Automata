@@ -1,7 +1,8 @@
 public enum SimType {
-    PERC,
-    GOL,
-    SEG,
     FIRE,
-    RPS;
+    GOL,
+    PERC,
+    PP,
+    RPS,
+    SEG;
 }
