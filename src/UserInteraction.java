@@ -44,6 +44,7 @@ public class UserInteraction {
         addTimelineButtons(buttons);
         addSpeedButtons(buttons);
         addColorButtons(buttons);
+        addSimInfo(buttons);
         return buttons;
     }
 
@@ -82,6 +83,10 @@ public class UserInteraction {
         }
     }
 
+    private void addSimInfo(List<Shape> shapes){
+
+    }
+
     public void setColors(Paint[] paints) {
         myImages = false;
         myColors = paints;
@@ -100,7 +105,7 @@ public class UserInteraction {
     }
 
     private Text makeButton(int xpos, int ypos, String property, EventHandler<MouseEvent> handler) {
-        Text result = new Text(xpos, ypos, myResources.getString(property.toString()));
+        Text result = new Text(xpos, ypos, myResources.getString(property));
         if (handler != null) {
             result.setOnMouseClicked(handler);
         }
