@@ -51,16 +51,16 @@ public class UserInteraction {
         for (int i = 0; i < SIMULATION_TYPES.length; i++) {
             shapes.add(new Text(COLUMN_POSITION[0], ROW_POSITION[1 + i], myResources.getString(SIMULATION_TYPES[i].toString())));
             for (int j = 0; j < 3; j++) {
-                int type = i;
+                SimType s = SIMULATION_TYPES[i];
                 int num = j;
-                shapes.add(makeButton(COLUMN_POSITION[2 + j], ROW_POSITION[1 + i], String.valueOf(j), e -> setGrid(type, num)));
+                shapes.add(makeButton(COLUMN_POSITION[2 + j], ROW_POSITION[1 + i], String.valueOf(j), e -> setGrid(s, num+1)));
             }
         }
     }
 
     private void addTimelineButtons(List<Shape> shapes) {
         shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[8], "PauseResumeButton", e -> pauseOrResume()));
-        shapes.add(makeButton(COLUMN_POSITION[2], ROW_POSITION[8], "RestartButton", e -> restart()));
+        shapes.add(makeButton(COLUMN_POSITION[2], ROW_POSITION[8], "RestartButton", e -> setGrid(myGrid.getType(), myGrid.getSimNum())));
         shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[10], "StepThroughButton", e -> stepThrough()));
     }
 
@@ -69,7 +69,7 @@ public class UserInteraction {
         shapes.add(new Text(COLUMN_POSITION[0], ROW_POSITION[12], "SpeedLabel"));
         for (int i = 0; i < 3; i++) {
             int speed = i;
-            shapes.add(makeButton(COLUMN_POSITION[i], ROW_POSITION[13], "Speed" + String.valueOf(i), e -> setSpeed(speed)));
+            shapes.add(makeButton(COLUMN_POSITION[i], ROW_POSITION[13], "Speed" + i, e -> setSpeed(speed)));
         }
     }
 
@@ -78,7 +78,7 @@ public class UserInteraction {
         shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[16], "Images", e -> setImages()));
         for (int i = 0; i < 2; i++) {
             Paint[] paintColors = PAINT_COLORS[i];
-            shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[17 + i], "ColorScheme" + String.valueOf(i), e -> setColors(paintColors)));
+            shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[17 + i], "ColorScheme" + i, e -> setColors(paintColors)));
         }
     }
 
@@ -94,12 +94,6 @@ public class UserInteraction {
             }
         }
     }
-
-    private void restart(){
-        myAnimation.stop();
-        myAnimation.play();
-    }
-
 
     public void setColors(Paint[] paints) {
         myImages = false;
@@ -124,9 +118,9 @@ public class UserInteraction {
         return result;
     }
 
-    private void setGrid(int simType, int simNum) {
-        String gridName = SIMULATION_TYPES[simType].toString().toLowerCase() + "-grid-" + String.valueOf(simNum+1) + ".csv";
-            myGrid = new Grid(gridName);
+    private void setGrid(SimType simType, int simNum) {
+        String gridName = simType.toString().toLowerCase() + "-grid-" + simNum + ".csv";
+        myGrid = new Grid(gridName); //issues...
     }
 
     public Grid getGrid() {

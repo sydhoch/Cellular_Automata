@@ -10,6 +10,7 @@ public class Grid {
     private int myHeight;
     private Cell[][] myGrid;
     private SimType myGameType;
+    private int simNum;
     private Shape myShape;
     private Arrangement myArr;
     private Edge myEdge;
@@ -19,6 +20,7 @@ public class Grid {
     public Grid(String file) {
         myCellStates = new HashMap<>();
         myGrid = makeGrid(file);
+        simNum = Integer.valueOf(file.substring(file.length()-5, file.length()-4));
     }
 
     private Cell[][] makeGrid(String gameFile) {
@@ -173,6 +175,10 @@ public class Grid {
 
     public List<Integer[]> getCellsInState(int state){
             return myCellStates.get(state);
+    }
+
+    public int getSimNum(){
+        return simNum;
     }
 
 }
