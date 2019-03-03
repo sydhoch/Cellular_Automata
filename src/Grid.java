@@ -172,7 +172,7 @@ public class Grid {
     }
 
     public List<Integer[]> getCellsInState(int state){
-        return myCellStates.get(state);
+            return myCellStates.get(state);
     }
 
 }

@@ -20,7 +20,6 @@ public class UserInteraction {
     private static final Double[] SPEED = {.5, 1.0, 2.0};
     private static final SimType[] SIMULATION_TYPES = {SimType.FIRE, SimType.GOL, SimType.PERC, SimType.PP, SimType.RPS, SimType.SEG};
 
-    private List<Shape> myButtons;
     private Grid myGrid;
     private Timeline myAnimation;
     private ResourceBundle myResources;
@@ -32,7 +31,6 @@ public class UserInteraction {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SIDEBAR_RESOURCE);
         myGrid = grid;
         myAnimation = animation;
-        myButtons = setButtons();
         myStepThrough = false;
         myColors = PAINT_COLORS[0];
         myImages = true;
@@ -86,9 +84,16 @@ public class UserInteraction {
     private void addSimInfo(List<Shape> shapes){
         for(int i = 0; i < 3; i++) {
             shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[20+i], myGrid.getType().toString() + i, null));
-            shapes.add(new Text(COLUMN_POSITION[3], ROW_POSITION[20+i], String.valueOf(myGrid.getCellsInState(i).size())));
+            if(myGrid.getCellsInState(i) != null) {
+                shapes.add(new Text(COLUMN_POSITION[3], ROW_POSITION[20 + i], String.valueOf(myGrid.getCellsInState(i).size())));
+            }
+            else{
+                shapes.add(new Text(COLUMN_POSITION[3], ROW_POSITION[20 + i], "0"));
+
+            }
         }
     }
+
 
     public void setColors(Paint[] paints) {
         myImages = false;
@@ -124,9 +129,8 @@ public class UserInteraction {
         return myGrid;
     }
 
-
     public List<Shape> getButtons() {
-        return myButtons;
+        return setButtons();
     }
 
     private void pauseOrResume() {
