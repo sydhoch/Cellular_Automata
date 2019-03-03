@@ -117,7 +117,7 @@ public class UserInteraction {
 
     private void setGrid(int simType, int simNum) {
         String gridName = SIMULATION_TYPES[simType].toString().toLowerCase() + "-grid-" + String.valueOf(simNum+1) + ".csv";
-            myGrid = new Grid(gridName); //doesn't work (need to stop animation?)
+            myGrid = new Grid(gridName);
     }
 
     public Grid getGrid() {
