@@ -155,6 +155,7 @@ public class UserInteraction {
     public boolean isStepThrough() {
         return myStepThrough;
     }
+
 }
 
 

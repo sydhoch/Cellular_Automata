@@ -1,3 +1,4 @@
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
@@ -44,13 +45,12 @@ public class Play {
 
 
     public Play() {
-        if (FILE_NAME.substring(0,3).equals("Seg")) {
+        if (FILE_NAME.substring(0, 3).equals("Seg")) {
             myGrid = new SegGrid(FILE_NAME);
         }
-        if(FILE_NAME.substring(0,2).equals("pp")){
+        if (FILE_NAME.substring(0, 2).equals("pp")) {
             myGrid = new PPGrid(FILE_NAME);
-        }
-        else{
+        } else {
             myGrid = new Grid(FILE_NAME);
         }
         myRoot = new Group();
@@ -90,6 +90,8 @@ public class Play {
                 myRoot.getChildren().add(setView(i, j));
             }
         }
+        System.out.println(myAnimation.getStatus());
+        System.out.println(myGrid.getCell(0, 0).getState());
     }
 
     private void setButtons() {
@@ -101,19 +103,45 @@ public class Play {
     private Node setView(int i, int j) {
         myCellWidth = SIM_SIZE / myGrid.getHeight();
         myCellHeight = SIM_SIZE / myGrid.getWidth();
+        Node n;
         if (myImage) {
-            return setImage(i, j);
+            n = setImage(i, j);
         } else {
             myColors = mySideBar.getColors();
-            return setRectangle(i, j);
+            n = setRectangle(i, j);
+        }
+        n.setOnMouseClicked(e -> changeCellState(i, j));
+        return n;
+    }
+
+    private void changeCellState(int row, int col) {
+        if (myAnimation.getStatus().equals(Animation.Status.PAUSED)) {
+            int currState = myGrid.getCell(row, col).getState();
+            int nextState;
+            if (myGrid.getType() == SimType.GOL) {
+                if (currState == 0) {
+                    nextState = 1;
+                } else {
+                    nextState = 0;
+                }
+            } else {
+                if (currState == 0 || currState == 1) {
+                    nextState = currState + 1;
+                } else {
+                    nextState = 0;
+                }
+            }
+            myGrid.updateStates();
+            myGrid.getCell(row, col).setNextState(nextState);
+            displayStates();
         }
     }
 
     private void setDefaultImages() {
         myImage = !mySettings.containsKey("Color0");
         Paint[] userColors = new Paint[3];
-        for(int i = 0; i < 3; i++){
-            if(mySettings.containsKey("Color" + i)){
+        for (int i = 0; i < 3; i++) {
+            if (mySettings.containsKey("Color" + i)) {
                 userColors[i] = Paint.valueOf(mySettings.getString("Color" + i));
             }
         }
