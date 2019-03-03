@@ -77,6 +77,7 @@ public class Play {
     private Scene setUpGame(int width, int height) {
         Scene scene = new Scene(myRoot, width, height);
         scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
+        scene.setOnMouseClicked(e -> setButtons());
         scene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + STYLESHEET).toExternalForm());
         return scene;
     }
@@ -96,7 +97,6 @@ public class Play {
         myGrid = mySideBar.getGrid();
         myImage = mySideBar.getImages();
     }
-
 
     private Node setView(int i, int j) {
         myCellWidth = SIM_SIZE / myGrid.getHeight();

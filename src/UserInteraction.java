@@ -47,9 +47,9 @@ public class UserInteraction {
     }
 
     private void addLoadingButtons(List<Shape> shapes) {
-        shapes.add(new Text(COLUMN_POSITION[0], ROW_POSITION[0], "LoadLabel"));
+        shapes.add(new Text(COLUMN_POSITION[0], ROW_POSITION[0], myResources.getString("LoadLabel")));
         for (int i = 0; i < SIMULATION_TYPES.length; i++) {
-            shapes.add(new Text(COLUMN_POSITION[0], ROW_POSITION[1 + i], SIMULATION_TYPES[i].toString()));
+            shapes.add(new Text(COLUMN_POSITION[0], ROW_POSITION[1 + i], myResources.getString(SIMULATION_TYPES[i].toString())));
             for (int j = 0; j < 3; j++) {
                 int type = i;
                 int num = j;
@@ -60,6 +60,7 @@ public class UserInteraction {
 
     private void addTimelineButtons(List<Shape> shapes) {
         shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[8], "PauseResumeButton", e -> pauseOrResume()));
+        shapes.add(makeButton(COLUMN_POSITION[2], ROW_POSITION[8], "RestartButton", e -> restart()));
         shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[10], "StepThroughButton", e -> stepThrough()));
     }
 
@@ -94,6 +95,11 @@ public class UserInteraction {
         }
     }
 
+    private void restart(){
+        myAnimation.stop();
+        myAnimation.play();
+    }
+
 
     public void setColors(Paint[] paints) {
         myImages = false;
@@ -114,9 +120,7 @@ public class UserInteraction {
 
     private Text makeButton(int xpos, int ypos, String property, EventHandler<MouseEvent> handler) {
         Text result = new Text(xpos, ypos, myResources.getString(property));
-        if (handler != null) {
-            result.setOnMouseClicked(handler);
-        }
+        result.setOnMouseClicked(handler);
         return result;
     }
 
