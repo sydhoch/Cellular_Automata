@@ -1,3 +1,10 @@
+package grid;
+
+import Enums.Arrangement;
+import Enums.Edge;
+import Enums.Shape;
+import Enums.SimType;
+import frontend.Play;
 import cell.*;
 
 import java.util.*;
@@ -29,12 +36,20 @@ public class Grid {
         while (s.hasNext()) {
             csv = csv + s.next();
         }
-        String[] seperatedVals = csv.split(",");
+        String[] csvSplit = csv.split(",");
+        String[]seperatedVals = new String[csvSplit.length];
+        int k = 0;
+        for(int i = 0; i < csvSplit.length; i++){
+            if(!csvSplit[i].equals("")){
+                seperatedVals[k] = csvSplit[i];
+                k++;
+            }
+        }
         myGameType = SimType.valueOf(seperatedVals[0].toUpperCase());
-        myWidth = Integer.valueOf(seperatedVals[4]);
-        myHeight = Integer.valueOf(seperatedVals[5]);
+        myWidth = Integer.valueOf(seperatedVals[1]);
+        myHeight = Integer.valueOf(seperatedVals[2]);
         Cell[][] grid = new Cell[myHeight][myWidth];
-        int cell = 8;
+        int cell = 3;
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
                 int state = Integer.valueOf(seperatedVals[cell]);
@@ -62,7 +77,7 @@ public class Grid {
         return myGameType;
     }
 
-    protected void setNextStates() {
+    public void setNextStates() {
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
                 Cell[] neighbors = setNeighborsToroidal(i, j);
@@ -71,7 +86,7 @@ public class Grid {
         }
     }
 
-    protected void updateStates() {
+    public void updateStates() {
         myCellStates.clear();
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
@@ -87,7 +102,7 @@ public class Grid {
     }
 
 
-    protected Cell getCell(int row, int col) {
+    public Cell getCell(int row, int col) {
         return myGrid[row][col];
     }
 
@@ -165,9 +180,9 @@ public class Grid {
         return neighbors.getNeighbors();
     }
 
-    protected int getWidth() { return myWidth; }
+    public int getWidth() { return myWidth; }
 
-    protected int getHeight() { return myHeight; }
+    public int getHeight() { return myHeight; }
 
     public Cell[][] getGrid() {
         return myGrid;

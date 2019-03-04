@@ -1,3 +1,7 @@
+package frontend;
+
+import Enums.SimType;
+import grid.Grid;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -9,8 +13,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import static javafx.scene.input.KeyCode.SPACE;
@@ -24,7 +31,7 @@ public class Play {
     private static final int SIM_SIZE = 500;
     private static final int WINDOW_WIDTH = SIM_SIZE + 300;
 
-    private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
+    private static final String DEFAULT_RESOURCE_PACKAGE = "/Resources/";
     private static final String STYLESHEET = "default.css";
     private static final String IMAGES_RESOURCE = "Images";
     private static final String IMAGE_FOLDER = "images/";
@@ -45,20 +52,14 @@ public class Play {
 
 
     public Play() {
-        if (FILE_NAME.substring(0, 3).equals("Seg")) {
-            myGrid = new SegGrid(FILE_NAME);
-        }
-        if (FILE_NAME.substring(0, 2).equals("pp")) {
-            myGrid = new PPGrid(FILE_NAME);
-        } else {
-            myGrid = new Grid(FILE_NAME);
-        }
+        myGrid = new Grid(FILE_NAME);
         myRoot = new Group();
         myScene = setUpGame(WINDOW_WIDTH, SIM_SIZE);
         myAnimation = new Timeline();
         mySideBar = new UserInteraction(myGrid, myAnimation);
         myImages = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + IMAGES_RESOURCE);
         mySettings = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SETTINGS);
+        setButtons();
         setDefaultImages();
         displayStates();
     }
@@ -68,7 +69,7 @@ public class Play {
     }
 
     public void startAnimation() {
-        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+        KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
         myAnimation.setCycleCount(Timeline.INDEFINITE);
         myAnimation.getKeyFrames().add(frame);
         myAnimation.play();
@@ -77,25 +78,37 @@ public class Play {
     private Scene setUpGame(int width, int height) {
         Scene scene = new Scene(myRoot, width, height);
         scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
-        scene.setOnMouseClicked(e -> setButtons());
+        scene.setOnMouseClicked(e -> updateButtons());
         scene.getStylesheets().add(getClass().getResource(DEFAULT_RESOURCE_PACKAGE + STYLESHEET).toExternalForm());
         return scene;
     }
 
     private void displayStates() {
-        myRoot.getChildren().clear();
-        setButtons();
+        removeShapes();
         for (int i = 0; i < myGrid.getHeight(); i++) {
             for (int j = 0; j < myGrid.getWidth(); j++) {
                 myRoot.getChildren().add(setView(i, j));
             }
         }
-        System.out.println(myAnimation.getStatus());
-        System.out.println(myGrid.getCell(0, 0).getState());
+    }
+
+    private void removeShapes() {
+        List<Node> toRemove = new ArrayList<>();
+        for (Node n : myRoot.getChildren()) {
+            if (n instanceof Rectangle || n instanceof ImageView) {
+                toRemove.add(n);
+
+            }
+        }
+        myRoot.getChildren().removeAll(toRemove);
     }
 
     private void setButtons() {
         myRoot.getChildren().addAll(mySideBar.getButtons());
+        updateButtons();
+    }
+
+    private void updateButtons(){
         myGrid = mySideBar.getGrid();
         myImage = mySideBar.getImages();
     }
@@ -156,6 +169,7 @@ public class Play {
 
     private ImageView setImage(int i, int j) {
         String image_file = IMAGE_FOLDER + myImages.getString(myGrid.getType().toString() + myGrid.getCell(i, j).getState());
+        System.out.println(image_file);
         Image preImage = new Image(this.getClass().getClassLoader().getResourceAsStream(image_file));
         ImageView img = new ImageView(preImage);
         img.setX(myCellWidth * i);
@@ -165,7 +179,7 @@ public class Play {
         return img;
     }
 
-    protected void step(double elapsedTime) {
+    private void step(double elapsedTime) {
         myGrid.setNextStates();
         myGrid.updateStates();
         displayStates();
