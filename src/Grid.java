@@ -159,7 +159,7 @@ public class Grid {
     }
 
     public Cell[] setNeighbors(int row, int col) {
-        Neighborhood neighbors = new Neighborhood(row, col, myShape, myArr, myEdge);
+        Neighborhood neighbors = new Neighborhood(row, col, myShape, myArr, myEdge, this);
         return neighbors.getNeighbors();
     }
 

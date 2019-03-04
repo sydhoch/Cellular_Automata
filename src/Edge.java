@@ -1,5 +1,5 @@
 public enum Edge {
     FINITE,
-    TORODIAL,
+    TOROIDAL,
     ANOTHERONE;
 }
