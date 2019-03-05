@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class UserInteraction {
+public class SideBar {
     private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
     private static final String SIDEBAR_RESOURCE = "SideBar";
     private static final int[] COLUMN_POSITION = {510, 610, 710, 740, 770};
@@ -30,7 +30,7 @@ public class UserInteraction {
     private Paint[] myColors;
     private boolean myImages;
 
-    public UserInteraction(Grid grid, Timeline animation) {
+    public SideBar(Grid grid, Timeline animation) {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SIDEBAR_RESOURCE);
         myGrid = grid;
         myAnimation = animation;
@@ -65,14 +65,14 @@ public class UserInteraction {
         slider.setLayoutY(ROW_POSITION[13]);
         slider.setMajorTickUnit(.5);
         slider.setShowTickLabels(true);
-        slider.setOnMouseClicked(e -> setSpeed(slider, slider.getValue()));
+        slider.setOnMouseClicked(e -> setSpeed(slider.getValue()));
         //slider.setOnDragDetected(e -> setSpeed(slider, slider.getValue()));
         //slider.setOnDragOver(e -> setSpeed(slider, slider.getValue()));
         shapes.add(slider);
     }
 
     private void addColorButtons(List<Node> shapes) {
-        shapes.add(new Text(COLUMN_POSITION[0], ROW_POSITION[16], "ColorLabel"));
+        shapes.add(new Text(COLUMN_POSITION[0], ROW_POSITION[16], myResources.getString("ColorLabel")));
         shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[17], "Images", e -> setImages()));
         for (int i = 0; i < 2; i++) {
             Paint[] paintColors = PAINT_COLORS[i];
@@ -152,9 +152,8 @@ public class UserInteraction {
         myStepThrough = !myStepThrough;
     }
 
-    private void setSpeed(Slider s, double d) {
+    private void setSpeed(double d) {
         myAnimation.setRate(d);
-        s = new Slider(0, 2, getSpeed());
     }
 
     private double getSpeed() {

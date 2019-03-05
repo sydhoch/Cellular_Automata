@@ -13,7 +13,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ public class Play {
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private static final int SIM_SIZE = 500;
-    private static final int WINDOW_WIDTH = SIM_SIZE + 300;
+    private static final int WINDOW_SIZE = SIM_SIZE + 300;
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "/Resources/";
     private static final String STYLESHEET = "default.css";
@@ -42,23 +41,27 @@ public class Play {
     private Group myRoot;
     private Grid myGrid;
     private Timeline myAnimation;
-    private UserInteraction mySideBar;
+    private SideBar mySideBar;
     private Paint[] myColors;
     private boolean myImage;
     private int myCellHeight;
     private int myCellWidth;
+    private BottomGraph myBottomGraph;
     private ResourceBundle myImages;
     private ResourceBundle mySettings;
+    private int myNumSteps;
 
 
     public Play() {
         myGrid = new Grid(FILE_NAME);
         myRoot = new Group();
-        myScene = setUpGame(WINDOW_WIDTH, SIM_SIZE);
+        myScene = setUpGame(WINDOW_SIZE, WINDOW_SIZE);
         myAnimation = new Timeline();
-        mySideBar = new UserInteraction(myGrid, myAnimation);
+        mySideBar = new SideBar(myGrid, myAnimation);
+        myBottomGraph = new BottomGraph(myGrid);
         myImages = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + IMAGES_RESOURCE);
         mySettings = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SETTINGS);
+        myNumSteps = 1;
         setButtons();
         setDefaultImages();
         displayStates();
@@ -84,7 +87,8 @@ public class Play {
     }
 
     private void displayStates() {
-        removeShapes();
+        removeFromScreen(new Rectangle());
+        removeFromScreen(new ImageView());
         for (int i = 0; i < myGrid.getHeight(); i++) {
             for (int j = 0; j < myGrid.getWidth(); j++) {
                 myRoot.getChildren().add(setView(i, j));
@@ -92,10 +96,10 @@ public class Play {
         }
     }
 
-    private void removeShapes() {
+    private void removeFromScreen(Node remove) {
         List<Node> toRemove = new ArrayList<>();
         for (Node n : myRoot.getChildren()) {
-            if (n instanceof Rectangle || n instanceof ImageView) {
+            if (n.getClass().equals(remove.getClass())) {
                 toRemove.add(n);
 
             }
@@ -105,12 +109,17 @@ public class Play {
 
     private void setButtons() {
         myRoot.getChildren().addAll(mySideBar.getButtons());
+        myRoot.getChildren().add(myBottomGraph.getGraph());
         updateButtons();
     }
 
     private void updateButtons(){
         myGrid = mySideBar.getGrid();
         myImage = mySideBar.getImages();
+        myNumSteps = 1;
+        myBottomGraph = new BottomGraph(myGrid);
+        removeFromScreen(myBottomGraph.getGraph());
+        myRoot.getChildren().add(myBottomGraph.getGraph());
     }
 
     private Node setView(int i, int j) {
@@ -182,7 +191,9 @@ public class Play {
     private void step(double elapsedTime) {
         myGrid.setNextStates();
         myGrid.updateStates();
+        myBottomGraph.updateGraph(myNumSteps);
         displayStates();
+        myNumSteps++;
     }
 
 

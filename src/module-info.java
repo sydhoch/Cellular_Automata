@@ -8,4 +8,5 @@ module FrontEnd {
     requires org.junit.jupiter.api;
 
     exports frontend;
+    exports grid;
 }
