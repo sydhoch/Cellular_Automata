@@ -1,5 +1,8 @@
 package cell;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 public class RPSCell extends Cell{
     //0 = rock
     //1 = paper
@@ -16,7 +19,7 @@ public class RPSCell extends Cell{
     }
 
     @Override
-    public void checkNeighborStatus(Cell[] neighbors){
+    public void checkNeighborStatus(Cell[] neighbors, Map<Integer, ArrayList<Cell>> cellStates){
         setEnemy();
         if(getNeighborsOfState(enemy,neighbors).size()>THRESHOLD){
             this.setNextState(enemy);

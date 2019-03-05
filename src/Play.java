@@ -44,15 +44,7 @@ public class Play {
 
 
     public Play() {
-        if (FILE_NAME.substring(0,3).equals("Seg")) {
-            myGrid = new SegGrid(FILE_NAME);
-        }
-        if(FILE_NAME.substring(0,2).equals("pp")){
-            myGrid = new PPGrid(FILE_NAME);
-        }
-        else{
-            myGrid = new Grid(FILE_NAME);
-        }
+        myGrid = new Grid(FILE_NAME);
         myRoot = new Group();
         myScene = setUpGame(WINDOW_WIDTH, SIM_SIZE);
         myAnimation = new Timeline();

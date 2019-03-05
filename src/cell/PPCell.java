@@ -3,6 +3,7 @@ package cell;
 import javax.swing.plaf.synth.SynthDesktopIconUI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class PPCell extends Cell {
@@ -22,7 +23,7 @@ public class PPCell extends Cell {
     //2 = shark
 
     @Override
-    public void checkNeighborStatus(Cell[] neighbors) {
+    public void checkNeighborStatus(Cell[] neighbors, Map<Integer, ArrayList<Cell>> cellStates) {
         //south = neighbors[1]
         //west = neighbors[3]
         //east = neighbors[4]

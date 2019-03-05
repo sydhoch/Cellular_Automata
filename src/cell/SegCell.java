@@ -1,6 +1,8 @@
 package cell;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Random;
 
 public class SegCell extends Cell{
     //0 = empty
@@ -15,10 +17,23 @@ public class SegCell extends Cell{
     }
 
     @Override
-    public void checkNeighborStatus(Cell[] neighbors){
+    public void checkNeighborStatus(Cell[] neighbors, Map<Integer, ArrayList<Cell>> cellStates){
+        ArrayList<Cell> emptyCells = cellStates.get(0);
+        setSatisfaction(neighbors);
+        if(!isSatisfied()){
+            Random random = new Random();
+            if(emptyCells.size()!=0){
+                Cell empty = emptyCells.get(random.nextInt(emptyCells.size()));
+                empty.setNextState(this.getState());
+                this.setNextState(0);
+                cellStates.get(0).remove(empty);
+            }
+        }
+    }
+
+    private void setSatisfaction(Cell[] neighbors){
         if(this.getState()==0){
             setSatisfaction(1);
-            //setSatisfaction(100);
         }
         else{
             setSatisfaction(computeSatisfaction(neighbors,this.getState()));
@@ -48,8 +63,5 @@ public class SegCell extends Cell{
     }
 
 
-    public boolean isSatisfied(){ return mySatisfaction>THRESHOLD; }
-    public double getSatisfaction(){
-        return mySatisfaction;
-    }
+    private boolean isSatisfied(){ return mySatisfaction>THRESHOLD; }
 }
