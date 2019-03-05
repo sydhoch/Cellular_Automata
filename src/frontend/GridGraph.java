@@ -1,7 +1,6 @@
 package frontend;
 
 import grid.Grid;
-import javafx.animation.Timeline;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -11,17 +10,15 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 
-public class BottomGraph {
+public class GridGraph {
     private LineChart<NumberAxis, NumberAxis> myLineChart;
     private static final String DEFAULT_RESOURCE_PACKAGE = "/Resources/";
-    private static final String CELL_TYPES = "SideBar";
+    private static final String CELL_TYPES = "Clickable";
     private ResourceBundle myResources;
     private Grid myGrid;
     private Map<Integer, XYChart.Series> myData;
 
-
-
-    public BottomGraph(Grid g) {
+    GridGraph(Grid g) {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + CELL_TYPES);
         myGrid = g;
         setUpGraph();
@@ -44,18 +41,17 @@ public class BottomGraph {
         myData = new HashMap<>();
         for (int i = 0; i < 3; i++) {
             XYChart.Series series = new XYChart.Series();
-            //series.getData().add(new XYChart.Data(1970, 15));
             myData.put(i, series);
             myData.get(i).setName(myResources.getString(myGrid.getType().toString() + i));
             myLineChart.getData().add(myData.get(i));
         }
     }
 
-    public LineChart<NumberAxis, NumberAxis> getGraph() {
+    LineChart<NumberAxis, NumberAxis> getGraph() {
         return myLineChart;
     }
 
-    public void updateGraph(int step) {
+    void updateGraph(int step) {
         for (int i = 0; i < 3; i++) {
             if (myGrid.getCellsInState(i) == null) {
                 myData.get(i).getData().add(new XYChart.Data(step, 0));
