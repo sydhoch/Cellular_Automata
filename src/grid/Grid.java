@@ -21,7 +21,7 @@ public class Grid {
     private ResourceBundle myResources;
     private Map<Integer, List<Integer[]>> myCellStates;
 
-    public Grid(String file) {
+    public Grid(String file, String neighborPolicy,String cellShape, String edgePolicy ) {
         myCellStates = new HashMap<>();
         myGrid = makeGrid(readFile(file));
         simNum = Integer.valueOf(file.substring(file.length()-5, file.length()-4));
