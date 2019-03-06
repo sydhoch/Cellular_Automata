@@ -17,6 +17,18 @@ public class GridGraph {
     private static final String CELL_TYPES = "SideBar";
     private static final String X_LABEL = "Time";
     private static final String Y_LABEL = "Cells";
+    private static final int AXIS_START = 0;
+    private static final int X_AXIS_END = 10;
+    private static final int X_AXIS_STEP = 1;
+    private static final int Y_AXIS_STEP = 5;
+    private static final int MAX_STATES = 3;
+    private static final int X_POS = 0;
+    private static final int Y_POS = 500;
+    private static final int HEIGHT = 200;
+    private static final int WIDTH = 500;
+
+
+
     private ResourceBundle myResources;
     private Grid myGrid;
     private Map<Integer, XYChart.Series> myData;
@@ -29,20 +41,20 @@ public class GridGraph {
     }
 
     private void setUpGraph() {
-        NumberAxis xAxis = new NumberAxis(0, 10, 1);
+        NumberAxis xAxis = new NumberAxis(AXIS_START, X_AXIS_END, X_AXIS_STEP);
         xAxis.setLabel(X_LABEL);
-        NumberAxis yAxis = new NumberAxis(0, myGrid.getHeight() * myGrid.getWidth(), 5);
+        NumberAxis yAxis = new NumberAxis(AXIS_START, myGrid.getHeight() * myGrid.getWidth(), Y_AXIS_STEP);
         yAxis.setLabel(Y_LABEL);
 
         myLineChart = new LineChart(xAxis, yAxis);
 
-        myLineChart.setLayoutX(0);
-        myLineChart.setLayoutY(500);
-        myLineChart.setMaxHeight(200);
-        myLineChart.setMaxWidth(500);
+        myLineChart.setLayoutX(X_POS);
+        myLineChart.setLayoutY(Y_POS);
+        myLineChart.setMaxHeight(HEIGHT);
+        myLineChart.setMaxWidth(WIDTH);
 
         myData = new HashMap<>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < MAX_STATES; i++) {
             XYChart.Series series = new XYChart.Series();
             myData.put(i, series);
             myData.get(i).setName(myResources.getString(myGrid.getType().toString() + i));
@@ -55,7 +67,7 @@ public class GridGraph {
     }
 
     void updateGraph(int step) {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < MAX_STATES; i++) {
             if (myGrid.getCellsInState(i) == null) {
                 myData.get(i).getData().add(new XYChart.Data<>(step, 0));
             } else {

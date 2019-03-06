@@ -27,6 +27,8 @@ public class Clickable {
     private static final String COLOR_LABEL = "ColorScheme";
     private static final String FILE_MIDDLE_NAME = "-grid-";
     private static final String CSV_EXTENSION = ".csv";
+    private static final int MIN_SPEED = 0;
+    private static final int MAX_SPEED= 2;
 
     private static final int[] COLUMN_POSITION = {510, 610, 710, 740, 770};
     private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500};
@@ -69,7 +71,7 @@ public class Clickable {
 
 
     private void addSpeeds() {
-        Slider slider = new Slider(0, 2, getSpeed());
+        Slider slider = new Slider(MIN_SPEED, MAX_SPEED, getSpeed());
         slider.setLayoutX(COLUMN_POSITION[0]);
         slider.setLayoutY(ROW_POSITION[13]);
         slider.setMajorTickUnit(.5);
