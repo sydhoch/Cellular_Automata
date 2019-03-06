@@ -1,6 +1,10 @@
+package grid;
+
+import Enums.Arrangement;
+import Enums.Edge;
+import Enums.Shape;
 import cell.Cell;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Neighborhood {
