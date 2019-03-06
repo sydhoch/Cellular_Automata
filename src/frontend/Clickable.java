@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-//import static Enums.SimType.*;
+import static Enums.SimType.*;
 
 public class Clickable {
     private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
@@ -31,7 +31,7 @@ public class Clickable {
     private static final int[] COLUMN_POSITION = {510, 610, 710, 740, 770};
     private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500};
     private static final Paint[][] PAINT_COLORS = {{Color.BLUE, Color.CYAN, Color.SKYBLUE}, {Color.RED, Color.MISTYROSE, Color.MAROON}};
-    private static final SimType[] SIMULATION_TYPES = {SimType.FIRE, SimType.GOL, SimType.PERC, SimType.PP, SimType.RPS, SimType.SEG};
+    private static final SimType[] SIMULATION_TYPES = {FIRE, GOL, PERC, PP, RPS, SEG};
 
     private Grid myGrid;
     private Timeline myAnimation;

@@ -1,6 +1,5 @@
 package frontend;
 
-import Enums.SimType;
 import grid.Grid;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -51,7 +50,6 @@ public class Play {
     private ResourceBundle myImages;
     private ResourceBundle mySettings;
     private int myNumSteps;
-
 
 
     public Play() {
@@ -117,8 +115,8 @@ public class Play {
         updateButtons();
     }
 
-    private void updateButtons(){
-        if(myGrid != mySideBar.getGrid()) {
+    private void updateButtons() {
+        if (myGrid != mySideBar.getGrid()) {
             myGrid = mySideBar.getGrid();
             myGridGraph = new GridGraph(myGrid);
             removeFromScreen(myGridGraph.getGraph());
@@ -146,18 +144,11 @@ public class Play {
         if (myAnimation.getStatus().equals(Animation.Status.PAUSED)) {
             int currState = myGrid.getCell(row, col).getState();
             int nextState;
-            if (myGrid.getType() == SimType.GOL) {
-                if (currState == 0) {
-                    nextState = 1;
-                } else {
-                    nextState = 0;
-                }
+            int lastState = myGrid.getType().getNumStates()-1;
+            if (currState == lastState) {
+                nextState = 0;
             } else {
-                if (currState == 0 || currState == 1) {
-                    nextState = currState + 1;
-                } else {
-                    nextState = 0;
-                }
+                nextState = currState + 1;
             }
             myGrid.updateStates();
             myGrid.getCell(row, col).setNextState(nextState);
