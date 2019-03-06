@@ -41,15 +41,17 @@ public class Play {
     private Group myRoot;
     private Grid myGrid;
     private Timeline myAnimation;
-    private SideBar mySideBar;
+    private Clickable mySideBar;
+    private StagnantLabels myLabels;
     private Paint[] myColors;
     private boolean myImage;
     private int myCellHeight;
     private int myCellWidth;
-    private BottomGraph myBottomGraph;
+    private GridGraph myGridGraph;
     private ResourceBundle myImages;
     private ResourceBundle mySettings;
     private int myNumSteps;
+
 
 
     public Play() {
@@ -57,8 +59,9 @@ public class Play {
         myRoot = new Group();
         myScene = setUpGame(WINDOW_SIZE, WINDOW_SIZE);
         myAnimation = new Timeline();
-        mySideBar = new SideBar(myGrid, myAnimation);
-        myBottomGraph = new BottomGraph(myGrid);
+        mySideBar = new Clickable(myGrid, myAnimation);
+        myLabels = new StagnantLabels();
+        myGridGraph = new GridGraph(myGrid);
         myImages = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + IMAGES_RESOURCE);
         mySettings = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SETTINGS);
         myNumSteps = 1;
@@ -108,18 +111,21 @@ public class Play {
     }
 
     private void setButtons() {
+        myRoot.getChildren().addAll(myLabels.getLabels());
         myRoot.getChildren().addAll(mySideBar.getButtons());
-        myRoot.getChildren().add(myBottomGraph.getGraph());
+        myRoot.getChildren().add(myGridGraph.getGraph());
         updateButtons();
     }
 
     private void updateButtons(){
-        myGrid = mySideBar.getGrid();
+        if(myGrid != mySideBar.getGrid()) {
+            myGrid = mySideBar.getGrid();
+            myGridGraph = new GridGraph(myGrid);
+            removeFromScreen(myGridGraph.getGraph());
+            myRoot.getChildren().add(myGridGraph.getGraph());
+        }
         myImage = mySideBar.getImages();
         myNumSteps = 1;
-        myBottomGraph = new BottomGraph(myGrid);
-        removeFromScreen(myBottomGraph.getGraph());
-        myRoot.getChildren().add(myBottomGraph.getGraph());
     }
 
     private Node setView(int i, int j) {
@@ -191,7 +197,7 @@ public class Play {
     private void step(double elapsedTime) {
         myGrid.setNextStates();
         myGrid.updateStates();
-        myBottomGraph.updateGraph(myNumSteps);
+        myGridGraph.updateGraph(myNumSteps);
         displayStates();
         myNumSteps++;
     }

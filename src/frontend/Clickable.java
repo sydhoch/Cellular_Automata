@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class SideBar {
+public class Clickable {
     private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
     private static final String SIDEBAR_RESOURCE = "SideBar";
     private static final int[] COLUMN_POSITION = {510, 610, 710, 740, 770};
@@ -30,7 +30,7 @@ public class SideBar {
     private Paint[] myColors;
     private boolean myImages;
 
-    public SideBar(Grid grid, Timeline animation) {
+    public Clickable(Grid grid, Timeline animation) {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SIDEBAR_RESOURCE);
         myGrid = grid;
         myAnimation = animation;
@@ -40,7 +40,6 @@ public class SideBar {
     }
 
     private void addLoadingButtons(List<Node> shapes) {
-        shapes.add(new Text(COLUMN_POSITION[0], ROW_POSITION[0], myResources.getString("LoadLabel")));
         for (int i = 0; i < SIMULATION_TYPES.length; i++) {
             shapes.add(new Text(COLUMN_POSITION[0], ROW_POSITION[1 + i], myResources.getString(SIMULATION_TYPES[i].toString())));
             for (int j = 0; j < 3; j++) {
@@ -59,7 +58,6 @@ public class SideBar {
 
 
     private void addSpeeds(List<Node> shapes) {
-        shapes.add(new Text(COLUMN_POSITION[0], ROW_POSITION[12], myResources.getString("SpeedLabel")));
         Slider slider = new Slider(0, 2, getSpeed());
         slider.setLayoutX(COLUMN_POSITION[0]);
         slider.setLayoutY(ROW_POSITION[13]);
@@ -72,7 +70,6 @@ public class SideBar {
     }
 
     private void addColorButtons(List<Node> shapes) {
-        shapes.add(new Text(COLUMN_POSITION[0], ROW_POSITION[16], myResources.getString("ColorLabel")));
         shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[17], "Images", e -> setImages()));
         for (int i = 0; i < 2; i++) {
             Paint[] paintColors = PAINT_COLORS[i];
@@ -80,25 +77,12 @@ public class SideBar {
         }
     }
 
-    private void addSimInfo(List<Node> shapes){
-        for(int i = 0; i < 3; i++) {
-            shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[21+i], myGrid.getType().toString() + i, null));
-            if(myGrid.getCellsInState(i) != null) {
-                shapes.add(new Text(COLUMN_POSITION[3], ROW_POSITION[21 + i], String.valueOf(myGrid.getCellsInState(i).size())));
-            }
-            else{
-                shapes.add(new Text(COLUMN_POSITION[3], ROW_POSITION[21 + i], "0"));
-
-            }
-        }
-    }
-
-    public void setColors(Paint[] paints) {
+    void setColors(Paint[] paints) {
         myImages = false;
         myColors = paints;
     }
 
-    public Paint[] getColors() {
+    Paint[] getColors() {
         return myColors;
     }
 
@@ -106,7 +90,7 @@ public class SideBar {
         myImages = true;
     }
 
-    public boolean getImages() {
+    boolean getImages() {
         return myImages;
     }
 
@@ -125,13 +109,12 @@ public class SideBar {
         return myGrid;
     }
 
-    public List<Node> getButtons() {
+    List<Node> getButtons() {
         List<Node> buttons = new ArrayList<>();
         addLoadingButtons(buttons);
         addTimelineButtons(buttons);
         addSpeeds(buttons);
         addColorButtons(buttons);
-        addSimInfo(buttons);
         return buttons;
     }
 
@@ -160,7 +143,7 @@ public class SideBar {
         return myAnimation.getRate();
     }
 
-    public boolean isStepThrough() {
+    boolean isStepThrough() {
         return myStepThrough;
     }
 

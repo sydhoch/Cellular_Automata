@@ -1,9 +1,6 @@
 package grid;
 
-import Enums.Arrangement;
-import Enums.Edge;
-import Enums.Shape;
-import Enums.SimType;
+import Enums.*;
 import frontend.Play;
 import cell.*;
 
