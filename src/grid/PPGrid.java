@@ -1,4 +1,5 @@
-import cell.Cell;
+package grid;
+
 import cell.PPCell;
 
 public class PPGrid extends Grid {
@@ -7,7 +8,7 @@ public class PPGrid extends Grid {
     }
 
     @Override
-    protected void setNextStates(){
+    public void setNextStates(){
         System.out.println("hi");
         for (int i = 0; i < getHeight(); i++) {
             for (int j = 0; j < getWidth(); j++) {

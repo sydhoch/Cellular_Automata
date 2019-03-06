@@ -1,3 +1,5 @@
+package grid;
+
 import cell.Cell;
 
 import java.util.*;
@@ -10,7 +12,7 @@ public class SegGrid extends Grid{
     }
 
     @Override
-    protected void setNextStates(){
+    public void setNextStates(){
         List<Cell> emptyCells = new ArrayList<>();
         for (int i = 0; i < getHeight(); i++) {
             for (int j = 0; j < getWidth(); j++) {

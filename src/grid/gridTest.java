@@ -1,3 +1,5 @@
+package grid;
+
 import cell.Cell;
 import cell.GoLCell;
 import org.junit.jupiter.api.Test;
