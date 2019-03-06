@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+//import static Enums.SimType.*;
+
 public class Clickable {
     private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
     private static final String SIDEBAR_RESOURCE = "SideBar";
@@ -46,7 +48,7 @@ public class Clickable {
         myStepThrough = false;
         myColors = PAINT_COLORS[0];
         myImages = true;
-        myButtons = makeButtons();
+        makeButtons();
     }
 
     private void addLoadingButtons() {
@@ -111,6 +113,7 @@ public class Clickable {
 
     private void setGrid(SimType simType, int simNum) {
         String gridName = simType.toString().toLowerCase() + FILE_MIDDLE_NAME + simNum + CSV_EXTENSION;
+        System.out.println(gridName);
         myGrid = new Grid(gridName); //issues...
     }
 
@@ -118,13 +121,12 @@ public class Clickable {
         return myGrid;
     }
 
-    private List<Node> makeButtons() {
-        List<Node> buttons = new ArrayList<>();
+    private void makeButtons() {
+        myButtons = new ArrayList<>();
         addLoadingButtons();
         addTimelineButtons();
         addSpeeds();
         addColorButtons();
-        return buttons;
     }
 
     List<Node> getButtons(){
