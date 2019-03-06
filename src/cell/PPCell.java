@@ -25,6 +25,11 @@ public class PPCell extends Cell {
     @Override
     public void checkNeighborStatus(Cell[] neighbors, Map<Integer, List<Cell>> cellStates) {
         Random random = new Random();
+        handleFish(random,cellStates);
+        handleShark(random,cellStates);
+    }
+
+    private void handleFish(Random random,Map<Integer, List<Cell>> cellStates){
         if (this.getState() == 1 & cellStates.get(1).contains(this)) {
             List<Cell> empty = cellStates.get(0);
             if (empty.size() != 0) {
@@ -33,6 +38,9 @@ public class PPCell extends Cell {
             }
             cellStates.get(1).remove(this);
         }
+    }
+
+    private void handleShark(Random random,Map<Integer, List<Cell>> cellStates){
         if(this.getState()==2 && this.getEnergy()<=0){
             this.setNextState(0);
         }
