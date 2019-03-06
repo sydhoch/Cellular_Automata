@@ -58,7 +58,10 @@ public class Play {
         myImages = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + IMAGES_RESOURCE);
         myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + CONFIGURATION_FILE);
         fileName = myConfiguration.getString("CSVFileName");
-        myGrid = new Grid(fileName);
+        String neighborhoodType = myConfiguration.getString("NeighborhoodType");
+        String cellShape = myConfiguration.getString("CellShape");
+        String edgePolicy = myConfiguration.getString("EdgePolicies");
+        myGrid = new Grid(fileName, neighborhoodType, cellShape, edgePolicy);
         myRoot = new Group();
         myScene = setUpGame(WINDOW_SIZE, WINDOW_SIZE);
         myAnimation = new Timeline();
