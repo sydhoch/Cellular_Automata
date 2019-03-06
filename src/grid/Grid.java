@@ -23,11 +23,11 @@ public class Grid {
 
     public Grid(String file) {
         myCellStates = new HashMap<>();
-        myGrid = makeGrid(file);
+        myGrid = makeGrid(readFile(file));
         simNum = Integer.valueOf(file.substring(file.length()-5, file.length()-4));
     }
 
-    private Cell[][] makeGrid(String gameFile) {
+    private String[] readFile(String gameFile){
         Scanner s = new Scanner(Play.class.getClassLoader().getResourceAsStream(gameFile));
         String csv = "";
         while (s.hasNext()) {
@@ -42,6 +42,10 @@ public class Grid {
                 k++;
             }
         }
+        return seperatedVals;
+    }
+
+    private Cell[][] makeGrid(String[] seperatedVals) {
         myGameType = SimType.valueOf(seperatedVals[0].toUpperCase());
         myWidth = Integer.valueOf(seperatedVals[1]);
         myHeight = Integer.valueOf(seperatedVals[2]);
