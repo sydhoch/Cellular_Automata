@@ -16,12 +16,16 @@ public class Neighborhood {
     private int myCol;
 
     public Neighborhood(int row, int col, Shape shape, Arrangement arr, Edge edge, Grid grid){
+        myNeighbors = new ArrayList<>();
+        myEdgeNeighbors = new ArrayList<>();
+        myVertexNeighbors = new ArrayList<>();
         setShape(shape);
         setNeighbors(edge);
         setArr(arr);
         myRow = row;
-        myCol = myCol;
+        myCol = col;
         myGrid = grid;
+
     }
 
     //sets nums
@@ -44,6 +48,7 @@ public class Neighborhood {
     //sets ALL neighbors (complete)--> fills in edge and vertex neighbor lists
     private void setNeighbors(Edge edge){
         setEdgeNeighbors(edge);
+        setTriangleVertexes(edge);
     }
 
     private void setVertexNeighbors(Edge edge){
@@ -62,7 +67,22 @@ public class Neighborhood {
     }
 
     private void setTriangleVertexes(Edge edge){
-
+        handleToroidal(0,-2, edge);
+        handleToroidal(-1,-2,edge);
+        handleToroidal(-1,0, edge);
+        handleToroidal(0,2,edge);
+        handleToroidal(1,2,edge);
+        handleToroidal(1,0,edge);
+        if(myCol%2==0){
+            handleToroidal(-1,-3, edge);
+            handleToroidal(-1,1,edge);
+            handleToroidal(1,1,edge);
+        }
+        else{
+            handleToroidal(-1,-1,edge);
+            handleToroidal(1,3,edge);
+            handleToroidal(1,-1,edge);
+        }
     }
 
     private void setEdgeNeighbors(Edge edge){
@@ -173,52 +193,18 @@ public class Neighborhood {
         myNeighbors.clear();
         if(arr.equals(Arrangement.COMPLETE)){
             myNeighbors.addAll(myEdgeNeighbors);
-            myNeighbors.addAll(myEdgeNeighbors);
+            myNeighbors.addAll(myVertexNeighbors);
         }
         if(arr.equals(Arrangement.CARDINAL)){
             myNeighbors.addAll(myEdgeNeighbors);
         }
         if(arr.equals(Arrangement.VERTEX)){
-            myNeighbors.addAll(myEdgeNeighbors);
+            myNeighbors.addAll(myVertexNeighbors);
         }
     }
 
 
     public Cell[] getNeighbors(){
-        return myNeighbors.toArray(new Cell[0]);
+        return myNeighbors.toArray(new Cell[myNeighbors.size()]);
     }
-
-
 }
-
-
-//            if(myRow!=0 && myCol!=0){
-//                myEdgeNeighbors.add(myGrid.getCell(myRow-1,myCol-1));
-//                //notAddedYet=1;
-//            }else if(myCol!=0){
-//                myEdgeNeighbors.add(myGrid.getCell(myGrid.getHeight()-1,myCol-1));
-//            }else if(myRow!=0){
-//                myEdgeNeighbors.add(myGrid.getCell(myRow-1,myGrid.getWidth()-1));
-//            }
-//            else{
-//                myEdgeNeighbors.add(myGrid.getCell(myGrid.getHeight()-1,myGrid.getWidth()-1));
-//            }
-
-
-//if(myCol!=0){
-//        myEdgeNeighbors.add(myGrid.getCell(myRow,myCol-1));
-//        }
-//        handleToroidal(0,-1,edge);
-//        else{
-//        if(edge==Edge.TOROIDAL){
-//        myEdgeNeighbors.add(myGrid.getCell(myRow,myGrid.getWidth()-1));
-//        }
-//        }
-//        if(myCol!=myGrid.getWidth()){
-//        myEdgeNeighbors.add(myGrid.getCell(myRow,myCol+1));
-//        }
-//        else{
-//        if(edge==Edge.TOROIDAL){
-//        myEdgeNeighbors.add(myGrid.getCell(myRow,0));
-//        }
-//        }

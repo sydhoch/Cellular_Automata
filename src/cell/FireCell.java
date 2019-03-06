@@ -1,7 +1,7 @@
 package cell;
 
 import java.lang.Math;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 
@@ -17,18 +17,7 @@ public class FireCell extends Cell{
     }
 
     @Override
-    public void checkNeighborStatus(Cell[] neighbors, Map<Integer, ArrayList<Cell>> cellStates){
-        //south = neighbors[1]
-        //west = neighbors[3]
-        //east = neighbors[4]
-        //north = neighbors[6]
-
-        Cell[] neighbors2 = new Cell[4];
-        neighbors2[0] = neighbors[1];
-        neighbors2[1] = neighbors[3];
-        neighbors2[2] = neighbors[4];
-        neighbors2[3] = neighbors[6];
-
+    public void checkNeighborStatus(Cell[] neighbors, Map<Integer, List<Cell>> cellStates){
         if(this.getState()==2){
             setNextState(0);
         }

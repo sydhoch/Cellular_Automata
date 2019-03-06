@@ -1,13 +1,10 @@
 package cell;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 public class SegCell extends Cell{
-    //0 = empty
-    //1 = jewish
-    //2 = christian
 
     private static final double THRESHOLD = .30;
     private double mySatisfaction;
@@ -17,8 +14,8 @@ public class SegCell extends Cell{
     }
 
     @Override
-    public void checkNeighborStatus(Cell[] neighbors, Map<Integer, ArrayList<Cell>> cellStates){
-        ArrayList<Cell> emptyCells = cellStates.get(0);
+    public void checkNeighborStatus(Cell[] neighbors, Map<Integer, List<Cell>> cellStates){
+        List<Cell> emptyCells = cellStates.get(0);
         setSatisfaction(neighbors);
         if(!isSatisfied()){
             Random random = new Random();

@@ -1,5 +1,4 @@
 package cell;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
@@ -34,7 +33,7 @@ public abstract class Cell extends Object{
      */
     //public abstract void checkNeighborStatus(Cell[] neighbors);
 
-    public abstract void checkNeighborStatus(Cell[] neighbors, Map<Integer, ArrayList<Cell>> cellStates);
+    public abstract void checkNeighborStatus(Cell[] neighbors, Map<Integer, List<Cell>> cellStates);
 
     protected List<Cell> getNeighborsOfState(int state, Cell[] neighbors){
         List<Cell> cellList = new ArrayList<>();

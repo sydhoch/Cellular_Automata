@@ -15,21 +15,5 @@ public class PPGrid extends Grid {
                 ((PPCell)getCell(i, j)).setNextWasSet(false);
             }
         }
-        for (int i = 0; i < getHeight(); i++) {
-            for (int j = 0; j < getWidth(); j++) {
-                //Cell[] neighbors = setNeighborsToroidal(i, j);
-                if(getCell(i,j).getState()==2){
-                    //getCell(i, j).checkNeighborStatus(neighbors);
-                }
-            }
-        }
-        for (int i = 0; i < getHeight(); i++) {
-            for (int j = 0; j < getWidth(); j++) {
-                //Cell[] neighbors = setNeighborsToroidal(i, j);
-                if(getCell(i,j).getState()==1){
-                    //getCell(i, j).checkNeighborStatus(neighbors);
-                }
-            }
-        }
     }
 }

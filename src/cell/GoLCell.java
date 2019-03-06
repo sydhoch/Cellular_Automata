@@ -1,6 +1,6 @@
 package cell;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class GoLCell extends Cell {
@@ -15,7 +15,7 @@ public class GoLCell extends Cell {
      * @param neighbors
      */
     @Override
-    public void checkNeighborStatus(Cell[] neighbors, Map<Integer, ArrayList<Cell>> cellStates){
+    public void checkNeighborStatus(Cell[] neighbors, Map<Integer, List<Cell>> cellStates){
         int neighborsAlive = getNeighborsOfState(1,neighbors).size();
         if(this.getState()==1){
             if(neighborsAlive<2 || neighborsAlive>3){

@@ -1,6 +1,6 @@
 package cell;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class RPSCell extends Cell{
@@ -19,7 +19,7 @@ public class RPSCell extends Cell{
     }
 
     @Override
-    public void checkNeighborStatus(Cell[] neighbors, Map<Integer, ArrayList<Cell>> cellStates){
+    public void checkNeighborStatus(Cell[] neighbors, Map<Integer, List<Cell>> cellStates){
         setEnemy();
         if(getNeighborsOfState(enemy,neighbors).size()>THRESHOLD){
             this.setNextState(enemy);
