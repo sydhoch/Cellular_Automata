@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 public class GridGraph {
     private LineChart<NumberAxis, NumberAxis> myLineChart;
     private static final String DEFAULT_RESOURCE_PACKAGE = "/Resources/";
-    private static final String CELL_TYPES = "Clickable";
+    private static final String CELL_TYPES = "SideBar";
     private ResourceBundle myResources;
     private Grid myGrid;
     private Map<Integer, XYChart.Series> myData;

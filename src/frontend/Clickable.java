@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 
 public class Clickable {
     private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
-    private static final String SIDEBAR_RESOURCE = "Clickable";
+    private static final String SIDEBAR_RESOURCE = "SideBar";
     private static final int[] COLUMN_POSITION = {510, 610, 710, 740, 770};
     private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500};
     private static final Paint[][] PAINT_COLORS = {{Color.BLUE, Color.CYAN, Color.SKYBLUE}, {Color.RED, Color.MISTYROSE, Color.MAROON}};

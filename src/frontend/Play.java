@@ -118,12 +118,14 @@ public class Play {
     }
 
     private void updateButtons(){
-        myGrid = mySideBar.getGrid();
+        if(myGrid != mySideBar.getGrid()) {
+            myGrid = mySideBar.getGrid();
+            myGridGraph = new GridGraph(myGrid);
+            removeFromScreen(myGridGraph.getGraph());
+            myRoot.getChildren().add(myGridGraph.getGraph());
+        }
         myImage = mySideBar.getImages();
         myNumSteps = 1;
-        myGridGraph = new GridGraph(myGrid);
-        removeFromScreen(myGridGraph.getGraph());
-        myRoot.getChildren().add(myGridGraph.getGraph());
     }
 
     private Node setView(int i, int j) {
