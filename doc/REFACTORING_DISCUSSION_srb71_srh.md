@@ -7,3 +7,11 @@
 - PPCell.checkNeighborStatus: We decided that we could put cell states into it as a map so instead of having a lot of checks to see if the next state was already set, now we just have to check if the cell is still in map which simplified the code and removed duplication.
 - Grid.Grid: We realized that the method wasn't very specific- it was both reading in the file and making the cell objects, so we split up the code into two methods that each did 1 thing.
 - Play.changeCellState: We improved this method by making SimType a stronger Enum that could store the number of states it cycled through.
+
+#Checklist/general refactoring
+- We made SharkCell/FishCell classes that extend PPCell to make the classes more DRY
+
+#Future refactoring todos:
+- Exception handling
+- 
+
