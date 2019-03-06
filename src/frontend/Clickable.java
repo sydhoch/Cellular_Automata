@@ -26,9 +26,6 @@ public class Clickable {
     private static final String FILE_MIDDLE_NAME = "-grid-";
     private static final String CSV_EXTENSION = ".csv";
 
-
-
-
     private static final int[] COLUMN_POSITION = {510, 610, 710, 740, 770};
     private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500};
     private static final Paint[][] PAINT_COLORS = {{Color.BLUE, Color.CYAN, Color.SKYBLUE}, {Color.RED, Color.MISTYROSE, Color.MAROON}};
@@ -40,6 +37,7 @@ public class Clickable {
     private boolean myStepThrough;
     private Paint[] myColors;
     private boolean myImages;
+    private List<Node> myButtons;
 
     public Clickable(Grid grid, Timeline animation) {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SIDEBAR_RESOURCE);
@@ -48,27 +46,27 @@ public class Clickable {
         myStepThrough = false;
         myColors = PAINT_COLORS[0];
         myImages = true;
+        myButtons = makeButtons();
     }
 
-    private void addLoadingButtons(List<Node> shapes) {
+    private void addLoadingButtons() {
         for (int i = 0; i < SIMULATION_TYPES.length; i++) {
-            shapes.add(new Text(COLUMN_POSITION[0], ROW_POSITION[1 + i], myResources.getString(SIMULATION_TYPES[i].toString())));
             for (int j = 0; j < 3; j++) {
                 SimType s = SIMULATION_TYPES[i];
                 int num = j;
-                shapes.add(makeButton(COLUMN_POSITION[2 + j], ROW_POSITION[1 + i], String.valueOf(j), e -> setGrid(s, num+1)));
+                addButton(COLUMN_POSITION[2 + j], ROW_POSITION[1 + i], String.valueOf(j), e -> setGrid(s, num+1));
             }
         }
     }
 
-    private void addTimelineButtons(List<Node> shapes) {
-        shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[8], PAUSE_RESUME_LABEL, e -> pauseOrResume()));
-        shapes.add(makeButton(COLUMN_POSITION[2], ROW_POSITION[8], RESTART_LABEL, e -> setGrid(myGrid.getType(), myGrid.getSimNum())));
-        shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[10], STEP_THROUGH_LABEL, e -> stepThrough()));
+    private void addTimelineButtons() {
+        addButton(COLUMN_POSITION[0], ROW_POSITION[8], PAUSE_RESUME_LABEL, e -> pauseOrResume());
+        addButton(COLUMN_POSITION[2], ROW_POSITION[8], RESTART_LABEL, e -> setGrid(myGrid.getType(), myGrid.getSimNum()));
+        addButton(COLUMN_POSITION[0], ROW_POSITION[10], STEP_THROUGH_LABEL, e -> stepThrough());
     }
 
 
-    private void addSpeeds(List<Node> shapes) {
+    private void addSpeeds() {
         Slider slider = new Slider(0, 2, getSpeed());
         slider.setLayoutX(COLUMN_POSITION[0]);
         slider.setLayoutY(ROW_POSITION[13]);
@@ -77,14 +75,14 @@ public class Clickable {
         slider.setOnMouseClicked(e -> setSpeed(slider.getValue()));
         //slider.setOnDragDetected(e -> setSpeed(slider, slider.getValue()));
         //slider.setOnDragOver(e -> setSpeed(slider, slider.getValue()));
-        shapes.add(slider);
+        myButtons.add(slider);
     }
 
-    private void addColorButtons(List<Node> shapes) {
-        shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[17], IMAGES_LABEL, e -> setImages()));
+    private void addColorButtons() {
+        addButton(COLUMN_POSITION[0], ROW_POSITION[17], IMAGES_LABEL, e -> setImages());
         for (int i = 0; i < 2; i++) {
             Paint[] paintColors = PAINT_COLORS[i];
-            shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[18 + i], COLOR_LABEL + i, e -> setColors(paintColors)));
+            addButton(COLUMN_POSITION[0], ROW_POSITION[18 + i], COLOR_LABEL + i, e -> setColors(paintColors));
         }
     }
 
@@ -105,10 +103,10 @@ public class Clickable {
         return myImages;
     }
 
-    private Text makeButton(int xpos, int ypos, String property, EventHandler<MouseEvent> handler) {
+    private void addButton(int xpos, int ypos, String property, EventHandler<MouseEvent> handler) {
         Text result = new Text(xpos, ypos, myResources.getString(property));
         result.setOnMouseClicked(handler);
-        return result;
+        myButtons.add(result);
     }
 
     private void setGrid(SimType simType, int simNum) {
@@ -120,13 +118,17 @@ public class Clickable {
         return myGrid;
     }
 
-    List<Node> getButtons() {
+    private List<Node> makeButtons() {
         List<Node> buttons = new ArrayList<>();
-        addLoadingButtons(buttons);
-        addTimelineButtons(buttons);
-        addSpeeds(buttons);
-        addColorButtons(buttons);
+        addLoadingButtons();
+        addTimelineButtons();
+        addSpeeds();
+        addColorButtons();
         return buttons;
+    }
+
+    List<Node> getButtons(){
+        return myButtons;
     }
 
     private void pauseOrResume() {
