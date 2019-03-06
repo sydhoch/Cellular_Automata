@@ -23,7 +23,7 @@ import static javafx.scene.input.KeyCode.SPACE;
 
 
 public class Play {
-    private static final String FILE_NAME = "perc-grid-1.csv";
+
     private static final int FRAMES_PER_SECOND = 1;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -34,9 +34,9 @@ public class Play {
     private static final String STYLESHEET = "default.css";
     private static final String IMAGES_RESOURCE = "Images";
     private static final String IMAGE_FOLDER = "images/";
-    private static final String SETTINGS = "Test";
+    private static final String CONFIGURATION_FILE = "Test";
 
-
+    private String fileName;
     private Scene myScene;
     private Group myRoot;
     private Grid myGrid;
@@ -49,21 +49,23 @@ public class Play {
     private int myCellWidth;
     private GridGraph myGridGraph;
     private ResourceBundle myImages;
-    private ResourceBundle mySettings;
+    private ResourceBundle myConfiguration;
     private int myNumSteps;
 
 
 
     public Play() {
-        myGrid = new Grid(FILE_NAME);
+        myImages = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + IMAGES_RESOURCE);
+        myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + CONFIGURATION_FILE);
+        fileName = myConfiguration.getString("CSVFileName");
+        myGrid = new Grid(fileName);
         myRoot = new Group();
         myScene = setUpGame(WINDOW_SIZE, WINDOW_SIZE);
         myAnimation = new Timeline();
         mySideBar = new Clickable(myGrid, myAnimation);
         myLabels = new StagnantLabels();
         myGridGraph = new GridGraph(myGrid);
-        myImages = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + IMAGES_RESOURCE);
-        mySettings = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SETTINGS);
+
         myNumSteps = 1;
         setButtons();
         setDefaultImages();
@@ -166,11 +168,11 @@ public class Play {
     }
 
     private void setDefaultImages() {
-        myImage = !mySettings.containsKey("Color0");
+        myImage = !myConfiguration.containsKey("Color0");
         Paint[] userColors = new Paint[3];
         for (int i = 0; i < 3; i++) {
-            if (mySettings.containsKey("Color" + i)) {
-                userColors[i] = Paint.valueOf(mySettings.getString("Color" + i));
+            if (myConfiguration.containsKey("Color" + i)) {
+                userColors[i] = Paint.valueOf(myConfiguration.getString("Color" + i));
             }
         }
         mySideBar.setColors(userColors);
