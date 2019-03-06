@@ -18,6 +18,17 @@ import java.util.ResourceBundle;
 public class Clickable {
     private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
     private static final String SIDEBAR_RESOURCE = "SideBar";
+    private static final String PAUSE_RESUME_LABEL = "PauseResumeButton";
+    private static final String RESTART_LABEL = "RestartButton";
+    private static final String STEP_THROUGH_LABEL = "StepThroughButton";
+    private static final String IMAGES_LABEL = "Images";
+    private static final String COLOR_LABEL = "ColorScheme";
+    private static final String FILE_MIDDLE_NAME = "-grid-";
+    private static final String CSV_EXTENSION = ".csv";
+
+
+
+
     private static final int[] COLUMN_POSITION = {510, 610, 710, 740, 770};
     private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500};
     private static final Paint[][] PAINT_COLORS = {{Color.BLUE, Color.CYAN, Color.SKYBLUE}, {Color.RED, Color.MISTYROSE, Color.MAROON}};
@@ -51,9 +62,9 @@ public class Clickable {
     }
 
     private void addTimelineButtons(List<Node> shapes) {
-        shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[8], "PauseResumeButton", e -> pauseOrResume()));
-        shapes.add(makeButton(COLUMN_POSITION[2], ROW_POSITION[8], "RestartButton", e -> setGrid(myGrid.getType(), myGrid.getSimNum())));
-        shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[10], "StepThroughButton", e -> stepThrough()));
+        shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[8], PAUSE_RESUME_LABEL, e -> pauseOrResume()));
+        shapes.add(makeButton(COLUMN_POSITION[2], ROW_POSITION[8], RESTART_LABEL, e -> setGrid(myGrid.getType(), myGrid.getSimNum())));
+        shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[10], STEP_THROUGH_LABEL, e -> stepThrough()));
     }
 
 
@@ -70,10 +81,10 @@ public class Clickable {
     }
 
     private void addColorButtons(List<Node> shapes) {
-        shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[17], "Images", e -> setImages()));
+        shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[17], IMAGES_LABEL, e -> setImages()));
         for (int i = 0; i < 2; i++) {
             Paint[] paintColors = PAINT_COLORS[i];
-            shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[18 + i], "ColorScheme" + i, e -> setColors(paintColors)));
+            shapes.add(makeButton(COLUMN_POSITION[0], ROW_POSITION[18 + i], COLOR_LABEL + i, e -> setColors(paintColors)));
         }
     }
 
@@ -101,7 +112,7 @@ public class Clickable {
     }
 
     private void setGrid(SimType simType, int simNum) {
-        String gridName = simType.toString().toLowerCase() + "-grid-" + simNum + ".csv";
+        String gridName = simType.toString().toLowerCase() + FILE_MIDDLE_NAME + simNum + CSV_EXTENSION;
         myGrid = new Grid(gridName); //issues...
     }
 
