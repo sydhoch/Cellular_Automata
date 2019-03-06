@@ -10,8 +10,9 @@
 
 #Checklist/general refactoring
 - We made SharkCell/FishCell classes that extend PPCell to make the classes more DRY
+- 
 
 #Future refactoring todos:
 - Exception handling
-- 
+- get rid of downcasting (1 instance)
 

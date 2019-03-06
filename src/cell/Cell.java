@@ -46,7 +46,6 @@ public abstract class Cell extends Object{
         return cellList;
     }
 
-
     public void setNextState(int nextState){
         myNextState = nextState;
     }

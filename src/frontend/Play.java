@@ -34,6 +34,13 @@ public class Play {
     private static final String IMAGES_RESOURCE = "Images";
     private static final String IMAGE_FOLDER = "images/";
     private static final String CONFIGURATION_FILE = "Test";
+    private static final String FILE_CONFIG_LABEL = "CSVFileName";
+    private static final String NEIGHBOORHOD_CONFIG_LABEL = "NeighborhoodType";
+    private static final String CELLSHAPE_CONFIG_LABEL = "CellShape";
+    private static final String EDGE_CONFIG_LABEL = "EdgePolicies";
+    private static final String COLOR_LABEL = "Color";
+    private static final int STEP_COUNT_START = 1;
+    private static final int MAX_STATES= 3;
 
     private String fileName;
     private Scene myScene;
@@ -55,10 +62,10 @@ public class Play {
     public Play() {
         myImages = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + IMAGES_RESOURCE);
         myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + CONFIGURATION_FILE);
-        fileName = myConfiguration.getString("CSVFileName");
-        String neighborhoodType = myConfiguration.getString("NeighborhoodType");
-        String cellShape = myConfiguration.getString("CellShape");
-        String edgePolicy = myConfiguration.getString("EdgePolicies");
+        fileName = myConfiguration.getString(FILE_CONFIG_LABEL);
+        String neighborhoodType = myConfiguration.getString(NEIGHBOORHOD_CONFIG_LABEL);
+        String cellShape = myConfiguration.getString(CELLSHAPE_CONFIG_LABEL);
+        String edgePolicy = myConfiguration.getString(EDGE_CONFIG_LABEL);
         myGrid = new Grid(fileName, neighborhoodType, cellShape, edgePolicy);
         myRoot = new Group();
         myScene = setUpGame(WINDOW_SIZE, WINDOW_SIZE);
@@ -66,8 +73,7 @@ public class Play {
         mySideBar = new Clickable(myGrid, myAnimation);
         myLabels = new StagnantLabels();
         myGridGraph = new GridGraph(myGrid);
-
-        myNumSteps = 1;
+        myNumSteps = STEP_COUNT_START;
         setButtons();
         setDefaultImages();
         displayStates();
@@ -128,7 +134,7 @@ public class Play {
             myRoot.getChildren().add(myGridGraph.getGraph());
         }
         myImage = mySideBar.getImages();
-        myNumSteps = 1;
+        myNumSteps = STEP_COUNT_START;
     }
 
     private Node setView(int i, int j) {
@@ -162,11 +168,11 @@ public class Play {
     }
 
     private void setDefaultImages() {
-        myImage = !myConfiguration.containsKey("Color0");
-        Paint[] userColors = new Paint[3];
-        for (int i = 0; i < 3; i++) {
-            if (myConfiguration.containsKey("Color" + i)) {
-                userColors[i] = Paint.valueOf(myConfiguration.getString("Color" + i));
+        myImage = !myConfiguration.containsKey(COLOR_LABEL + 0);
+        Paint[] userColors = new Paint[MAX_STATES];
+        for (int i = 0; i < userColors.length; i++) {
+            if (myConfiguration.containsKey(COLOR_LABEL + i)) {
+                userColors[i] = Paint.valueOf(myConfiguration.getString(COLOR_LABEL + i));
             }
         }
         mySideBar.setColors(userColors);

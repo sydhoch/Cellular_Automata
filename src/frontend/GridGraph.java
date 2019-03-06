@@ -1,6 +1,7 @@
 package frontend;
 
 import grid.Grid;
+import javafx.scene.chart.Axis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -14,6 +15,8 @@ public class GridGraph {
     private LineChart<NumberAxis, NumberAxis> myLineChart;
     private static final String DEFAULT_RESOURCE_PACKAGE = "/Resources/";
     private static final String CELL_TYPES = "SideBar";
+    private static final String X_LABEL = "Time";
+    private static final String Y_LABEL = "Cells";
     private ResourceBundle myResources;
     private Grid myGrid;
     private Map<Integer, XYChart.Series> myData;
@@ -27,9 +30,9 @@ public class GridGraph {
 
     private void setUpGraph() {
         NumberAxis xAxis = new NumberAxis(0, 10, 1);
-        xAxis.setLabel("Time");
+        xAxis.setLabel(X_LABEL);
         NumberAxis yAxis = new NumberAxis(0, myGrid.getHeight() * myGrid.getWidth(), 5);
-        yAxis.setLabel("Cells");
+        yAxis.setLabel(Y_LABEL);
 
         myLineChart = new LineChart(xAxis, yAxis);
 
@@ -54,9 +57,9 @@ public class GridGraph {
     void updateGraph(int step) {
         for (int i = 0; i < 3; i++) {
             if (myGrid.getCellsInState(i) == null) {
-                myData.get(i).getData().add(new XYChart.Data(step, 0));
+                myData.get(i).getData().add(new XYChart.Data<>(step, 0));
             } else {
-                myData.get(i).getData().add(new XYChart.Data(step, myGrid.getCellsInState(i).size()));
+                myData.get(i).getData().add(new XYChart.Data<>(step, myGrid.getCellsInState(i).size()));
             }
         }
     }
