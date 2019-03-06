@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 public class PropertiesTest {
     public static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
     ResourceBundle myResources;
+
     @BeforeEach
     void initialize() {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Test");
