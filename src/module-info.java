@@ -9,4 +9,7 @@ module FrontEnd {
 
     exports frontend;
     exports grid;
+    exports cell;
+    exports Enums;
+    exports Resources;
 }

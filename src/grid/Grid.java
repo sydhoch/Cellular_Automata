@@ -22,18 +22,13 @@ public class Grid {
     private ResourceBundle myResources;
     private Map<Integer, List<Cell>> myCellStates;
 
-<<<<<<< HEAD:src/Grid.java
-    public Grid(String file) {
-        myCellStates = new HashMap<Integer, List<Cell>>();
-=======
     public Grid(String file, String neighborPolicy,String cellShape, String edgePolicy ) {
         myCellStates = new HashMap<>();
->>>>>>> master:src/grid/Grid.java
-        myGrid = makeGrid(file);
+        myGrid = makeGrid(readFile(file));
         simNum = Integer.valueOf(file.substring(file.length()-5, file.length()-4));
     }
 
-    private Cell[][] makeGrid(String gameFile) {
+    private String[] readFile(String gameFile){
         Scanner s = new Scanner(Play.class.getClassLoader().getResourceAsStream(gameFile));
         String csv = "";
         while (s.hasNext()) {
@@ -48,6 +43,10 @@ public class Grid {
                 k++;
             }
         }
+        return seperatedVals;
+    }
+
+    private Cell[][] makeGrid(String[] seperatedVals) {
         myGameType = SimType.valueOf(seperatedVals[0].toUpperCase());
         myWidth = Integer.valueOf(seperatedVals[1]);
         myHeight = Integer.valueOf(seperatedVals[2]);
@@ -80,13 +79,9 @@ public class Grid {
         return myGameType;
     }
 
-<<<<<<< HEAD:src/Grid.java
     protected void setNextStates() {
         Map<Integer,List<Cell>> mapCopy = myCellStates.entrySet().stream()
                 .collect(Collectors.toMap(e -> e.getKey(), e -> List.copyOf(e.getValue())));
-=======
-    public void setNextStates() {
->>>>>>> master:src/grid/Grid.java
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
                 Cell[] neighbors = setNeighbors(i, j);
@@ -95,12 +90,7 @@ public class Grid {
         }
     }
 
-<<<<<<< HEAD:src/Grid.java
-
     protected void updateStates () {
-=======
-    public void updateStates() {
->>>>>>> master:src/grid/Grid.java
         myCellStates.clear();
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
@@ -115,12 +105,7 @@ public class Grid {
         myCellStates.get(cell.getState()).add(cell);
     }
 
-
-<<<<<<< HEAD:src/Grid.java
     protected Cell getCell ( int row, int col){
-=======
-    public Cell getCell(int row, int col) {
->>>>>>> master:src/grid/Grid.java
         return myGrid[row][col];
     }
 
@@ -130,7 +115,6 @@ public class Grid {
         return neighbors.getNeighbors();
     }
 
-<<<<<<< HEAD:src/Grid.java
     protected int getWidth () {
         return myWidth;
     }
@@ -138,11 +122,6 @@ public class Grid {
     protected int getHeight () {
         return myHeight;
     }
-=======
-    public int getWidth() { return myWidth; }
-
-    public int getHeight() { return myHeight; }
->>>>>>> master:src/grid/Grid.java
 
     public Cell[][] getGrid () {
         return myGrid;
@@ -156,17 +135,16 @@ public class Grid {
         myShape = shape;
     }
 
-<<<<<<< HEAD:src/Grid.java
+
     public void setArr(Arrangement arr){
         myArr= arr;
     }
     public void setEdge (Edge edge){
         myEdge= edge;
     }
-=======
+
     public int getSimNum(){
         return simNum;
     }
 
->>>>>>> master:src/grid/Grid.java
 }
