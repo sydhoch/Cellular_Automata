@@ -12,29 +12,29 @@ class GridTest {
 
     @Test
     void testReadFile() {
-       Grid myGrid = new Grid("gol-grid-3.csv");
-       Cell[][] expected = {{new GoLCell(1), new GoLCell(0), new GoLCell(1)}, {new GoLCell(0), new GoLCell(1), new GoLCell(1)}, {new GoLCell(0), new GoLCell(0), new GoLCell(0)}};
-       Cell[][] actual = myGrid.getGrid();
-       for(int i = 0; i < 3; i++){
-           for(int j =0; j < 3; j++){
-               assertEquals(expected[i][j].getState(), actual[i][j].getState());
-           }
-       }
+        Grid myGrid = new Grid("gol-grid-3.csv");
+        Cell[][] expected = {{new GoLCell(1), new GoLCell(0), new GoLCell(1)}, {new GoLCell(0), new GoLCell(1), new GoLCell(1)}, {new GoLCell(0), new GoLCell(0), new GoLCell(0)}};
+        Cell[][] actual = myGrid.getGrid();
+        for(int i = 0; i < 3; i++){
+            for(int j =0; j < 3; j++){
+                assertEquals(expected[i][j].getState(), actual[i][j].getState());
+            }
+        }
     }
 
-   @Test
+    @Test
     void testNeighborsMiddle(){
-       Grid myGrid = new Grid("gol-grid-3.csv");
-       Cell[] expected = {new GoLCell(1),
-               new GoLCell(0),
-               new GoLCell(1),
-               new GoLCell(0),
-               new GoLCell(1),
-               new GoLCell(0),
-               new GoLCell(0),
-               new GoLCell(0)};
-       compareCells(myGrid, expected, 1, 1);
-   }
+        Grid myGrid = new Grid("gol-grid-3.csv");
+        Cell[] expected = {new GoLCell(1),
+                new GoLCell(0),
+                new GoLCell(1),
+                new GoLCell(0),
+                new GoLCell(1),
+                new GoLCell(0),
+                new GoLCell(0),
+                new GoLCell(0)};
+        compareCells(myGrid, expected, 1, 1);
+    }
 
     @Test
     void testNeighborsEdge(){
