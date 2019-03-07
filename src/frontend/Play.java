@@ -171,10 +171,10 @@ public class Play {
 
     private void step(double elapsedTime) {
         displayStates();
-//        myGrid.setNextStates();
-//        myGrid.updateStates();
-//        myGridGraph.updateGraph(myNumSteps);
-//        myNumSteps++;
+        myGrid.setNextStates();
+        myGrid.updateStates();
+        myGridGraph.updateGraph(myNumSteps);
+        myNumSteps++;
     }
 
 
