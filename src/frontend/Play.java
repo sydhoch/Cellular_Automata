@@ -1,5 +1,8 @@
 package frontend;
 
+import Enums.Arrangement;
+import Enums.Edge;
+import Enums.Shape;
 import grid.Grid;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -60,17 +63,13 @@ public class Play {
 
 
     public Play() {
-<<<<<<< HEAD:src/Play.java
-        myGrid = new Grid(FILE_NAME);
-=======
         myImages = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + IMAGES_RESOURCE);
         myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + CONFIGURATION_FILE);
         fileName = myConfiguration.getString(FILE_CONFIG_LABEL);
-        String neighborhoodType = myConfiguration.getString(NEIGHBOORHOD_CONFIG_LABEL);
-        String cellShape = myConfiguration.getString(CELLSHAPE_CONFIG_LABEL);
-        String edgePolicy = myConfiguration.getString(EDGE_CONFIG_LABEL);
+        Arrangement neighborhoodType = Arrangement.valueOf(myConfiguration.getString(NEIGHBOORHOD_CONFIG_LABEL).toUpperCase());
+        Shape cellShape = Shape.valueOf(myConfiguration.getString(CELLSHAPE_CONFIG_LABEL).toUpperCase());
+        Edge edgePolicy = Edge.valueOf(myConfiguration.getString(EDGE_CONFIG_LABEL));
         myGrid = new Grid(fileName, neighborhoodType, cellShape, edgePolicy);
->>>>>>> master:src/frontend/Play.java
         myRoot = new Group();
         myScene = setUpGame(WINDOW_SIZE, WINDOW_SIZE);
         myAnimation = new Timeline();

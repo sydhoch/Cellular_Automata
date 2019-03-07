@@ -115,7 +115,7 @@ public class Clickable {
 
     private void setGrid(SimType simType, int simNum) {
         String gridName = simType.toString().toLowerCase() + FILE_MIDDLE_NAME + simNum + CSV_EXTENSION;
-        myGrid = new Grid(gridName);
+        myGrid = new Grid(gridName, myGrid.getArr(), myGrid.getShape(), myGrid.getEdge());
     }
 
     public Grid getGrid() {
