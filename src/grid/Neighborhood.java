@@ -148,6 +148,9 @@ public class Neighborhood {
         if (n == -1 && val == 0) {
             return maxVal - 1;
         }
+        if(val==maxVal-n){
+
+        }
         if (n == 1 && val == maxVal - 1) {
             return 0;
         }
@@ -157,13 +160,11 @@ public class Neighborhood {
         if (n==-2 && val == 0) {
                 return maxVal - 2;
         }
-        if (n == 2) {
-            if (val == maxVal - 2) {
-                return 0;
-            }
-            if (val == maxVal - 1) {
-                return 1;
-            }
+        if (n == 2 && val == maxVal - 2) {
+            return 0;
+        }
+        if (n == 2 && val == maxVal - 1) {
+            return 1;
         }
         if (n == -3 && val==2) {
             return maxVal - 1;
@@ -174,16 +175,14 @@ public class Neighborhood {
         if (n==-3 && val == 0) {
             return maxVal - 3;
         }
-        if (n == 3) {
-            if (val == maxVal - 3) {
-                return 0;
-            }
-            if (val == maxVal - 2) {
-                return 1;
-            }
-            if (val == maxVal - 1) {
-                return 2;
-            }
+        if (n == 3 && val==maxVal-3) {
+            return 0;
+        }
+        if (n == 3 && val==maxVal-2) {
+            return 1;
+        }
+        if (n == 3 && val==maxVal-1) {
+            return 2;
         }
         return val+n;
     }
