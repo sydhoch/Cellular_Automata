@@ -3,5 +3,5 @@ package Enums;
 public enum Edge {
     FINITE,
     TOROIDAL,
-    ANOTHERONE;
+    TOROIDAL_ROW_ONLY;
 }

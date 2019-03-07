@@ -1,7 +1,14 @@
+import Enums.Arrangement;
+import Enums.Edge;
+import Enums.Shape;
 import cell.Cell;
 import cell.GoLCell;
+import grid.Grid;
+import grid.Neighborhood;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,8 +26,141 @@ class NeighborhoodTest {
     }
 
     @Test
-    void getNeighbors() {
-        Grid myGrid = new Grid("gol-grid-3.csv");
-
+    void getNeighborsMiddleRectangleCompleteToroidal() {
+        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.RECTANGLE, Edge.TOROIDAL);
+        Neighborhood neighbors = new Neighborhood(1,1,Shape.RECTANGLE,Arrangement.COMPLETE,Edge.TOROIDAL,myGrid);
+        Cell[] neigh = neighbors.getNeighbors();
+        int onecount = 0;
+        int zerocount=0;
+        for(int i=0;i<neigh.length;i++){
+            if(neigh[i].getState()==0){
+                zerocount ++;
+            }
+            else{
+                onecount++;
+            }
+        }
+        boolean expectedZero = (zerocount == 5);
+        boolean expectedOne = (onecount==3);
+        assertEquals(true,expectedOne && expectedZero);
     }
+
+    @Test
+    void getNeighborsRectangleCompleteToroidalRowZero() {
+        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.RECTANGLE, Edge.TOROIDAL);
+        Neighborhood neighbors = new Neighborhood(0,1,Shape.RECTANGLE,Arrangement.COMPLETE,Edge.TOROIDAL,myGrid);
+        Cell[] neigh = neighbors.getNeighbors();
+        int onecount = 0;
+        int zerocount=0;
+        for(int i=0;i<neigh.length;i++){
+            if(neigh[i].getState()==0){
+                zerocount ++;
+            }
+            else{
+                onecount++;
+            }
+        }
+        boolean expectedZero = (zerocount == 4);
+        boolean expectedOne = (onecount==4);
+        assertEquals(true,expectedOne && expectedZero);
+    }
+
+    @Test
+    void getNeighborsRectangleCompleteToroidalColZero() {
+        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.RECTANGLE, Edge.TOROIDAL);
+        Neighborhood neighbors = new Neighborhood(1,0,Shape.RECTANGLE,Arrangement.COMPLETE,Edge.TOROIDAL,myGrid);
+        Cell[] neigh = neighbors.getNeighbors();
+        int onecount = 0;
+        int zerocount=0;
+        for(int i=0;i<neigh.length;i++){
+            if(neigh[i].getState()==0){
+                zerocount ++;
+            }
+            else{
+                onecount++;
+            }
+        }
+        boolean expectedZero = (zerocount == 4);
+        boolean expectedOne = (onecount==4);
+        assertEquals(true,expectedOne && expectedZero);
+    }
+
+    @Test
+    void getNeighborsRectangleCompleteToroidalRowColZero() {
+        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.RECTANGLE, Edge.TOROIDAL);
+        Neighborhood neighbors = new Neighborhood(0,0,Shape.RECTANGLE,Arrangement.COMPLETE,Edge.TOROIDAL,myGrid);
+        Cell[] neigh = neighbors.getNeighbors();
+        int onecount = 0;
+        int zerocount=0;
+        for(int i=0;i<neigh.length;i++){
+            if(neigh[i].getState()==0){
+                zerocount ++;
+            }
+            else{
+                onecount++;
+            }
+        }
+        boolean expectedZero = (zerocount == 5);
+        boolean expectedOne = (onecount==3);
+        assertEquals(true,expectedOne && expectedZero);
+    }
+    @Test
+    void getNeighborsRectangleCompleteToroidalMax() {
+        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.RECTANGLE, Edge.TOROIDAL);
+        Neighborhood neighbors = new Neighborhood(2,2,Shape.RECTANGLE,Arrangement.COMPLETE,Edge.TOROIDAL,myGrid);
+        Cell[] neigh = neighbors.getNeighbors();
+        int onecount = 0;
+        int zerocount=0;
+        for(int i=0;i<neigh.length;i++){
+            if(neigh[i].getState()==0){
+                zerocount ++;
+            }
+            else{
+                onecount++;
+            }
+        }
+        boolean expectedZero = (zerocount == 4);
+        boolean expectedOne = (onecount==4);
+        assertEquals(true,expectedOne && expectedZero);
+    }
+
+    @Test
+    void getNeighborsRectangleFINITECompleteMax() {
+        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.RECTANGLE, Edge.FINITE);
+        Neighborhood neighbors = new Neighborhood(2,2,Shape.RECTANGLE,Arrangement.COMPLETE,Edge.FINITE,myGrid);
+        Cell[] neigh = neighbors.getNeighbors();
+        int onecount = 0;
+        int zerocount=0;
+        for(int i=0;i<neigh.length;i++){
+            if(neigh[i].getState()==0){
+                zerocount ++;
+            }
+            else{
+                onecount++;
+            }
+        }
+        boolean expectedZero = (zerocount == 1);
+        boolean expectedOne = (onecount==2);
+        assertEquals(true,expectedOne && expectedZero);
+    }
+
+//    @Test
+//    void getNeighborsTriangleCompleteToroidalMax() {
+//        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.TRIANGLE, Edge.TOROIDAL);
+//        Neighborhood neighbors = new Neighborhood(2,2,Shape.TRIANGLE,Arrangement.COMPLETE,Edge.TOROIDAL,myGrid);
+//        Cell[] neigh = neighbors.getNeighbors();
+//        int onecount = 0;
+//        int zerocount=0;
+//        for(int i=0;i<neigh.length;i++){
+//            if(neigh[i].getState()==0){
+//                zerocount ++;
+//            }
+//            else{
+//                onecount++;
+//            }
+//        }
+//        boolean expectedZero = (zerocount == 4);
+//        boolean expectedOne = (onecount==4);
+//        assertEquals(true,expectedOne && expectedZero);
+//    }
 }

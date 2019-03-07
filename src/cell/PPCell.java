@@ -16,7 +16,6 @@ public class PPCell extends Cell {
         super(state);
         myBabyTime = 0;
         myEnergy = INITIAL_SHARK_ENERGY;
-
     }
     //0 = empty
     //1 = fish
