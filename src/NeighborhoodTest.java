@@ -146,21 +146,26 @@ class NeighborhoodTest {
 
 //    @Test
 //    void getNeighborsTriangleCompleteToroidalMax() {
-//        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.TRIANGLE, Edge.TOROIDAL);
-//        Neighborhood neighbors = new Neighborhood(2,2,Shape.TRIANGLE,Arrangement.COMPLETE,Edge.TOROIDAL,myGrid);
+//        Grid myGrid = new Grid("example-triangle-rps.csv", Arrangement.COMPLETE, Shape.TRIANGLE, Edge.TOROIDAL);
+//        Neighborhood neighbors = new Neighborhood(1,3,Shape.TRIANGLE,Arrangement.COMPLETE,Edge.TOROIDAL,myGrid);
 //        Cell[] neigh = neighbors.getNeighbors();
+//        int twocount = 0;
 //        int onecount = 0;
 //        int zerocount=0;
 //        for(int i=0;i<neigh.length;i++){
 //            if(neigh[i].getState()==0){
 //                zerocount ++;
 //            }
+//            if(neigh[i].getState()==2){
+//                twocount ++;
+//            }
 //            else{
 //                onecount++;
 //            }
 //        }
-//        boolean expectedZero = (zerocount == 4);
+//        boolean expectedTwo = (twocount == 5);
+//        boolean expectedZero = (zerocount == 3);
 //        boolean expectedOne = (onecount==4);
-//        assertEquals(true,expectedOne && expectedZero);
+//        assertEquals(true,expectedOne && expectedZero && expectedTwo);
 //    }
 }
