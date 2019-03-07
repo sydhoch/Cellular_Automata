@@ -24,13 +24,12 @@ public class Neighborhood {
         myNeighbors = new ArrayList<>();
         myEdgeNeighbors = new ArrayList<>();
         myVertexNeighbors = new ArrayList<>();
-        setShape(shape);
-        setNeighbors(edge);
-        setArr(arr);
         myRow = row;
         myCol = col;
         myGrid = grid;
-
+        setShape(shape);
+        setNeighbors(edge);
+        setArr(arr);
     }
 
     //sets nums

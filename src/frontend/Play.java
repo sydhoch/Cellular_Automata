@@ -34,42 +34,37 @@ public class Play {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "/Resources/";
     private static final String STYLESHEET = "default.css";
-    private static final String IMAGES_RESOURCE = "Images";
-    private static final String IMAGE_FOLDER = "images/";
-    private static final String CONFIGURATION_FILE = "Test";
+    private static final String CONFIGURATION_FILE = "Gol";
     private static final String FILE_CONFIG_LABEL = "CSVFileName";
     private static final String NEIGHBOORHOD_CONFIG_LABEL = "NeighborhoodType";
     private static final String CELLSHAPE_CONFIG_LABEL = "CellShape";
     private static final String EDGE_CONFIG_LABEL = "EdgePolicies";
-    private static final String COLOR_LABEL = "Color";
     private static final int STEP_COUNT_START = 1;
     private static final int MAX_STATES= 3;
+    private static final String COLOR_LABEL = "Color";
+    private Paint[] myColors;
 
-    private String fileName;
+    private String myFileName;
     private Scene myScene;
     private Group myRoot;
     private Grid myGrid;
     private Timeline myAnimation;
     private Clickable mySideBar;
     private StagnantLabels myLabels;
-    private Paint[] myColors;
-    private boolean myImage;
-    private int myCellHeight;
-    private int myCellWidth;
     private GridGraph myGridGraph;
-    private ResourceBundle myImages;
     private ResourceBundle myConfiguration;
     private int myNumSteps;
+    private Shape myShape;
+    private CellDisplay myCellDisplay;
 
 
     public Play() {
-        myImages = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + IMAGES_RESOURCE);
         myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + CONFIGURATION_FILE);
-        fileName = myConfiguration.getString(FILE_CONFIG_LABEL);
+        myFileName = "gol-grid-4.csv";//myConfiguration.getString(FILE_CONFIG_LABEL);
         Arrangement neighborhoodType = Arrangement.valueOf(myConfiguration.getString(NEIGHBOORHOD_CONFIG_LABEL).toUpperCase());
-        Shape cellShape = Shape.valueOf(myConfiguration.getString(CELLSHAPE_CONFIG_LABEL).toUpperCase());
-        Edge edgePolicy = Edge.valueOf(myConfiguration.getString(EDGE_CONFIG_LABEL));
-        myGrid = new Grid(fileName, neighborhoodType, cellShape, edgePolicy);
+        myShape = Shape.valueOf(myConfiguration.getString(CELLSHAPE_CONFIG_LABEL).toUpperCase());
+        Edge edgePolicy = Edge.valueOf(myConfiguration.getString(EDGE_CONFIG_LABEL).toUpperCase());
+        myGrid = new Grid(myFileName, neighborhoodType, myShape, edgePolicy);
         myRoot = new Group();
         myScene = setUpGame(WINDOW_SIZE, WINDOW_SIZE);
         myAnimation = new Timeline();
@@ -77,9 +72,24 @@ public class Play {
         myLabels = new StagnantLabels();
         myGridGraph = new GridGraph(myGrid);
         myNumSteps = STEP_COUNT_START;
+        setConfigColors();
+        myCellDisplay = makeCellDisplay();
         setButtons();
-        setDefaultImages();
-        displayStates();
+        //setDefaultImages();
+    }
+
+    private CellDisplay makeCellDisplay(){
+        //put in image option
+//        if(myShape.equals(Shape.RECTANGLE)){
+//            return new RectangleDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myGrid.getType(), myColors);
+//        }
+//        else if(myShape.equals(Shape.TRIANGLE)){
+//            return new TriangleDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myGrid.getType(), myColors);
+//        }
+//        else if(myShape.equals(Shape.HEXAGON)){
+//            return new HexagonDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myGrid.getType());
+//        }
+        return new TriangleDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myGrid.getType(), myColors);
     }
 
     public Scene getScene() {
@@ -101,27 +111,6 @@ public class Play {
         return scene;
     }
 
-    private void displayStates() {
-        removeFromScreen(new Rectangle());
-        removeFromScreen(new ImageView());
-        for (int i = 0; i < myGrid.getHeight(); i++) {
-            for (int j = 0; j < myGrid.getWidth(); j++) {
-                myRoot.getChildren().add(setView(i, j));
-            }
-        }
-    }
-
-    private void removeFromScreen(Node remove) {
-        List<Node> toRemove = new ArrayList<>();
-        for (Node n : myRoot.getChildren()) {
-            if (n.getClass().equals(remove.getClass())) {
-                toRemove.add(n);
-
-            }
-        }
-        myRoot.getChildren().removeAll(toRemove);
-    }
-
     private void setButtons() {
         myRoot.getChildren().addAll(myLabels.getLabels());
         myRoot.getChildren().addAll(mySideBar.getButtons());
@@ -132,24 +121,36 @@ public class Play {
     private void updateButtons() {
         if (myGrid != mySideBar.getGrid()) {
             myGrid = mySideBar.getGrid();
+            myRoot.getChildren().remove(myGridGraph.getGraph());
             myGridGraph = new GridGraph(myGrid);
-            removeFromScreen(myGridGraph.getGraph());
             myRoot.getChildren().add(myGridGraph.getGraph());
         }
-        myImage = mySideBar.getImages();
+        myColors = mySideBar.getColors();
+        myCellDisplay.changeColors(myColors);
         myNumSteps = STEP_COUNT_START;
     }
 
-    private Node setView(int i, int j) {
-        myCellWidth = SIM_SIZE / myGrid.getHeight();
-        myCellHeight = SIM_SIZE / myGrid.getWidth();
-        Node n;
-        if (myImage) {
-            n = setImage(i, j);
-        } else {
-            myColors = mySideBar.getColors();
-            n = setRectangle(i, j);
+    private void displayStates() {
+        myCellDisplay.removeFromScreen(myRoot);
+        for (int i = 0; i < myGrid.getHeight(); i++) {
+            for (int j = 0; j < myGrid.getWidth(); j++) {
+                myRoot.getChildren().add(setFunction(i, j));
+            }
         }
+    }
+
+    private void setConfigColors() {
+        myColors = new Paint[MAX_STATES];
+        for (int i = 0; i < myColors.length; i++) {
+            if (myConfiguration.containsKey(COLOR_LABEL + i)) {
+                myColors[i] = Paint.valueOf(myConfiguration.getString(COLOR_LABEL + i));
+            }
+        }
+        mySideBar.setColors(myColors);
+    }
+
+    private Node setFunction(int i, int j) {
+        Node n = myCellDisplay.setView(i, j, myGrid.getCell(i, j).getState(), myGrid.getType());
         n.setOnMouseClicked(e -> changeCellState(i, j));
         return n;
     }
@@ -170,41 +171,12 @@ public class Play {
         }
     }
 
-    private void setDefaultImages() {
-        myImage = !myConfiguration.containsKey(COLOR_LABEL + 0);
-        Paint[] userColors = new Paint[MAX_STATES];
-        for (int i = 0; i < userColors.length; i++) {
-            if (myConfiguration.containsKey(COLOR_LABEL + i)) {
-                userColors[i] = Paint.valueOf(myConfiguration.getString(COLOR_LABEL + i));
-            }
-        }
-        mySideBar.setColors(userColors);
-    }
-
-    private Rectangle setRectangle(int i, int j) {
-        Rectangle rect = new Rectangle(myCellWidth * i, myCellHeight * j, myCellWidth, myCellHeight);
-        rect.setFill(myColors[myGrid.getCell(i, j).getState()]);
-        return rect;
-    }
-
-    private ImageView setImage(int i, int j) {
-        String image_file = IMAGE_FOLDER + myImages.getString(myGrid.getType().toString() + myGrid.getCell(i, j).getState());
-        System.out.println(image_file);
-        Image preImage = new Image(this.getClass().getClassLoader().getResourceAsStream(image_file));
-        ImageView img = new ImageView(preImage);
-        img.setX(myCellWidth * i);
-        img.setY(myCellHeight * j);
-        img.setFitWidth(myCellWidth);
-        img.setFitHeight(myCellHeight);
-        return img;
-    }
-
     private void step(double elapsedTime) {
-        myGrid.setNextStates();
-        myGrid.updateStates();
-        myGridGraph.updateGraph(myNumSteps);
         displayStates();
-        myNumSteps++;
+//        myGrid.setNextStates();
+//        myGrid.updateStates();
+//        myGridGraph.updateGraph(myNumSteps);
+//        myNumSteps++;
     }
 
 
