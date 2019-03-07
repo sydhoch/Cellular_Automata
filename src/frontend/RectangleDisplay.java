@@ -1,21 +1,20 @@
 package frontend;
 
-import Enums.SimType;
 import javafx.scene.Node;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 import java.util.List;
 
-public class RectangleDisplay extends CellDisplay {
+public class RectangleDisplay extends ShapeDisplay {
     private int myCellHeight;
     private int myCellWidth;
     private Paint[] myColors;
 
 
-    public RectangleDisplay(int size, int height, int width, SimType s, Paint[] colors){
-        super(size, height, width, s, colors);
-        myColors = super.getColors();
+    public RectangleDisplay(int size, int height, int width, String[] colors){
+        super(size, height, width, colors);
+        myColors = convertColors(getColors());
     }
 
     protected void remove(Node n, List<Node> toRemove) {
@@ -24,8 +23,8 @@ public class RectangleDisplay extends CellDisplay {
         }
     }
 
-    protected Node setView(int i, int j, int state, SimType s){
-        myColors = super.getColors();
+    protected Node setView(int i, int j, int state){
+        myColors = convertColors(getColors());
         Rectangle rect = new Rectangle(myCellWidth * i, myCellHeight * j, myCellWidth, myCellHeight);
         rect.setFill(myColors[state]);
         return rect;

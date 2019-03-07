@@ -1,26 +1,23 @@
 package frontend;
 
-import Enums.SimType;
 import javafx.scene.Node;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
 
 import java.util.List;
 
-public class TriangleDisplay extends CellDisplay {
+public class TriangleDisplay extends ShapeDisplay {
     private int myCellHeight;
     private int myCellWidth;
     private Paint[] myColors;
 
-    public TriangleDisplay(int size, int height, int width, SimType s, Paint[] colors){
-        super(size, height, width, s, colors);
-        myColors = super.getColors();
+    public TriangleDisplay(int size, int height, int width, String[] colors){
+        super(size, height, width, colors);
+        myColors = convertColors(getColors());;
     }
 
-    protected Node setView(int x, int y, int state, SimType s){
-        myColors = super.getColors();
+    protected Node setView(int x, int y, int state){
+        myColors = convertColors(getColors());;
         int pointX;
         int pointY;
         int leftX;

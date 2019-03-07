@@ -32,15 +32,14 @@ public class Clickable {
 
     private static final int[] COLUMN_POSITION = {510, 610, 710, 740, 770};
     private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500};
-    private static final Paint[][] PAINT_COLORS = {{Color.BLUE, Color.CYAN, Color.SKYBLUE}, {Color.RED, Color.MISTYROSE, Color.MAROON}};
+    private static final String[][] PAINT_COLORS = {{"BLUE", "CYAN", "SKYBLUE"}, {"RED", "MISTYROSE", "MAROON"}, {"GREEN", "DARKGREEN", "LIGHTGREEN"}};
     private static final SimType[] SIMULATION_TYPES = {FIRE, GOL, PERC, PP, RPS, SEG};
 
     private Grid myGrid;
     private Timeline myAnimation;
     private ResourceBundle myResources;
     private boolean myStepThrough;
-    private Paint[] myColors;
-    private boolean myImages;
+    private String[] myColors;
     private List<Node> myButtons;
 
     public Clickable(Grid grid, Timeline animation) {
@@ -49,7 +48,6 @@ public class Clickable {
         myAnimation = animation;
         myStepThrough = false;
         myColors = PAINT_COLORS[0];
-        myImages = true;
         makeButtons();
     }
 
@@ -77,35 +75,24 @@ public class Clickable {
         slider.setMajorTickUnit(.5);
         slider.setShowTickLabels(true);
         slider.setOnMouseClicked(e -> setSpeed(slider.getValue()));
-        //slider.setOnDragDetected(e -> setSpeed(slider, slider.getValue()));
-        //slider.setOnDragOver(e -> setSpeed(slider, slider.getValue()));
         myButtons.add(slider);
     }
 
     private void addColorButtons() {
-        addButton(COLUMN_POSITION[0], ROW_POSITION[17], IMAGES_LABEL, e -> setImages());
-        for (int i = 0; i < 2; i++) {
-            Paint[] paintColors = PAINT_COLORS[i];
-            addButton(COLUMN_POSITION[0], ROW_POSITION[18 + i], COLOR_LABEL + i, e -> setColors(paintColors));
+        for (int i = 0; i < 3; i++) {
+            String[] paintColors = PAINT_COLORS[i];
+            addButton(COLUMN_POSITION[0], ROW_POSITION[17 + i], COLOR_LABEL + i, e -> setColors(paintColors));
         }
     }
 
-    void setColors(Paint[] paints) {
-        myImages = false;
+    void setColors(String[] paints) {
         myColors = paints;
     }
 
-    Paint[] getColors() {
+    String[] getColors() {
         return myColors;
     }
 
-    private void setImages() {
-        myImages = true;
-    }
-
-    boolean getImages() {
-        return myImages;
-    }
 
     private void addButton(int xpos, int ypos, String property, EventHandler<MouseEvent> handler) {
         Text result = new Text(xpos, ypos, myResources.getString(property));

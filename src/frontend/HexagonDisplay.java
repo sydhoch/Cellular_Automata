@@ -1,24 +1,23 @@
 package frontend;
 
-import Enums.SimType;
 import javafx.scene.Node;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polygon;
 
 import java.util.List;
 
-public class HexagonDisplay extends CellDisplay {
+public class HexagonDisplay extends ShapeDisplay {
     private double myCellHeight;
     private double myCellWidth;
     private Paint[] myColors;
 
-    public HexagonDisplay(int size, int height, int width, SimType s, Paint[] colors) {
-        super(size, height, width, s, colors);
-        myColors = super.getColors();
+    public HexagonDisplay(int size, int height, int width, String[] colors) {
+        super(size, height, width, colors);
+        myColors = convertColors(getColors());;
     }
 
-    protected Node setView(int x, int y, int state, SimType s) {
-        myColors = super.getColors();
+    protected Node setView(int x, int y, int state) {
+        myColors = convertColors(getColors());;
         double point1X = (myCellWidth*1/4) + y * myCellHeight - (myCellWidth*y/4);
         double point1Y = myCellHeight + myCellWidth * x -(myCellHeight*y/2);
         double point2X = point1X + myCellWidth/2;
@@ -32,17 +31,6 @@ public class HexagonDisplay extends CellDisplay {
         double point6X = point1X-myCellWidth/4;
         double point6Y = point2Y+myCellHeight/2;
 
-
-//        System.out.println(x + "    " + y + "   " + state);
-//        System.out.println(point1X + "   " + point1Y);
-//        System.out.println(point2X + "   " + point2Y);
-//        System.out.println(point3X + "   " + point3Y);
-//        System.out.println(point4X + "   " + point4Y);
-//        System.out.println(point5X + "   " + point5Y);
-//        System.out.println(point6X + "   " + point6Y);
-//
-//
-//        System.out.println();
         Polygon tri = new Polygon(point1X, point1Y,
                 point2X, point2Y,
                 point3X, point3Y,
@@ -53,6 +41,7 @@ public class HexagonDisplay extends CellDisplay {
         return tri;
     }
 
+    @Override
     protected void setSize(int size, int height, int width) {
         myCellWidth = size / height * .75;
         myCellHeight = size / width * .75;

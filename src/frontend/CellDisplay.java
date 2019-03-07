@@ -2,7 +2,6 @@ package frontend;
 
 import Enums.SimType;
 import cell.Cell;
-import grid.Grid;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.paint.Paint;
@@ -14,13 +13,11 @@ public abstract class CellDisplay {
     private int mySize;
     private int myGridHeight;
     private int myGridWidth;
-    private Paint[] myColors;
+    private String[] myColors;
 
-    public CellDisplay(){
-        return;
-    }
+    public CellDisplay(){}
 
-    public CellDisplay(int size, int height, int width, SimType s, Paint[] colors){
+    public CellDisplay(int size, int height, int width, String[] colors){
         mySize = size;
         myColors = colors;
         myGridHeight = height;
@@ -36,14 +33,14 @@ public abstract class CellDisplay {
         myRoot.getChildren().removeAll(toRemove);
     }
 
-    protected Paint[] getColors(){
+    protected String[] getColors(){
         return myColors;
     }
 
-    public void changeColors(Paint[] colors){
+    public void changeColors(String[] colors){
         myColors = colors;
     }
-    protected abstract Node setView(int i, int j, int state, SimType s);
+    protected abstract Node setView(int i, int j, int state);
     protected abstract void remove(Node n, List<Node> toRemove);
     protected abstract void setSize(int size, int height, int width);
 

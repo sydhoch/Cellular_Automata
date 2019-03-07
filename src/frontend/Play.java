@@ -10,15 +10,10 @@ import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import static javafx.scene.input.KeyCode.SPACE;
@@ -40,10 +35,10 @@ public class Play {
     private static final String CELLSHAPE_CONFIG_LABEL = "CellShape";
     private static final String EDGE_CONFIG_LABEL = "EdgePolicies";
     private static final int STEP_COUNT_START = 1;
-    private static final int MAX_STATES= 3;
+    private static final int MAX_STATES = 3;
     private static final String COLOR_LABEL = "Color";
-    private Paint[] myColors;
 
+    private String[] myColors;
     private String myFileName;
     private Scene myScene;
     private Group myRoot;
@@ -60,7 +55,7 @@ public class Play {
 
     public Play() {
         myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + CONFIGURATION_FILE);
-        myFileName = "gol-grid-2.csv";//myConfiguration.getString(FILE_CONFIG_LABEL);
+        myFileName = myConfiguration.getString(FILE_CONFIG_LABEL);
         Arrangement neighborhoodType = Arrangement.valueOf(myConfiguration.getString(NEIGHBOORHOD_CONFIG_LABEL).toUpperCase());
         myShape = Shape.valueOf(myConfiguration.getString(CELLSHAPE_CONFIG_LABEL).toUpperCase());
         Edge edgePolicy = Edge.valueOf(myConfiguration.getString(EDGE_CONFIG_LABEL).toUpperCase());
@@ -78,18 +73,20 @@ public class Play {
         //setDefaultImages();
     }
 
-    private CellDisplay makeCellDisplay(){
-        //put in image option
-//        if(myShape.equals(Shape.RECTANGLE)){
-//            return new RectangleDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myGrid.getType(), myColors);
-//        }
-//        else if(myShape.equals(Shape.TRIANGLE)){
-//            return new TriangleDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myGrid.getType(), myColors);
-//        }
-//        else if(myShape.equals(Shape.HEXAGON)){
-//            return new HexagonDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myGrid.getType());
-//        }
-        return new HexagonDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myGrid.getType(), myColors);
+    private CellDisplay makeCellDisplay() {
+        if (myShape.equals(Shape.IMAGE)) {
+            String[] images = new String[myGrid.getType().getNumStates()];
+            for(int i = 0; i < images.length; i++){
+                images[i] = myGrid.getType().toString().toUpperCase() + i;
+            }
+            return new ImageDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), images);
+        } else if (myShape.equals(Shape.TRIANGLE)) {
+            return new TriangleDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myColors);
+        } else if (myShape.equals(Shape.HEXAGON)) {
+            return new HexagonDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myColors);
+        } else {
+            return new RectangleDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myColors);
+        }
     }
 
     public Scene getScene() {
@@ -140,17 +137,17 @@ public class Play {
     }
 
     private void setConfigColors() {
-        myColors = new Paint[MAX_STATES];
+        myColors = new String[MAX_STATES];
         for (int i = 0; i < myColors.length; i++) {
             if (myConfiguration.containsKey(COLOR_LABEL + i)) {
-                myColors[i] = Paint.valueOf(myConfiguration.getString(COLOR_LABEL + i));
+                myColors[i] = myConfiguration.getString(COLOR_LABEL + i);
             }
         }
         mySideBar.setColors(myColors);
     }
 
     private Node setFunction(int i, int j) {
-        Node n = myCellDisplay.setView(i, j, myGrid.getCell(i, j).getState(), myGrid.getType());
+        Node n = myCellDisplay.setView(i, j, myGrid.getCell(i, j).getState());
         n.setOnMouseClicked(e -> changeCellState(i, j));
         return n;
     }
@@ -159,7 +156,7 @@ public class Play {
         if (myAnimation.getStatus().equals(Animation.Status.PAUSED)) {
             int currState = myGrid.getCell(row, col).getState();
             int nextState;
-            int lastState = myGrid.getType().getNumStates()-1;
+            int lastState = myGrid.getType().getNumStates() - 1;
             if (currState == lastState) {
                 nextState = 0;
             } else {
