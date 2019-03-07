@@ -1,5 +1,6 @@
 package frontend;
 
+import Enums.Shape;
 import Enums.SimType;
 import grid.Grid;
 import javafx.animation.Animation;
@@ -23,15 +24,16 @@ public class Clickable {
     private static final String PAUSE_RESUME_LABEL = "PauseResumeButton";
     private static final String RESTART_LABEL = "RestartButton";
     private static final String STEP_THROUGH_LABEL = "StepThroughButton";
-    private static final String IMAGES_LABEL = "Images";
     private static final String COLOR_LABEL = "ColorScheme";
+    private static final String SHAPE_LABEL = "Shape";
     private static final String FILE_MIDDLE_NAME = "-grid-";
     private static final String CSV_EXTENSION = ".csv";
     private static final int MIN_SPEED = 0;
     private static final int MAX_SPEED= 2;
+    private static final int NUM_SHAPES = 4;
 
     private static final int[] COLUMN_POSITION = {510, 610, 710, 740, 770};
-    private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500};
+    private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500, 520, 540};
     private static final String[][] PAINT_COLORS = {{"BLUE", "CYAN", "SKYBLUE"}, {"RED", "MISTYROSE", "MAROON"}, {"GREEN", "DARKGREEN", "LIGHTGREEN"}};
     private static final SimType[] SIMULATION_TYPES = {FIRE, GOL, PERC, PP, RPS, SEG};
 
@@ -41,6 +43,7 @@ public class Clickable {
     private boolean myStepThrough;
     private String[] myColors;
     private List<Node> myButtons;
+    private Shape myShape;
 
     public Clickable(Grid grid, Timeline animation) {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SIDEBAR_RESOURCE);
@@ -48,6 +51,7 @@ public class Clickable {
         myAnimation = animation;
         myStepThrough = false;
         myColors = PAINT_COLORS[0];
+        myShape = grid.getShape();
         makeButtons();
     }
 
@@ -79,10 +83,25 @@ public class Clickable {
     }
 
     private void addColorButtons() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < myColors.length; i++) {
             String[] paintColors = PAINT_COLORS[i];
             addButton(COLUMN_POSITION[0], ROW_POSITION[17 + i], COLOR_LABEL + i, e -> setColors(paintColors));
         }
+    }
+
+    private void addShapeButtons(){
+        for(int i = 0; i < NUM_SHAPES; i++){
+            int num = i;
+            addButton(COLUMN_POSITION[0], ROW_POSITION[22+i], SHAPE_LABEL + i, e -> changeShape(num));
+        }
+    }
+
+    private void changeShape(int i){
+        myShape = Shape.valueOf(myResources.getString(SHAPE_LABEL + i).toUpperCase());
+    }
+
+    public Shape getShape(){
+        return myShape;
     }
 
     void setColors(String[] paints) {
@@ -115,6 +134,7 @@ public class Clickable {
         addTimelineButtons();
         addSpeeds();
         addColorButtons();
+        addShapeButtons();
     }
 
     List<Node> getButtons(){

@@ -41,11 +41,6 @@ public class TriangleDisplay extends ShapeDisplay {
             rightX = ((y+1))*myCellWidth/2;
             rightY = (x)*myCellHeight*2;
         }
-        System.out.println(x + "    " + y + "   " + state);
-        System.out.println(pointX + "   " + pointY);
-        System.out.println(leftX + "   " + leftY);
-        System.out.println(rightX + "   " + rightY);
-        System.out.println();
         Polygon tri = new Polygon(pointX, pointY, leftX, leftY, rightX, rightY);
         tri.setFill(myColors[state]);
         return tri;

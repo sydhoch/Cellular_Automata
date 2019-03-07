@@ -16,6 +16,7 @@ public class StagnantLabels {
     private static final String LOAD_LABEL = "LoadLabel";
     private static final String SPEED_LABEL = "SpeedLabel";
     private static final String COLOR_LABEL = "ColorLabel";
+    private static final String SHAPE_LABEL = "ShapeLabel";
 
     private ResourceBundle myResources;
     private List<Text> myLabels;
@@ -33,6 +34,7 @@ public class StagnantLabels {
         myLabels.add(new Text(COLUMN_POSITION[0], ROW_POSITION[0], myResources.getString(LOAD_LABEL)));
         myLabels.add(new Text(COLUMN_POSITION[0], ROW_POSITION[12], myResources.getString(SPEED_LABEL)));
         myLabels.add(new Text(COLUMN_POSITION[0], ROW_POSITION[16], myResources.getString(COLOR_LABEL)));
+        myLabels.add(new Text(COLUMN_POSITION[0], ROW_POSITION[21], myResources.getString(SHAPE_LABEL)));
     }
 
     List<Text> getLabels(){

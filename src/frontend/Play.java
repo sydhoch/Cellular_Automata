@@ -68,21 +68,20 @@ public class Play {
         myGridGraph = new GridGraph(myGrid);
         myNumSteps = STEP_COUNT_START;
         setConfigColors();
-        myCellDisplay = makeCellDisplay();
+        myCellDisplay = makeCellDisplay(myShape);
         setButtons();
-        //setDefaultImages();
     }
 
-    private CellDisplay makeCellDisplay() {
-        if (myShape.equals(Shape.IMAGE)) {
+    private CellDisplay makeCellDisplay(Shape s) {
+        if (s.equals(Shape.IMAGE)) {
             String[] images = new String[myGrid.getType().getNumStates()];
             for(int i = 0; i < images.length; i++){
                 images[i] = myGrid.getType().toString().toUpperCase() + i;
             }
             return new ImageDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), images);
-        } else if (myShape.equals(Shape.TRIANGLE)) {
+        } else if (s.equals(Shape.TRIANGLE)) {
             return new TriangleDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myColors);
-        } else if (myShape.equals(Shape.HEXAGON)) {
+        } else if (s.equals(Shape.HEXAGON)) {
             return new HexagonDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myColors);
         } else {
             return new RectangleDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myColors);
@@ -123,6 +122,8 @@ public class Play {
             myRoot.getChildren().add(myGridGraph.getGraph());
         }
         myColors = mySideBar.getColors();
+        myCellDisplay.removeFromScreen(myRoot);
+        myCellDisplay = makeCellDisplay(mySideBar.getShape());
         myCellDisplay.changeColors(myColors);
         myNumSteps = STEP_COUNT_START;
     }
