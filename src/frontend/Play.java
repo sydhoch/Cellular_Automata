@@ -60,7 +60,7 @@ public class Play {
 
     public Play() {
         myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + CONFIGURATION_FILE);
-        myFileName = "gol-grid-4.csv";//myConfiguration.getString(FILE_CONFIG_LABEL);
+        myFileName = "gol-grid-2.csv";//myConfiguration.getString(FILE_CONFIG_LABEL);
         Arrangement neighborhoodType = Arrangement.valueOf(myConfiguration.getString(NEIGHBOORHOD_CONFIG_LABEL).toUpperCase());
         myShape = Shape.valueOf(myConfiguration.getString(CELLSHAPE_CONFIG_LABEL).toUpperCase());
         Edge edgePolicy = Edge.valueOf(myConfiguration.getString(EDGE_CONFIG_LABEL).toUpperCase());
@@ -89,7 +89,7 @@ public class Play {
 //        else if(myShape.equals(Shape.HEXAGON)){
 //            return new HexagonDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myGrid.getType());
 //        }
-        return new TriangleDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myGrid.getType(), myColors);
+        return new HexagonDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myGrid.getType(), myColors);
     }
 
     public Scene getScene() {

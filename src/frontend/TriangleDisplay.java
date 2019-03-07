@@ -21,7 +21,6 @@ public class TriangleDisplay extends CellDisplay {
 
     protected Node setView(int x, int y, int state, SimType s){
         myColors = super.getColors();
-        Polygon tri = new Polygon();
         int pointX;
         int pointY;
         int leftX;
@@ -50,7 +49,7 @@ public class TriangleDisplay extends CellDisplay {
         System.out.println(leftX + "   " + leftY);
         System.out.println(rightX + "   " + rightY);
         System.out.println();
-        tri = new Polygon(pointX, pointY, leftX, leftY, rightX, rightY);
+        Polygon tri = new Polygon(pointX, pointY, leftX, leftY, rightX, rightY);
         tri.setFill(myColors[state]);
         return tri;
     }
