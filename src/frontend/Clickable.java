@@ -2,6 +2,7 @@ package frontend;
 
 import Enums.Shape;
 import Enums.SimType;
+import cell.FireCell;
 import grid.Grid;
 import javafx.animation.Animation;
 import javafx.animation.Timeline;
@@ -31,6 +32,8 @@ public class Clickable {
     private static final int MIN_SPEED = 0;
     private static final int MAX_SPEED= 2;
     private static final int NUM_SHAPES = 4;
+    private static final int MIN_PROB = 0;
+    private static final int MAX_PROB = 100;
 
     private static final int[] COLUMN_POSITION = {510, 610, 710, 740, 770};
     private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500, 520, 540};
@@ -96,6 +99,18 @@ public class Clickable {
         }
     }
 
+    private void addSettings() {
+        if(myGrid.getType().hasSpecialValue()){
+            Slider slider = new Slider(MIN_PROB, MAX_PROB, getOldVal());
+            slider.setLayoutX(COLUMN_POSITION[0]);
+            slider.setLayoutY(ROW_POSITION[26]);
+            slider.setMajorTickUnit(10);
+            slider.setShowTickLabels(true);
+            slider.setOnMouseClicked(e -> setVal(slider.getValue()));
+            myButtons.add(slider);
+        }
+    }
+
     private void changeShape(int i){
         myShape = Shape.valueOf(myResources.getString(SHAPE_LABEL + i).toUpperCase());
     }
@@ -135,6 +150,7 @@ public class Clickable {
         addSpeeds();
         addColorButtons();
         addShapeButtons();
+        addSettings();
     }
 
     List<Node> getButtons(){
@@ -164,6 +180,18 @@ public class Clickable {
 
     private double getSpeed() {
         return myAnimation.getRate();
+    }
+
+    private void setVal(double d){
+        for(int i = 0; i < myGrid.getWidth(); i++){
+            for(int j = 0; j < myGrid.getHeight(); j++){
+                myGrid.getCell(i, j).setVal(d);
+            }
+        }
+    }
+
+    private double getOldVal(){
+        return myGrid.getCell(0,0).getValue();
     }
 
     boolean isStepThrough() {
