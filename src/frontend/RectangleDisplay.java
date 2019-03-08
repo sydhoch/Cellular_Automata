@@ -25,14 +25,14 @@ public class RectangleDisplay extends ShapeDisplay {
 
     protected Node setView(int i, int j, int state){
         myColors = convertColors(getColors());
-        Rectangle rect = new Rectangle(myCellWidth * i, myCellHeight * j, myCellWidth, myCellHeight);
+        Rectangle rect = new Rectangle(myCellWidth * j, myCellHeight * i, myCellWidth, myCellHeight);
         rect.setFill(myColors[state]);
         return rect;
     }
 
     protected void setSize(int size, int height, int width){
-        myCellWidth = size / height;
-        myCellHeight = size / width;
+        myCellHeight = size / height;
+        myCellWidth = size / width;
     }
 
 

@@ -32,16 +32,16 @@ public class ImageDisplay extends CellDisplay{
         String image_file = IMAGE_FOLDER + myImages.getString(myImageLabels[state]);
         Image preImage = new Image(getClass().getResourceAsStream(image_file));
         ImageView img = new ImageView(preImage);
-        img.setX(myCellWidth * i);
-        img.setY(myCellHeight * j);
+        img.setX(myCellWidth * j);
+        img.setY(myCellHeight * i);
         img.setFitWidth(myCellWidth);
         img.setFitHeight(myCellHeight);
         return img;
     }
 
     protected void setSize(int size, int height, int width){
-        myCellWidth = size / height;
-        myCellHeight = size / width;
+        myCellHeight = size / height;
+        myCellWidth = size / width;
     }
 
 
