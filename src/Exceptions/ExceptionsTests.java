@@ -44,13 +44,13 @@ class ExceptionsTests {
 
      @Test
      void insertWrongPropertiesFileSetsDefault() {
-         assertThrows(InvalidValueException.class, () -> Play(););
+         assertThrows(InvalidValueException.class, () -> myGrid.getWidth());
      }
 
 
     @Test
     void insertNonexistentCsvFileSetsDefault() {
-        assertThrows(InvalidValueException(), );
+        assertThrows(InvalidValueException.class, () -> myGrid.getWidth());
     }
 
  }
