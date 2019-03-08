@@ -6,6 +6,8 @@ import java.util.List;
 public abstract class Cell extends Object{
     private int myState;
     private int myNextState;
+    private int myEnergy;
+    private int myTimeAlive;
 
     public Cell(int state){
         myState = state;
@@ -45,7 +47,20 @@ public abstract class Cell extends Object{
         return cellList;
     }
 
-    public void setNextState(int nextState){
+    protected void setTimeAlive(int time){
+        myTimeAlive=time;
+    }
+    protected int getTimeAlive(){
+        return myTimeAlive;
+    }
+    protected void setEnergy(int energy){
+        myEnergy=energy;
+    }
+    protected int getEnergy(){
+        return myEnergy;
+    }
+
+    protected void setNextState(int nextState){
         myNextState = nextState;
     }
 
