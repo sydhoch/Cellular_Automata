@@ -11,7 +11,6 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 
 import java.util.ResourceBundle;
@@ -31,8 +30,8 @@ public class Play {
     private static final String STYLESHEET = "default.css";
     private static final String CONFIGURATION_FILE = "Rps";
     private static final String FILE_CONFIG_LABEL = "CSVFileName";
-    private static final String NEIGHBOORHOD_CONFIG_LABEL = "NeighborhoodType";
-    private static final String CELLSHAPE_CONFIG_LABEL = "CellShape";
+    private static final String NEIGHBORHOOD_CONFIG_LABEL = "NeighborhoodType";
+    private static final String CELL_SHAPE_CONFIG_LABEL = "CellShape";
     private static final String EDGE_CONFIG_LABEL = "EdgePolicies";
     private static final int STEP_COUNT_START = 1;
     private static final int MAX_STATES = 3;
@@ -56,8 +55,8 @@ public class Play {
     public Play() {
         myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + CONFIGURATION_FILE);
         myFileName = myConfiguration.getString(FILE_CONFIG_LABEL);
-        Arrangement neighborhoodType = Arrangement.valueOf(myConfiguration.getString(NEIGHBOORHOD_CONFIG_LABEL).toUpperCase());
-        myShape = Shape.valueOf(myConfiguration.getString(CELLSHAPE_CONFIG_LABEL).toUpperCase());
+        Arrangement neighborhoodType = Arrangement.valueOf(myConfiguration.getString(NEIGHBORHOOD_CONFIG_LABEL).toUpperCase());
+        myShape = Shape.valueOf(myConfiguration.getString(CELL_SHAPE_CONFIG_LABEL).toUpperCase());
         Edge edgePolicy = Edge.valueOf(myConfiguration.getString(EDGE_CONFIG_LABEL).toUpperCase());
         myGrid = new Grid(myFileName, neighborhoodType, myShape, edgePolicy);
         myRoot = new Group();
