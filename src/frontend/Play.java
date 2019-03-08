@@ -3,6 +3,7 @@ package frontend;
 import Enums.Arrangement;
 import Enums.Edge;
 import Enums.Shape;
+import Exceptions.InvalidValueException;
 import grid.Grid;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -28,7 +29,7 @@ public class Play {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "/Resources/";
     private static final String STYLESHEET = "default.css";
-    private static final String CONFIGURATION_FILE = "Rps";
+    private static final String CONFIGURATION_FILE = "Fire";
     private static final String FILE_CONFIG_LABEL = "CSVFileName";
     private static final String NEIGHBORHOOD_CONFIG_LABEL = "NeighborhoodType";
     private static final String CELL_SHAPE_CONFIG_LABEL = "CellShape";
@@ -53,7 +54,11 @@ public class Play {
 
 
     public Play() {
-        readConfigFile();
+        try {
+            readConfigFile();
+        } catch (InvalidValueException e) {
+            e.printStackTrace();
+        }
         myRoot = new Group();
         myScene = setUpGame(WINDOW_SIZE, WINDOW_SIZE);
         myAnimation = new Timeline();
@@ -66,8 +71,13 @@ public class Play {
         setButtons();
     }
 
-    private void readConfigFile() {
-        myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + CONFIGURATION_FILE);
+    private void readConfigFile() throws InvalidValueException {
+        if(CONFIGURATION_FILE.equals(null)) {
+            throw new InvalidValueException("This Configuration File does not exist.");
+
+        }
+            myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + CONFIGURATION_FILE);
+
         myFileName = myConfiguration.getString(FILE_CONFIG_LABEL);
         Arrangement neighborhoodType = Arrangement.valueOf(myConfiguration.getString(NEIGHBORHOOD_CONFIG_LABEL).toUpperCase());
         myShape = Shape.valueOf(myConfiguration.getString(CELL_SHAPE_CONFIG_LABEL).toUpperCase());
