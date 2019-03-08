@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 
 public class Grid {
-    private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
+    private static final int RANDOM_GRID_SIZE = 5;
 
     private int myWidth;
     private int myHeight;
@@ -23,16 +23,15 @@ public class Grid {
     private Shape myShape;
     private Arrangement myArr;
     private Edge myEdge;
-    private ResourceBundle myResources;
     private Map<Integer, List<Cell>> myCellStates;
 
-    public Grid(String file, Arrangement neighborPolicy, Shape cellShape, Edge edgePolicy)  {
+    public Grid(String file, Arrangement neighborPolicy, Shape cellShape, Edge edgePolicy, SimType s)  {
         myCellStates = new HashMap<>();
         try {
             myGrid = makeGrid(readFile(file));
         } catch (InvalidValueException e) {
             e.printStackTrace();
-            file = "gol-grid-1.csv";
+            myGrid = makeRandomGrid(s);
         }
         simNum = Integer.valueOf(file.substring(file.length() - 5, file.length() - 4));
         myShape = cellShape;
@@ -85,6 +84,33 @@ public class Grid {
                 }
                 addToMap(grid[i][j]);
                 cell++;
+            }
+        }
+        return grid;
+    }
+
+    private Cell[][] makeRandomGrid(SimType s){
+        Cell[][] grid = new Cell[RANDOM_GRID_SIZE][RANDOM_GRID_SIZE];
+        for (int i = 0; i < myHeight; i++) {
+            for (int j = 0; j < myWidth; j++) {
+                int state = new Random(3).nextInt();
+                if (s.equals(SimType.PERC)) {
+                    grid[i][j] = new PercCell(state);
+                } else if (s.equals(SimType.GOL)) {
+                    if(state == 3){
+                        state = new Random(2).nextInt();
+                    }
+                    grid[i][j] = new GoLCell(state);
+                } else if (s.equals(SimType.RPS)) {
+                    grid[i][j] = new RPSCell(state);
+                } else if (s.equals(SimType.SEG)) {
+                    grid[i][j] = new SegCell(state);
+                } else if (s.equals(SimType.FIRE)) {
+                    grid[i][j] = new FireCell(state);
+                } else if (s.equals(SimType.PP)) {
+                    grid[i][j] = new PPCell(state);
+                }
+                addToMap(grid[i][j]);
             }
         }
         return grid;

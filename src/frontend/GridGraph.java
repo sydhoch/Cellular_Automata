@@ -11,14 +11,12 @@ import javafx.scene.text.Text;
 import java.util.*;
 
 
-public class GridGraph implements DisplayObject{
-   private static final String VALUE_LABEL = "SimValue";
+public class GridGraph implements DisplayObject {
+    private static final String VALUE_LABEL = "SimValue";
     private LineChart<NumberAxis, NumberAxis> myLineChart;
     private static final String X_LABEL = "Time";
     private static final String Y_LABEL = "Cells";
     private static final int AXIS_START = 0;
-    private static final int X_AXIS_END = 10;
-    private static final int X_AXIS_STEP = 1;
     private static final int Y_AXIS_STEP = 5;
     private static final int MAX_STATES = 3;
     private static final int X_POS = 0;
@@ -31,6 +29,7 @@ public class GridGraph implements DisplayObject{
     private Map<Integer, XYChart.Series> myData;
     private List<Node> mySlider;
 
+
     GridGraph(Grid g) {
         myResources = ResourceBundle.getBundle(RESOURCES);
         myGrid = g;
@@ -39,7 +38,7 @@ public class GridGraph implements DisplayObject{
     }
 
     public void setObjects() {
-        NumberAxis xAxis = new NumberAxis(AXIS_START, X_AXIS_END, X_AXIS_STEP);
+        NumberAxis xAxis = new NumberAxis();
         xAxis.setLabel(X_LABEL);
         NumberAxis yAxis = new NumberAxis(AXIS_START, myGrid.getHeight() * myGrid.getWidth(), Y_AXIS_STEP);
         yAxis.setLabel(Y_LABEL);
@@ -61,10 +60,6 @@ public class GridGraph implements DisplayObject{
         mySlider = addSettings();
     }
 
-    LineChart<NumberAxis, NumberAxis> getGraph() {
-        return myLineChart;
-    }
-
     void updateGraph(int step) {
         for (int i = 0; i < MAX_STATES; i++) {
             if (myGrid.getCellsInState(i) == null) {
@@ -77,9 +72,9 @@ public class GridGraph implements DisplayObject{
 
     private List<Node> addSettings() {
         List<Node> sliderObjs = new ArrayList<>();
-        if(myGrid.getType().hasSpecialValue()){
+        if (myGrid.getType().hasSpecialValue()) {
             sliderObjs.add(new Text(COLUMN_POSITION[0], ROW_POSITION[27], myResources.getString(VALUE_LABEL + myGrid.getType().toString())));
-            Slider slider = new Slider(myGrid.getType().getMinVal(), myGrid.getType().getMaxVal(), myGrid.getCell(0,0).getSpecialValue());
+            Slider slider = new Slider(myGrid.getType().getMinVal(), myGrid.getType().getMaxVal(), myGrid.getCell(0, 0).getSpecialValue());
             slider.setLayoutX(COLUMN_POSITION[0]);
             slider.setLayoutY(ROW_POSITION[28]);
             slider.setMajorTickUnit(10);
@@ -90,11 +85,7 @@ public class GridGraph implements DisplayObject{
         return sliderObjs;
     }
 
-    public List<Node> getSlider(){
-        return mySlider;
-    }
-
-    public List<Node> getObjects(){
+    public List<Node> getObjects() {
         List<Node> l = mySlider;
         l.add(myLineChart);
         return l;
