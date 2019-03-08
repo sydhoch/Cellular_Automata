@@ -17,8 +17,6 @@ public class GridGraph implements DisplayObject {
     private static final String X_LABEL = "Time";
     private static final String Y_LABEL = "Cells";
     private static final int AXIS_START = 0;
-    private static final int X_AXIS_END = 10;
-    private static final int X_AXIS_STEP = 1;
     private static final int Y_AXIS_STEP = 5;
     private static final int MAX_STATES = 3;
     private static final int X_POS = 0;
@@ -31,6 +29,7 @@ public class GridGraph implements DisplayObject {
     private Map<Integer, XYChart.Series> myData;
     private List<Node> mySlider;
 
+
     GridGraph(Grid g) {
         myResources = ResourceBundle.getBundle(RESOURCES);
         myGrid = g;
@@ -39,7 +38,7 @@ public class GridGraph implements DisplayObject {
     }
 
     public void setObjects() {
-        NumberAxis xAxis = new NumberAxis(AXIS_START, X_AXIS_END, X_AXIS_STEP);
+        NumberAxis xAxis = new NumberAxis();
         xAxis.setLabel(X_LABEL);
         NumberAxis yAxis = new NumberAxis(AXIS_START, myGrid.getHeight() * myGrid.getWidth(), Y_AXIS_STEP);
         yAxis.setLabel(Y_LABEL);
@@ -59,10 +58,6 @@ public class GridGraph implements DisplayObject {
             myLineChart.getData().add(myData.get(i));
         }
         mySlider = addSettings();
-    }
-
-    LineChart<NumberAxis, NumberAxis> getGraph() {
-        return myLineChart;
     }
 
     void updateGraph(int step) {
@@ -88,10 +83,6 @@ public class GridGraph implements DisplayObject {
             sliderObjs.add(slider);
         }
         return sliderObjs;
-    }
-
-    public List<Node> getSlider() {
-        return mySlider;
     }
 
     public List<Node> getObjects() {

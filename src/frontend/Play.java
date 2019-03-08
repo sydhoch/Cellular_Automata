@@ -11,6 +11,7 @@ package frontend;
 import Enums.Arrangement;
 import Enums.Edge;
 import Enums.Shape;
+import Enums.SimType;
 import Exceptions.InvalidValueException;
 import grid.Grid;
 import javafx.animation.Animation;
@@ -38,6 +39,7 @@ public class Play {
     private static final String DEFAULT_RESOURCE_PACKAGE = "/Resources/";
     private static final String STYLESHEET = "default.css";
     private static final String CONFIGURATION_FILE = "Fire";
+    private static final String SIM_TYPE_LABEL = "TypeOfSimulation";
     private static final String FILE_CONFIG_LABEL = "CSVFileName";
     private static final String NEIGHBORHOOD_CONFIG_LABEL = "NeighborhoodType";
     private static final String CELL_SHAPE_CONFIG_LABEL = "CellShape";
@@ -60,7 +62,7 @@ public class Play {
     private int myNumSteps;
     private Shape myShape;
     private CellDisplay myCellDisplay;
-
+    private SimType myType;
 
     protected Play() {
         try {
@@ -87,10 +89,11 @@ public class Play {
         }
         myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + CONFIGURATION_FILE);
         myFileName = myConfiguration.getString(FILE_CONFIG_LABEL);
+        myType = SimType.valueOf(myConfiguration.getString(SIM_TYPE_LABEL).toUpperCase());
         Arrangement neighborhoodType = Arrangement.valueOf(myConfiguration.getString(NEIGHBORHOOD_CONFIG_LABEL).toUpperCase());
         myShape = Shape.valueOf(myConfiguration.getString(CELL_SHAPE_CONFIG_LABEL).toUpperCase());
         Edge edgePolicy = Edge.valueOf(myConfiguration.getString(EDGE_CONFIG_LABEL).toUpperCase());
-        myGrid = new Grid(myFileName, neighborhoodType, myShape, edgePolicy);
+        myGrid = new Grid(myFileName, neighborhoodType, myShape, edgePolicy mySimType);
     }
 
 
