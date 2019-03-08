@@ -68,20 +68,7 @@ public class Grid {
         int cell = 3;
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
-                int state = Integer.valueOf(seperatedVals[cell]);
-                if (myGameType.equals(SimType.PERC)) {
-                    grid[i][j] = new PercCell(state);
-                } else if (myGameType.equals(SimType.GOL)) {
-                    grid[i][j] = new GoLCell(state);
-                } else if (myGameType.equals(SimType.RPS)) {
-                    grid[i][j] = new RPSCell(state);
-                } else if (myGameType.equals(SimType.SEG)) {
-                    grid[i][j] = new SegCell(state);
-                } else if (myGameType.equals(SimType.FIRE)) {
-                    grid[i][j] = new FireCell(state);
-                } else if (myGameType.equals(SimType.PP)) {
-                    grid[i][j] = new PPCell(state);
-                }
+                grid[i][j] = makeCell(myGameType, Integer.valueOf(seperatedVals[cell]))
                 addToMap(grid[i][j]);
                 cell++;
             }
@@ -90,30 +77,36 @@ public class Grid {
     }
 
     private Cell[][] makeRandomGrid(SimType s){
+        myGameType = s;
         Cell[][] grid = new Cell[RANDOM_GRID_SIZE][RANDOM_GRID_SIZE];
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
                 int state = new Random(3).nextInt();
-                if (s.equals(SimType.PERC)) {
-                    grid[i][j] = new PercCell(state);
-                } else if (s.equals(SimType.GOL)) {
-                    if(state == 3){
-                        state = new Random(2).nextInt();
-                    }
-                    grid[i][j] = new GoLCell(state);
-                } else if (s.equals(SimType.RPS)) {
-                    grid[i][j] = new RPSCell(state);
-                } else if (s.equals(SimType.SEG)) {
-                    grid[i][j] = new SegCell(state);
-                } else if (s.equals(SimType.FIRE)) {
-                    grid[i][j] = new FireCell(state);
-                } else if (s.equals(SimType.PP)) {
-                    grid[i][j] = new PPCell(state);
+                if(s.equals(SimType.GOL)){
+                    state = new Random(3).nextInt();
                 }
+                grid[i][j] = makeCell(s, state);
                 addToMap(grid[i][j]);
             }
         }
         return grid;
+    }
+
+    private Cell makeCell(SimType s, int state){
+        if (s.equals(SimType.PERC)) {
+            return new PercCell(state);
+        } else if (s.equals(SimType.GOL)) {
+            return new GoLCell(state);
+        } else if (s.equals(SimType.RPS)) {
+            return new RPSCell(state);
+        } else if (s.equals(SimType.SEG)) {
+            return new SegCell(state);
+        } else if (s.equals(SimType.FIRE)) {
+            return new FireCell(state);
+        } else if (s.equals(SimType.PP)) {
+            return new PPCell(state);
+        }
+        return null; //TODO: throw error
     }
 
     public SimType getType() {
