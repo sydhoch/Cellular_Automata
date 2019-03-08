@@ -6,7 +6,6 @@ import javafx.scene.Node;
 import java.util.List;
 
 import static Enums.SimType.*;
-import static Enums.SimType.SEG;
 
 public interface DisplayObject {
     int[] COLUMN_POSITION = {510, 610, 710, 740, 770};
@@ -16,5 +15,6 @@ public interface DisplayObject {
 
 
     void setObjects();
+
     List<Node> getObjects();
 }

@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static Enums.SimType.*;
-
 public class Clickable implements DisplayObject{
     private static final String PAUSE_RESUME_LABEL = "PauseResumeButton";
     private static final String RESTART_LABEL = "RestartButton";

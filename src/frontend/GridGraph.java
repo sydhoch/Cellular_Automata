@@ -11,8 +11,8 @@ import javafx.scene.text.Text;
 import java.util.*;
 
 
-public class GridGraph implements DisplayObject{
-   private static final String VALUE_LABEL = "SimValue";
+public class GridGraph implements DisplayObject {
+    private static final String VALUE_LABEL = "SimValue";
     private LineChart<NumberAxis, NumberAxis> myLineChart;
     private static final String X_LABEL = "Time";
     private static final String Y_LABEL = "Cells";
@@ -77,9 +77,9 @@ public class GridGraph implements DisplayObject{
 
     private List<Node> addSettings() {
         List<Node> sliderObjs = new ArrayList<>();
-        if(myGrid.getType().hasSpecialValue()){
+        if (myGrid.getType().hasSpecialValue()) {
             sliderObjs.add(new Text(COLUMN_POSITION[0], ROW_POSITION[27], myResources.getString(VALUE_LABEL + myGrid.getType().toString())));
-            Slider slider = new Slider(myGrid.getType().getMinVal(), myGrid.getType().getMaxVal(), myGrid.getCell(0,0).getSpecialValue());
+            Slider slider = new Slider(myGrid.getType().getMinVal(), myGrid.getType().getMaxVal(), myGrid.getCell(0, 0).getSpecialValue());
             slider.setLayoutX(COLUMN_POSITION[0]);
             slider.setLayoutY(ROW_POSITION[28]);
             slider.setMajorTickUnit(10);
@@ -90,11 +90,11 @@ public class GridGraph implements DisplayObject{
         return sliderObjs;
     }
 
-    public List<Node> getSlider(){
+    public List<Node> getSlider() {
         return mySlider;
     }
 
-    public List<Node> getObjects(){
+    public List<Node> getObjects() {
         List<Node> l = mySlider;
         l.add(myLineChart);
         return l;
