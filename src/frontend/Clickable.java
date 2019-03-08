@@ -32,13 +32,12 @@ public class Clickable {
     private static final int MIN_SPEED = 0;
     private static final int MAX_SPEED= 2;
     private static final int NUM_SHAPES = 4;
-    private static final int MIN_PROB = 0;
-    private static final int MAX_PROB = 100;
 
     private static final int[] COLUMN_POSITION = {510, 610, 710, 740, 770};
-    private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500, 520, 540};
+    private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500, 520, 540, 560, 580, 600};
     private static final String[][] PAINT_COLORS = {{"BLUE", "CYAN", "SKYBLUE"}, {"RED", "MISTYROSE", "MAROON"}, {"GREEN", "DARKGREEN", "LIGHTGREEN"}};
     private static final SimType[] SIMULATION_TYPES = {FIRE, GOL, PERC, PP, RPS, SEG};
+    private static final String VALUE_LABEL = "SimValue";
 
     private Grid myGrid;
     private Timeline myAnimation;
@@ -101,9 +100,10 @@ public class Clickable {
 
     private void addSettings() {
         if(myGrid.getType().hasSpecialValue()){
-            Slider slider = new Slider(MIN_PROB, MAX_PROB, getOldVal());
+            myButtons.add(new Text(COLUMN_POSITION[0], ROW_POSITION[27], myResources.getString(VALUE_LABEL + myGrid.getType().toString())));
+            Slider slider = new Slider(myGrid.getType().getMinVal(), myGrid.getType().getMaxVal(), getOldVal());
             slider.setLayoutX(COLUMN_POSITION[0]);
-            slider.setLayoutY(ROW_POSITION[26]);
+            slider.setLayoutY(ROW_POSITION[28]);
             slider.setMajorTickUnit(10);
             slider.setShowTickLabels(true);
             slider.setOnMouseClicked(e -> setVal(slider.getValue()));
@@ -185,13 +185,13 @@ public class Clickable {
     private void setVal(double d){
         for(int i = 0; i < myGrid.getWidth(); i++){
             for(int j = 0; j < myGrid.getHeight(); j++){
-                myGrid.getCell(i, j).setVal(d);
+                //myGrid.getCell(i, j).setVal(d);
             }
         }
     }
 
     private double getOldVal(){
-        return myGrid.getCell(0,0).getValue();
+        return 0;//myGrid.getCell(0,0).getValue();
     }
 
     boolean isStepThrough() {

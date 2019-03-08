@@ -13,7 +13,7 @@ public enum SimType {
     private final double myMinVal;
     private final double myMaxVal;
 
-    SimType(int numState, boolean specialValue, double minVal, double maxVal, ){
+    SimType(int numState, boolean specialValue, double minVal, double maxVal){
         myNumStates = numState;
         mySpecialValue = specialValue;
         myMinVal = minVal;
@@ -24,10 +24,10 @@ public enum SimType {
         return myNumStates;
     }
 
-    public int hasSpecialValue(){return mySpecialValue;}
+    public boolean hasSpecialValue(){return mySpecialValue;}
 
-    public double getMinVal(){return myMinVal};
+    public double getMinVal(){return myMinVal;}
 
-    public double getMyMaxVal(){return myMaxVal};
+    public double getMaxVal(){return myMaxVal;}
 }
 
