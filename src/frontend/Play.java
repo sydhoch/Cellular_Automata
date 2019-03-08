@@ -29,7 +29,7 @@ public class Play {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "/Resources/";
     private static final String STYLESHEET = "default.css";
-    private static final String CONFIGURATION_FILE = "Perc";
+    private static final String CONFIGURATION_FILE = "Rps";
     private static final String FILE_CONFIG_LABEL = "CSVFileName";
     private static final String NEIGHBOORHOD_CONFIG_LABEL = "NeighborhoodType";
     private static final String CELLSHAPE_CONFIG_LABEL = "CellShape";
