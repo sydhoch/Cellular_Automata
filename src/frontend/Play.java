@@ -29,7 +29,7 @@ public class Play {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "/Resources/";
     private static final String STYLESHEET = "default.css";
-    private static final String CONFIGURATION_FILE = "Gol";
+    private static final String CONFIGURATION_FILE = "Fire2";
     private static final String FILE_CONFIG_LABEL = "CSVFileName";
     private static final String NEIGHBOORHOD_CONFIG_LABEL = "NeighborhoodType";
     private static final String CELLSHAPE_CONFIG_LABEL = "CellShape";
@@ -126,6 +126,8 @@ public class Play {
         myCellDisplay = makeCellDisplay(mySideBar.getShape());
         myCellDisplay.changeColors(myColors);
         myNumSteps = STEP_COUNT_START;
+        displayStates();
+
     }
 
     private void displayStates() {
@@ -165,11 +167,13 @@ public class Play {
             }
             myGrid.updateStates();
             myGrid.getCell(row, col).setNextState(nextState);
+            myCellDisplay.removeFromScreen(myRoot);
             displayStates();
         }
     }
 
     private void step(double elapsedTime) {
+        myCellDisplay.removeFromScreen(myRoot);
         displayStates();
         myGrid.setNextStates();
         myGrid.updateStates();
