@@ -53,12 +53,7 @@ public class Play {
 
 
     public Play() {
-        myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + CONFIGURATION_FILE);
-        myFileName = myConfiguration.getString(FILE_CONFIG_LABEL);
-        Arrangement neighborhoodType = Arrangement.valueOf(myConfiguration.getString(NEIGHBORHOOD_CONFIG_LABEL).toUpperCase());
-        myShape = Shape.valueOf(myConfiguration.getString(CELL_SHAPE_CONFIG_LABEL).toUpperCase());
-        Edge edgePolicy = Edge.valueOf(myConfiguration.getString(EDGE_CONFIG_LABEL).toUpperCase());
-        myGrid = new Grid(myFileName, neighborhoodType, myShape, edgePolicy);
+        readConfigFile();
         myRoot = new Group();
         myScene = setUpGame(WINDOW_SIZE, WINDOW_SIZE);
         myAnimation = new Timeline();
@@ -70,6 +65,16 @@ public class Play {
         myCellDisplay = makeCellDisplay(myShape);
         setButtons();
     }
+
+    private void readConfigFile() {
+        myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + CONFIGURATION_FILE);
+        myFileName = myConfiguration.getString(FILE_CONFIG_LABEL);
+        Arrangement neighborhoodType = Arrangement.valueOf(myConfiguration.getString(NEIGHBORHOOD_CONFIG_LABEL).toUpperCase());
+        myShape = Shape.valueOf(myConfiguration.getString(CELL_SHAPE_CONFIG_LABEL).toUpperCase());
+        Edge edgePolicy = Edge.valueOf(myConfiguration.getString(EDGE_CONFIG_LABEL).toUpperCase());
+        myGrid = new Grid(myFileName, neighborhoodType, myShape, edgePolicy);
+    }
+
 
     private CellDisplay makeCellDisplay(Shape s) {
         if (s.equals(Shape.IMAGE)) {
