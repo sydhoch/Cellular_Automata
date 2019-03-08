@@ -24,9 +24,11 @@ public class Grid {
     private Arrangement myArr;
     private Edge myEdge;
     private Map<Integer, List<Cell>> myCellStates;
+    Map<Integer, List<Cell>> mapCopy;
 
     public Grid(String file, Arrangement neighborPolicy, Shape cellShape, Edge edgePolicy, SimType s)  {
         myCellStates = new HashMap<>();
+        mapCopy = new HashMap<>();
         try {
             myGrid = makeGrid(readFile(file));
         } catch (InvalidValueException e) {
@@ -68,7 +70,7 @@ public class Grid {
         int cell = 3;
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
-                grid[i][j] = makeCell(myGameType, Integer.valueOf(seperatedVals[cell]))
+                grid[i][j] = makeCell(myGameType, Integer.valueOf(seperatedVals[cell]));
                 addToMap(grid[i][j]);
                 cell++;
             }
@@ -114,8 +116,6 @@ public class Grid {
     }
 
     public void setNextStates() {
-        Map<Integer, List<Cell>> mapCopy = myCellStates.entrySet().stream()
-                .collect(Collectors.toMap(e -> e.getKey(), e -> List.copyOf(e.getValue())));
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
                 Cell[] neighbors = setNeighbors(i, j);
@@ -126,6 +126,7 @@ public class Grid {
 
     public void updateStates() {
         myCellStates.clear();
+        mapCopy.clear();
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
                 getCell(i, j).updateCell();
@@ -137,6 +138,8 @@ public class Grid {
     private void addToMap(Cell cell) {
         myCellStates.putIfAbsent(cell.getState(), new ArrayList<>());
         myCellStates.get(cell.getState()).add(cell);
+        mapCopy.putIfAbsent(cell.getState(), new ArrayList<>());
+        mapCopy.get(cell.getState()).add(cell);
     }
 
     public Cell getCell(int row, int col) {
