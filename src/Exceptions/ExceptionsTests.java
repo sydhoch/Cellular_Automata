@@ -5,6 +5,7 @@ import Enums.Edge;
 import Enums.Shape;
 import frontend.Play;
 import grid.Grid;
+import Resources.*;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,7 +17,7 @@ class ExceptionsTests {
      private static final String NEIGHBORHOD_CONFIG_LABEL = "NeighborhoodType";
      private static final String CELLSHAPE_CONFIG_LABEL = "CellShape";
      private static final String EDGE_CONFIG_LABEL = "EdgePolicies";
-    private static final String DEFAULT_RESOURCE_PACKAGE = "/Resources/";
+    private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
     private static final String CONFIGURATION_FILE = "BadExample";
 
     private String myFileName;
@@ -39,7 +40,7 @@ class ExceptionsTests {
      @Test
      void checkWidthAndHeight() {
 
-         assertThrows(IndexOutOfBoundsException.class,() -> myGrid.getWidth());
+         assertThrows(InvalidValueException.class,() -> myGrid.getWidth());
      }
 
      @Test

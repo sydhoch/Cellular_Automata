@@ -4,6 +4,7 @@ import Enums.Arrangement;
 import Enums.Edge;
 import Enums.Shape;
 import Enums.SimType;
+import Exceptions.InvalidValueException;
 import cell.*;
 import frontend.Play;
 
@@ -25,9 +26,14 @@ public class Grid {
     private ResourceBundle myResources;
     private Map<Integer, List<Cell>> myCellStates;
 
-    public Grid(String file, Arrangement neighborPolicy, Shape cellShape, Edge edgePolicy) {
+    public Grid(String file, Arrangement neighborPolicy, Shape cellShape, Edge edgePolicy)  {
         myCellStates = new HashMap<>();
-        myGrid = makeGrid(readFile(file));
+        try {
+            myGrid = makeGrid(readFile(file));
+        } catch (InvalidValueException e) {
+            e.printStackTrace();
+            file = "gol-grid-1.csv";
+        }
         simNum = Integer.valueOf(file.substring(file.length() - 5, file.length() - 4));
         myShape = cellShape;
         myArr = neighborPolicy;
@@ -41,21 +47,24 @@ public class Grid {
             csv = csv + s.next();
         }
         String[] csvSplit = csv.split(",");
-        String[] seperatedVals = new String[csvSplit.length];
+        String[] separatedValues = new String[csvSplit.length];
         int k = 0;
         for (int i = 0; i < csvSplit.length; i++) {
             if (!csvSplit[i].equals("")) {
-                seperatedVals[k] = csvSplit[i];
+                separatedValues[k] = csvSplit[i];
                 k++;
             }
         }
-        return seperatedVals;
+        return separatedValues;
     }
 
-    private Cell[][] makeGrid(String[] seperatedVals) {
+    private Cell[][] makeGrid(String[] seperatedVals) throws InvalidValueException {
         myGameType = SimType.valueOf(seperatedVals[0].toUpperCase());
         myWidth = Integer.valueOf(seperatedVals[1]);
         myHeight = Integer.valueOf(seperatedVals[2]);
+        if ((myHeight | myWidth) <= 3) {
+            throw new InvalidValueException("Both Width and Height need to have dimensions greater than 3");
+        }
         Cell[][] grid = new Cell[myHeight][myWidth];
         int cell = 3;
         for (int i = 0; i < myHeight; i++) {
