@@ -1,3 +1,10 @@
+/**
+ * This class is the abstract display object.
+ *
+ * @author Sara Behn
+ * @author Sydney Hochberg
+ * @author Arilia Frederick
+ */
 package frontend;
 
 import Enums.SimType;
@@ -37,7 +44,7 @@ public abstract class CellDisplay {
         return myColors;
     }
 
-    public void changeColors(String[] colors){
+    protected void changeColors(String[] colors){
         myColors = colors;
     }
     protected abstract Node setView(int i, int j, int state);
