@@ -1,3 +1,11 @@
+/**
+ * This class runs the simulation. It depends on all of the cell, grid, frontend classes, and the resource bundles.
+ * It catches exceptions in the configuration files and sets default values instead.
+ *
+ * @author Sara Behn
+ * @author Sydney Hochberg
+ * @author Arilia Frederick
+ */
 package frontend;
 
 import Enums.Arrangement;
@@ -14,6 +22,9 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import static javafx.scene.input.KeyCode.SPACE;
@@ -29,7 +40,7 @@ public class Play {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "/Resources/";
     private static final String STYLESHEET = "default.css";
-    private static final String CONFIGURATION_FILE = "Gol";
+    private static final String CONFIGURATION_FILE = "Fire";
     private static final String FILE_CONFIG_LABEL = "CSVFileName";
     private static final String NEIGHBORHOOD_CONFIG_LABEL = "NeighborhoodType";
     private static final String CELL_SHAPE_CONFIG_LABEL = "CellShape";
@@ -47,13 +58,14 @@ public class Play {
     private Clickable mySideBar;
     private StagnantLabels myLabels;
     private GridGraph myGridGraph;
+    private DisplayObject[] myDisplayObjects;
     private ResourceBundle myConfiguration;
     private int myNumSteps;
     private Shape myShape;
     private CellDisplay myCellDisplay;
 
 
-    public Play() {
+    protected Play() {
         try {
             readConfigFile();
         } catch (InvalidValueException e) {
@@ -65,6 +77,7 @@ public class Play {
         mySideBar = new Clickable(myGrid, myAnimation);
         myLabels = new StagnantLabels();
         myGridGraph = new GridGraph(myGrid);
+        myDisplayObjects = new DisplayObject[]{mySideBar, myLabels, myGridGraph};
         myNumSteps = STEP_COUNT_START;
         setConfigColors();
         myCellDisplay = makeCellDisplay(myShape);
@@ -74,10 +87,8 @@ public class Play {
     private void readConfigFile() throws InvalidValueException {
         if(CONFIGURATION_FILE.equals(null)) {
             throw new InvalidValueException("This Configuration File does not exist.");
-
         }
-            myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + CONFIGURATION_FILE);
-
+        myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + CONFIGURATION_FILE);
         myFileName = myConfiguration.getString(FILE_CONFIG_LABEL);
         Arrangement neighborhoodType = Arrangement.valueOf(myConfiguration.getString(NEIGHBORHOOD_CONFIG_LABEL).toUpperCase());
         myShape = Shape.valueOf(myConfiguration.getString(CELL_SHAPE_CONFIG_LABEL).toUpperCase());
@@ -102,11 +113,11 @@ public class Play {
         }
     }
 
-    public Scene getScene() {
+    protected Scene getScene() {
         return myScene;
     }
 
-    public void startAnimation() {
+    protected void startAnimation() {
         KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
         myAnimation.setCycleCount(Timeline.INDEFINITE);
         myAnimation.getKeyFrames().add(frame);
@@ -122,18 +133,18 @@ public class Play {
     }
 
     private void setButtons() {
-        myRoot.getChildren().addAll(myLabels.getLabels());
-        myRoot.getChildren().addAll(mySideBar.getButtons());
-        myRoot.getChildren().add(myGridGraph.getGraph());
+        for(DisplayObject d: myDisplayObjects) {
+            myRoot.getChildren().addAll(d.getObjects());
+        }
         updateButtons();
     }
 
     private void updateButtons() {
         if (myGrid != mySideBar.getGrid()) {
             myGrid = mySideBar.getGrid();
-            myRoot.getChildren().remove(myGridGraph.getGraph());
+            myRoot.getChildren().removeAll(myGridGraph.getObjects());
             myGridGraph = new GridGraph(myGrid);
-            myRoot.getChildren().add(myGridGraph.getGraph());
+            myRoot.getChildren().addAll(myGridGraph.getObjects());
         }
         myColors = mySideBar.getColors();
         myCellDisplay.removeFromScreen(myRoot);

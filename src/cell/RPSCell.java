@@ -8,7 +8,7 @@ public class RPSCell extends Cell{
     //1 = paper
     //2 = scissors
 
-    private static final int THRESHOLD = 3;
+    private int myThreshold = 3;
     private int enemy;
 
 
@@ -21,7 +21,7 @@ public class RPSCell extends Cell{
     @Override
     public void checkNeighborStatus(Cell[] neighbors, Map<Integer, List<Cell>> cellStates){
         setEnemy();
-        if(getNeighborsOfState(enemy,neighbors).size()>THRESHOLD){
+        if(getNeighborsOfState(enemy,neighbors).size()>myThreshold){
             this.setNextState(enemy);
         }
     }
@@ -33,5 +33,15 @@ public class RPSCell extends Cell{
         else{
             enemy=this.getState()+1;
         }
+    }
+
+    @Override
+    public void setSpecialValue(int d){
+        myThreshold = d;
+    }
+
+    @Override
+    public int getSpecialValue(){
+        return myThreshold;
     }
 }
