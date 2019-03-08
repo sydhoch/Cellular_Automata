@@ -10,19 +10,19 @@ public class HexagonDisplay extends ShapeDisplay {
     private double myCellHeight;
     private double myCellWidth;
     private Paint[] myColors;
-    private int myWidth;
+    private int myHeight;
 
     public HexagonDisplay(int size, int height, int width, String[] colors) {
         super(size, height, width, colors);
         myColors = convertColors(getColors());
-        myWidth = width;
+        myHeight = height;
     }
 
     protected Node setView(int x, int y, int state) {
         myColors = convertColors(getColors());
-        double point1X = myCellWidth * (1.25*(x+.25));
-        double point1Y = y * myCellHeight + (myCellHeight * (myWidth - 1 - x) / 2);
-        double point2X = point1X + myCellWidth;
+        double point1X = .25*myCellWidth+ y*myCellWidth;
+        double point1Y = myCellHeight*(myHeight-x+1) - y*myCellHeight/2;
+        double point2X = point1X + myCellWidth*3/4;
         double point2Y = point1Y;
         double point3X = point2X + myCellWidth / 4;
         double point3Y = point2Y + myCellHeight / 2;
@@ -45,8 +45,8 @@ public class HexagonDisplay extends ShapeDisplay {
 
     @Override
     protected void setSize(int size, int height, int width) {
-        myCellWidth = size / height * .75;
-        myCellHeight = size / width * .75;
+        myCellHeight = size / height * .75;
+        myCellWidth = size / width * .75;
     }
 
     protected void remove(Node n, List<Node> toRemove) {
