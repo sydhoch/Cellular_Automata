@@ -161,4 +161,12 @@ public class Grid {
     public Edge getEdge() {
         return myEdge;
     }
+
+    public void setVal(double d){
+        for(int i = 0; i < getHeight(); i++){
+            for(int j = 0; j < getWidth(); j++){
+                getCell(i, j).setSpecialValue((int)d);
+            }
+        }
+    }
 }

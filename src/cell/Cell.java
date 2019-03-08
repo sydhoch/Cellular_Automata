@@ -60,7 +60,7 @@ public abstract class Cell extends Object{
         return myEnergy;
     }
 
-    protected void setNextState(int nextState){
+    public void setNextState(int nextState){
         myNextState = nextState;
     }
 
@@ -70,5 +70,12 @@ public abstract class Cell extends Object{
 
     protected int getNextState(){
         return myNextState;
+    }
+
+    public void setSpecialValue(int d){
+        setEnergy(d);
+    }
+    public int getSpecialValue(){
+        return getEnergy();
     }
 }

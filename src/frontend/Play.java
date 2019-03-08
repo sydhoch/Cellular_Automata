@@ -131,6 +131,7 @@ public class Play {
         myRoot.getChildren().addAll(myLabels.getLabels());
         myRoot.getChildren().addAll(mySideBar.getButtons());
         myRoot.getChildren().add(myGridGraph.getGraph());
+        myRoot.getChildren().addAll(myGridGraph.getSlider());
         updateButtons();
     }
 
@@ -138,8 +139,10 @@ public class Play {
         if (myGrid != mySideBar.getGrid()) {
             myGrid = mySideBar.getGrid();
             myRoot.getChildren().remove(myGridGraph.getGraph());
+            myRoot.getChildren().removeAll(myGridGraph.getSlider());
             myGridGraph = new GridGraph(myGrid);
             myRoot.getChildren().add(myGridGraph.getGraph());
+            myRoot.getChildren().addAll(myGridGraph.getSlider());
         }
         myColors = mySideBar.getColors();
         myCellDisplay.removeFromScreen(myRoot);
