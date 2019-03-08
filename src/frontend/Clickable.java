@@ -17,9 +17,7 @@ import java.util.ResourceBundle;
 
 import static Enums.SimType.*;
 
-public class Clickable {
-    private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
-    private static final String SIDEBAR_RESOURCE = "SideBar";
+public class Clickable implements DisplayObject{
     private static final String PAUSE_RESUME_LABEL = "PauseResumeButton";
     private static final String RESTART_LABEL = "RestartButton";
     private static final String STEP_THROUGH_LABEL = "StepThroughButton";
@@ -30,11 +28,7 @@ public class Clickable {
     private static final int MIN_SPEED = 0;
     private static final int MAX_SPEED = 2;
     private static final int NUM_SHAPES = 4;
-
-    private static final int[] COLUMN_POSITION = {510, 610, 710, 740, 770};
-    private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500, 520, 540, 560, 580, 600};
     private static final String[][] PAINT_COLORS = {{"BLUE", "CYAN", "SKYBLUE"}, {"RED", "MISTYROSE", "MAROON"}, {"GREEN", "DARKGREEN", "LIGHTGREEN"}};
-    private static final SimType[] SIMULATION_TYPES = {FIRE, GOL, PERC, PP, RPS, SEG};
 
     private Grid myGrid;
     private Timeline myAnimation;
@@ -45,13 +39,13 @@ public class Clickable {
     private Shape myShape;
 
     public Clickable(Grid grid, Timeline animation) {
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SIDEBAR_RESOURCE);
+        myResources = ResourceBundle.getBundle(RESOURCES);
         myGrid = grid;
         myAnimation = animation;
         myStepThrough = false;
         myColors = PAINT_COLORS[0];
         myShape = grid.getShape();
-        makeButtons();
+        setObjects();
     }
 
     private void addLoadingButtons() {
@@ -127,7 +121,7 @@ public class Clickable {
         return myGrid;
     }
 
-    private void makeButtons() {
+    public void setObjects() {
         myButtons = new ArrayList<>();
         addLoadingButtons();
         addTimelineButtons();
@@ -136,7 +130,7 @@ public class Clickable {
         addShapeButtons();
     }
 
-    List<Node> getButtons() {
+    public List<Node> getObjects() {
         return myButtons;
     }
 

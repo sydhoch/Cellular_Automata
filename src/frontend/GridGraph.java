@@ -11,13 +11,9 @@ import javafx.scene.text.Text;
 import java.util.*;
 
 
-public class GridGraph {
-    private static final int[] COLUMN_POSITION = {510, 610, 710, 740, 770};
-    private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500, 520, 540, 560, 580, 600};
-    private static final String VALUE_LABEL = "SimValue";
+public class GridGraph implements DisplayObject{
+   private static final String VALUE_LABEL = "SimValue";
     private LineChart<NumberAxis, NumberAxis> myLineChart;
-    private static final String DEFAULT_RESOURCE_PACKAGE = "/Resources/";
-    private static final String CELL_TYPES = "SideBar";
     private static final String X_LABEL = "Time";
     private static final String Y_LABEL = "Cells";
     private static final int AXIS_START = 0;
@@ -36,14 +32,13 @@ public class GridGraph {
     private List<Node> mySlider;
 
     GridGraph(Grid g) {
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + CELL_TYPES);
+        myResources = ResourceBundle.getBundle(RESOURCES);
         myGrid = g;
-        setUpGraph();
+        setObjects();
         updateGraph(0);
-        mySlider = addSettings();
     }
 
-    private void setUpGraph() {
+    public void setObjects() {
         NumberAxis xAxis = new NumberAxis(AXIS_START, X_AXIS_END, X_AXIS_STEP);
         xAxis.setLabel(X_LABEL);
         NumberAxis yAxis = new NumberAxis(AXIS_START, myGrid.getHeight() * myGrid.getWidth(), Y_AXIS_STEP);
@@ -63,6 +58,7 @@ public class GridGraph {
             myData.get(i).setName(myResources.getString(myGrid.getType().toString() + i));
             myLineChart.getData().add(myData.get(i));
         }
+        mySlider = addSettings();
     }
 
     LineChart<NumberAxis, NumberAxis> getGraph() {
@@ -96,6 +92,12 @@ public class GridGraph {
 
     public List<Node> getSlider(){
         return mySlider;
+    }
+
+    public List<Node> getObjects(){
+        List<Node> l = mySlider;
+        l.add(myLineChart);
+        return l;
     }
 
 }

@@ -22,6 +22,9 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import static javafx.scene.input.KeyCode.SPACE;
@@ -55,6 +58,7 @@ public class Play {
     private Clickable mySideBar;
     private StagnantLabels myLabels;
     private GridGraph myGridGraph;
+    private DisplayObject[] myDisplayObjects;
     private ResourceBundle myConfiguration;
     private int myNumSteps;
     private Shape myShape;
@@ -73,6 +77,7 @@ public class Play {
         mySideBar = new Clickable(myGrid, myAnimation);
         myLabels = new StagnantLabels();
         myGridGraph = new GridGraph(myGrid);
+        myDisplayObjects = new DisplayObject[]{mySideBar, myLabels, myGridGraph};
         myNumSteps = STEP_COUNT_START;
         setConfigColors();
         myCellDisplay = makeCellDisplay(myShape);
@@ -128,21 +133,18 @@ public class Play {
     }
 
     private void setButtons() {
-        myRoot.getChildren().addAll(myLabels.getLabels());
-        myRoot.getChildren().addAll(mySideBar.getButtons());
-        myRoot.getChildren().add(myGridGraph.getGraph());
-        myRoot.getChildren().addAll(myGridGraph.getSlider());
+        for(DisplayObject d: myDisplayObjects) {
+            myRoot.getChildren().addAll(d.getObjects());
+        }
         updateButtons();
     }
 
     private void updateButtons() {
         if (myGrid != mySideBar.getGrid()) {
             myGrid = mySideBar.getGrid();
-            myRoot.getChildren().remove(myGridGraph.getGraph());
-            myRoot.getChildren().removeAll(myGridGraph.getSlider());
+            myRoot.getChildren().removeAll(myGridGraph.getObjects());
             myGridGraph = new GridGraph(myGrid);
-            myRoot.getChildren().add(myGridGraph.getGraph());
-            myRoot.getChildren().addAll(myGridGraph.getSlider());
+            myRoot.getChildren().addAll(myGridGraph.getObjects());
         }
         myColors = mySideBar.getColors();
         myCellDisplay.removeFromScreen(myRoot);
