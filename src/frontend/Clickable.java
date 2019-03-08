@@ -112,7 +112,7 @@ public class Clickable implements DisplayObject{
 
     private void setGrid(SimType simType, int simNum) {
         String gridName = simType.toString().toLowerCase() + FILE_MIDDLE_NAME + simNum + CSV_EXTENSION;
-        myGrid = new Grid(gridName, myGrid.getArr(), myGrid.getShape(), myGrid.getEdge());
+        myGrid = new Grid(gridName, myGrid.getArr(), myGrid.getShape(), myGrid.getEdge(), myGrid.getType());
     }
 
     public Grid getGrid() {

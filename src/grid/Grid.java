@@ -68,7 +68,7 @@ public class Grid {
         int cell = 3;
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
-                grid[i][j] = makeCell(myGameType, Integer.valueOf(seperatedVals[cell]))
+                grid[i][j] = makeCell(myGameType, Integer.valueOf(seperatedVals[cell]));
                 addToMap(grid[i][j]);
                 cell++;
             }

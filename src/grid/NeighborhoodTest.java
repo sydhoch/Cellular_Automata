@@ -3,6 +3,7 @@ package grid;
 import Enums.Arrangement;
 import Enums.Edge;
 import Enums.Shape;
+import Enums.SimType;
 import cell.Cell;
 import cell.GoLCell;
 import grid.Grid;
@@ -29,7 +30,7 @@ class NeighborhoodTest {
 
     @Test
     void getNeighborsMiddleRectangleCompleteToroidal() {
-        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.RECTANGLE, Edge.TOROIDAL);
+        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.RECTANGLE, Edge.TOROIDAL, SimType.GOL);
         Neighborhood neighbors = new Neighborhood(1,1,Shape.RECTANGLE,Arrangement.COMPLETE,Edge.TOROIDAL,myGrid);
         Cell[] neigh = neighbors.getNeighbors();
         int onecount = 0;
@@ -49,7 +50,7 @@ class NeighborhoodTest {
 
     @Test
     void getNeighborsRectangleCompleteToroidalRowZero() {
-        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.RECTANGLE, Edge.TOROIDAL);
+        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.RECTANGLE, Edge.TOROIDAL, SimType.GOL);
         Neighborhood neighbors = new Neighborhood(0,1,Shape.RECTANGLE,Arrangement.COMPLETE,Edge.TOROIDAL,myGrid);
         Cell[] neigh = neighbors.getNeighbors();
         int onecount = 0;
@@ -69,7 +70,7 @@ class NeighborhoodTest {
 
     @Test
     void getNeighborsRectangleCompleteToroidalColZero() {
-        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.RECTANGLE, Edge.TOROIDAL);
+        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.RECTANGLE, Edge.TOROIDAL, SimType.GOL);
         Neighborhood neighbors = new Neighborhood(1,0,Shape.RECTANGLE,Arrangement.COMPLETE,Edge.TOROIDAL,myGrid);
         Cell[] neigh = neighbors.getNeighbors();
         int onecount = 0;
@@ -89,7 +90,7 @@ class NeighborhoodTest {
 
     @Test
     void getNeighborsRectangleCompleteToroidalRowColZero() {
-        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.RECTANGLE, Edge.TOROIDAL);
+        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.RECTANGLE, Edge.TOROIDAL, SimType.GOL);
         Neighborhood neighbors = new Neighborhood(0,0,Shape.RECTANGLE,Arrangement.COMPLETE,Edge.TOROIDAL,myGrid);
         Cell[] neigh = neighbors.getNeighbors();
         int onecount = 0;
@@ -108,7 +109,7 @@ class NeighborhoodTest {
     }
     @Test
     void getNeighborsRectangleCompleteToroidalMax() {
-        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.RECTANGLE, Edge.TOROIDAL);
+        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.RECTANGLE, Edge.TOROIDAL, SimType.GOL);
         Neighborhood neighbors = new Neighborhood(2,2,Shape.RECTANGLE,Arrangement.COMPLETE,Edge.TOROIDAL,myGrid);
         Cell[] neigh = neighbors.getNeighbors();
         int onecount = 0;
@@ -128,7 +129,7 @@ class NeighborhoodTest {
 
     @Test
     void getNeighborsRectangleFINITECompleteMax() {
-        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.RECTANGLE, Edge.FINITE);
+        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.RECTANGLE, Edge.FINITE, SimType.GOL);
         Neighborhood neighbors = new Neighborhood(2,2,Shape.RECTANGLE,Arrangement.COMPLETE,Edge.FINITE,myGrid);
         Cell[] neigh = neighbors.getNeighbors();
         int onecount = 0;

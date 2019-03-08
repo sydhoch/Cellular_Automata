@@ -93,7 +93,7 @@ public class Play {
         Arrangement neighborhoodType = Arrangement.valueOf(myConfiguration.getString(NEIGHBORHOOD_CONFIG_LABEL).toUpperCase());
         myShape = Shape.valueOf(myConfiguration.getString(CELL_SHAPE_CONFIG_LABEL).toUpperCase());
         Edge edgePolicy = Edge.valueOf(myConfiguration.getString(EDGE_CONFIG_LABEL).toUpperCase());
-        myGrid = new Grid(myFileName, neighborhoodType, myShape, edgePolicy mySimType);
+        myGrid = new Grid(myFileName, neighborhoodType, myShape, edgePolicy, myType);
     }
 
 
