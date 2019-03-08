@@ -36,7 +36,7 @@ public class PPCell extends Cell {
                 handleBabies(cellStates);
                 setMoveTo(random, empty);
             }
-            cellStates.get(1).remove(this);
+            handleBabies(cellStates);
         }
     }
 
@@ -49,14 +49,14 @@ public class PPCell extends Cell {
         if (this.getState() == 2 && this.getEnergy()>0) {
             List<Cell> fish = neighborsNotSetFish;
             if(fish.size()!=0){
-                PPCell moveTo = setMoveTo(random,fish);
+                Cell moveTo = setMoveTo(random,fish);
                 moveTo.setEnergy(this.getEnergy()+1);
                 handleBabies(cellStates);
             }
             else{
                 List<Cell> empty = neighborsNotSetEmpty;
                 if (empty.size() != 0) {
-                    PPCell moveTo = setMoveTo(random,empty);
+                    Cell moveTo = setMoveTo(random,empty);
                     moveTo.setEnergy(this.getEnergy()-1);
                     handleBabies(cellStates);
                 }
@@ -64,8 +64,8 @@ public class PPCell extends Cell {
         }
     }
 
-    private PPCell setMoveTo(Random random, List<Cell> empty) {
-        PPCell moveTo = (PPCell)empty.get(random.nextInt(empty.size()));
+    private Cell setMoveTo(Random random, List<Cell> empty) {
+        Cell moveTo = empty.get(random.nextInt(empty.size()));
         moveTo.setNextState(this.getState());
         moveTo.setTimeAlive(this.getTimeAlive() + 1);
         empty.remove(moveTo);
