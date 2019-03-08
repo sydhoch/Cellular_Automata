@@ -20,8 +20,8 @@ public class HexagonDisplay extends ShapeDisplay {
 
     protected Node setView(int x, int y, int state) {
         myColors = convertColors(getColors());
-        double point1X = y * myCellHeight + (myCellWidth * (y + 1) / 4);
-        double point1Y = myCellWidth * x + (myCellHeight * (myWidth - 1 - y) / 2);
+        double point1X = myCellWidth * (1.25*(x+.25));
+        double point1Y = y * myCellHeight + (myCellHeight * (myWidth - 1 - x) / 2);
         double point2X = point1X + myCellWidth;
         double point2Y = point1Y;
         double point3X = point2X + myCellWidth / 4;
