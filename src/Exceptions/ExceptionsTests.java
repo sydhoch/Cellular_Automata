@@ -3,6 +3,7 @@ package Exceptions;
 import Enums.Arrangement;
 import Enums.Edge;
 import Enums.Shape;
+import frontend.Play;
 import grid.Grid;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,24 +33,24 @@ class ExceptionsTests {
          neighborhoodType = Arrangement.valueOf(myConfiguration.getString(NEIGHBORHOD_CONFIG_LABEL).toUpperCase());
          myShape = Shape.valueOf(myConfiguration.getString(CELLSHAPE_CONFIG_LABEL).toUpperCase());
          edgePolicy = Edge.valueOf(myConfiguration.getString(EDGE_CONFIG_LABEL).toUpperCase());
-
+         myGrid = new Grid(myFileName, neighborhoodType, myShape, edgePolicy);
      }
 
      @Test
      void checkWidthAndHeight() {
-         myGrid = new Grid(myFileName, neighborhoodType, myShape, edgePolicy);
-         assertThrows(IndexOutOfBoundsException(), );
+
+         assertThrows(IndexOutOfBoundsException.class,() -> myGrid.getWidth());
      }
 
      @Test
      void insertWrongPropertiesFileSetsDefault() {
-         assertThrows(InvalidValueException(), );
+         assertThrows(InvalidValueException.class, () -> myGrid.getWidth());
      }
 
 
     @Test
     void insertNonexistentCsvFileSetsDefault() {
-        assertThrows(InvalidValueException(), );
+        assertThrows(InvalidValueException.class, () -> myGrid.getWidth());
     }
 
  }
