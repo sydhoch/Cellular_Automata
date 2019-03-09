@@ -51,37 +51,6 @@ public class HexagonDisplay extends ShapeDisplay {
         return hex;
     }
 
-//        protected Node setView(int x, int y, int state) {
-//            myColors = convertColors(getColors());
-//            double xOffset = myCellWidth*y /4 *3;
-//            double yOffset = x * myCellHeight;
-//            if(y % 2 != 0){
-//                yOffset = yOffset +  + (myCellHeight / 2);
-//            }
-//            double point1X = yOffset;
-//            double point1Y = myCellWidth/4 + xOffset;
-//            double point2X = myCellHeight/2 + yOffset;
-//            double point2Y = xOffset;
-//            double point3X = myCellHeight + yOffset;
-//            double point3Y = myCellWidth/4 + xOffset;
-//            double point4X = myCellHeight + yOffset;
-//            double point4Y = myCellWidth/4*3 + xOffset;
-//            double point5X = myCellHeight/2+ yOffset;
-//            double point5Y = myCellWidth + xOffset;
-//            double point6X = yOffset;
-//            double point6Y = myCellWidth/4*3 + xOffset;
-//
-//
-//            Polygon hex = new Polygon(point1X, point1Y,
-//                    point2X, point2Y,
-//                    point3X, point3Y,
-//                    point4X, point4Y,
-//                    point5X, point5Y,
-//                    point6X, point6Y);
-//            hex.setFill(myColors[state]);
-//            return hex;
-//        }
-
     @Override
     protected void setSize(int size, int height, int width) {
         myCellHeight = size/(height+(width-1)*.5);

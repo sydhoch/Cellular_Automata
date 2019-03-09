@@ -1,3 +1,5 @@
+/**@author Arilia Frederick**/
+
 package Exceptions;
 
 import Enums.Arrangement;

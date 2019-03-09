@@ -38,15 +38,15 @@ public class Play {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "/Resources/";
     private static final String STYLESHEET = "default.css";
-    private static final String CONFIGURATION_FILE = "Fire";
     private static final String SIM_TYPE_LABEL = "TypeOfSimulation";
+    private static final String DEFAULT_GRID_FILE = "gol-grid-1.csv";
     private static final String FILE_CONFIG_LABEL = "CSVFileName";
     private static final String NEIGHBORHOOD_CONFIG_LABEL = "NeighborhoodType";
     private static final String CELL_SHAPE_CONFIG_LABEL = "CellShape";
     private static final String EDGE_CONFIG_LABEL = "EdgePolicies";
     private static final String GRID_OUTLINE_CONFIG_LABEL = "GridOutline";
     private static final int STEP_COUNT_START = 1;
-    private static final int MAX_STATES = 3;
+    private static final int MAX_STATES = 20;
     private static final String COLOR_LABEL = "Color";
 
     private String[] myColors;
@@ -65,6 +65,7 @@ public class Play {
     private CellDisplay myCellDisplay;
     private SimType myType;
     private boolean myGridOutline;
+    private String myConfigurationFile = "PERC3";
 
     protected Play() {
         try {
@@ -86,18 +87,27 @@ public class Play {
     }
 
     private void readConfigFile() throws InvalidValueException {
-        if(CONFIGURATION_FILE.equals(null)) {
+        if(myConfigurationFile.equals(null)) {
+            myConfigurationFile = "Gol";
             throw new InvalidValueException("This Configuration File does not exist.");
         }
-        myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + CONFIGURATION_FILE);
-        myGridOutline = Boolean.parseBoolean(myConfiguration.getString(GRID_OUTLINE_CONFIG_LABEL).toLowerCase());
-        System.out.println(myGridOutline);
+        else {
+            myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + myConfigurationFile);
+        }
         myFileName = myConfiguration.getString(FILE_CONFIG_LABEL);
+        if ((myFileName).equals("")) {
+            myFileName=DEFAULT_GRID_FILE;
+            throw new InvalidValueException("Please declare a csv file.");
+        }
+
+
         myType = SimType.valueOf(myConfiguration.getString(SIM_TYPE_LABEL).toUpperCase());
         Arrangement neighborhoodType = Arrangement.valueOf(myConfiguration.getString(NEIGHBORHOOD_CONFIG_LABEL).toUpperCase());
         myShape = Shape.valueOf(myConfiguration.getString(CELL_SHAPE_CONFIG_LABEL).toUpperCase());
+        myGridOutline = Boolean.parseBoolean(myConfiguration.getString(GRID_OUTLINE_CONFIG_LABEL).toLowerCase());
         Edge edgePolicy = Edge.valueOf(myConfiguration.getString(EDGE_CONFIG_LABEL).toUpperCase());
         myGrid = new Grid(myFileName, neighborhoodType, myShape, edgePolicy, myType);
+
     }
 
 
@@ -144,8 +154,14 @@ public class Play {
     }
 
     private void updateButtons() {
-        if (myGrid != mySideBar.getGrid()) {
-            myGrid = mySideBar.getGrid();
+        if (mySideBar.getGrid() == null) {
+            try {
+                myConfigurationFile = mySideBar.getPropertyName();
+                readConfigFile();
+            }
+            catch (InvalidValueException e){
+                myGrid = new Grid(DEFAULT_GRID_FILE, Arrangement.COMPLETE, Shape.RECTANGLE, Edge.TOROIDAL, SimType.GOL);
+            }
             myRoot.getChildren().removeAll(myGridGraph.getObjects());
             myGridGraph = new GridGraph(myGrid);
             myRoot.getChildren().addAll(myGridGraph.getObjects());
