@@ -26,20 +26,20 @@ public class TriangleDisplay extends ShapeDisplay {
         int rightY;
 
         if(y%2 == 0){
-            pointX = (y)*myCellWidth/2;
-            pointY = (x)*myCellHeight*2;
-            leftX = (y)*myCellWidth/2;
-            leftY = ((x+1))*myCellHeight*2;
-            rightX = ((y+2))*myCellWidth/2;
-            rightY = (x)*myCellHeight*2;
+            pointX = (y)*myCellWidth;
+            pointY = (x)*myCellHeight;
+            leftX = (y)*myCellWidth;
+            leftY = ((x+1))*myCellHeight;
+            rightX = ((y+2))*myCellWidth;
+            rightY = (x)*myCellHeight;
         }
         else{
-            pointX = (y+1)*myCellWidth/2;
-            pointY = (x+1)*myCellHeight*2;
-            leftX = (y-1)*myCellWidth/2;
-            leftY = ((x+1))*myCellHeight*2;
-            rightX = ((y+1))*myCellWidth/2;
-            rightY = (x)*myCellHeight*2;
+            pointX = (y+1)*myCellWidth;
+            pointY = (x+1)*myCellHeight;
+            leftX = (y-1)*myCellWidth;
+            leftY = ((x+1))*myCellHeight;
+            rightX = ((y+1))*myCellWidth;
+            rightY = (x)*myCellHeight;
         }
         Polygon tri = new Polygon(pointX, pointY, leftX, leftY, rightX, rightY);
         tri.setFill(myColors[state]);
@@ -47,8 +47,13 @@ public class TriangleDisplay extends ShapeDisplay {
     }
 
     protected void setSize(int size, int height, int width){
-        myCellWidth = size / height;
-        myCellHeight = size / width;
+        myCellHeight = size / height;
+        if(width % 2 == 0) {
+            myCellWidth = size / width;
+        }
+        else{
+            myCellWidth = size / (width+1);
+        }
     }
 
     protected void remove(Node n, List<Node> toRemove) {
