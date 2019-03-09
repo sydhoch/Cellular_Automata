@@ -108,10 +108,9 @@ public class Grid {
             return new SegCell(state);
         } else if (s.equals(SimType.FIRE)) {
             return new FireCell(state);
-        } else if (s.equals(SimType.PP)) {
+        } else {
             return new PPCell(state);
         }
-        return null; //TODO: throw error
     }
 
     public SimType getType() {

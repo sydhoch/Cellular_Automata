@@ -21,8 +21,6 @@ public class Clickable implements DisplayObject{
     private static final String STEP_THROUGH_LABEL = "StepThroughButton";
     private static final String COLOR_LABEL = "ColorScheme";
     private static final String SHAPE_LABEL = "Shape";
-    private static final String FILE_MIDDLE_NAME = "-grid-";
-    private static final String CSV_EXTENSION = ".csv";
     private static final int MIN_SPEED = 0;
     private static final int MAX_SPEED = 2;
     private static final int NUM_SHAPES = 4;
@@ -35,6 +33,7 @@ public class Clickable implements DisplayObject{
     private String[] myColors;
     private List<Node> myButtons;
     private Shape myShape;
+    private String myPropertyName;
 
     public Clickable(Grid grid, Timeline animation) {
         myResources = ResourceBundle.getBundle(RESOURCES);
@@ -111,8 +110,12 @@ public class Clickable implements DisplayObject{
     }
 
     private void setGrid(SimType simType, int simNum) {
-        String gridName = simType.toString().toLowerCase() + FILE_MIDDLE_NAME + simNum + CSV_EXTENSION;
-        myGrid = new Grid(gridName, myGrid.getArr(), myGrid.getShape(), myGrid.getEdge(), myGrid.getType());
+        myGrid = null;
+        myPropertyName = simType.toString() + simNum;
+    }
+
+    public String getPropertyName(){
+        return myPropertyName;
     }
 
     public Grid getGrid() {
