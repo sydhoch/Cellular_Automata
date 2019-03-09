@@ -29,7 +29,7 @@ public class Play {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "/Resources/";
     private static final String STYLESHEET = "default.css";
-    private static final String CONFIGURATION_FILE = "Fire";
+    private  String CONFIGURATION_FILE = "Fire3";
     private static final String FILE_CONFIG_LABEL = "CSVFileName";
     private static final String NEIGHBORHOOD_CONFIG_LABEL = "NeighborhoodType";
     private static final String CELL_SHAPE_CONFIG_LABEL = "CellShape";
@@ -73,15 +73,22 @@ public class Play {
 
     private void readConfigFile() throws InvalidValueException {
         if(CONFIGURATION_FILE.equals(null)) {
+            CONFIGURATION_FILE = "Gol";
             throw new InvalidValueException("This Configuration File does not exist.");
-
         }
+        else {
             myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + CONFIGURATION_FILE);
+        }
 
         myFileName = myConfiguration.getString(FILE_CONFIG_LABEL);
+        if ((myFileName).equals(null)) {
+            myFileName="gol-grid-1.csv";
+        }
         Arrangement neighborhoodType = Arrangement.valueOf(myConfiguration.getString(NEIGHBORHOOD_CONFIG_LABEL).toUpperCase());
         myShape = Shape.valueOf(myConfiguration.getString(CELL_SHAPE_CONFIG_LABEL).toUpperCase());
         Edge edgePolicy = Edge.valueOf(myConfiguration.getString(EDGE_CONFIG_LABEL).toUpperCase());
+
+
         myGrid = new Grid(myFileName, neighborhoodType, myShape, edgePolicy);
     }
 
