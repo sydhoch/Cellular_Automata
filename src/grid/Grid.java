@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 
 public class Grid {
-    private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
+    private static final int RANDOM_GRID_SIZE = 5;
 
     private int myWidth;
     private int myHeight;
@@ -23,16 +23,17 @@ public class Grid {
     private Shape myShape;
     private Arrangement myArr;
     private Edge myEdge;
-    private ResourceBundle myResources;
     private Map<Integer, List<Cell>> myCellStates;
+    Map<Integer, List<Cell>> mapCopy;
 
-    public Grid(String file, Arrangement neighborPolicy, Shape cellShape, Edge edgePolicy)  {
+    public Grid(String file, Arrangement neighborPolicy, Shape cellShape, Edge edgePolicy, SimType s)  {
         myCellStates = new HashMap<>();
+        mapCopy = new HashMap<>();
         try {
             myGrid = makeGrid(readFile(file));
         } catch (InvalidValueException e) {
             e.printStackTrace();
-            file = "gol-grid-1.csv";
+            myGrid = makeRandomGrid(s);
         }
         simNum = Integer.valueOf(file.substring(file.length() - 5, file.length() - 4));
         myShape = cellShape;
@@ -69,20 +70,7 @@ public class Grid {
         int cell = 3;
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
-                int state = Integer.valueOf(seperatedVals[cell]);
-                if (myGameType.equals(SimType.PERC)) {
-                    grid[i][j] = new PercCell(state);
-                } else if (myGameType.equals(SimType.GOL)) {
-                    grid[i][j] = new GoLCell(state);
-                } else if (myGameType.equals(SimType.RPS)) {
-                    grid[i][j] = new RPSCell(state);
-                } else if (myGameType.equals(SimType.SEG)) {
-                    grid[i][j] = new SegCell(state);
-                } else if (myGameType.equals(SimType.FIRE)) {
-                    grid[i][j] = new FireCell(state);
-                } else if (myGameType.equals(SimType.PP)) {
-                    grid[i][j] = new PPCell(state);
-                }
+                grid[i][j] = makeCell(myGameType, Integer.valueOf(seperatedVals[cell]));
                 addToMap(grid[i][j]);
                 cell++;
             }
@@ -90,13 +78,44 @@ public class Grid {
         return grid;
     }
 
+    private Cell[][] makeRandomGrid(SimType s){
+        myGameType = s;
+        Cell[][] grid = new Cell[RANDOM_GRID_SIZE][RANDOM_GRID_SIZE];
+        for (int i = 0; i < myHeight; i++) {
+            for (int j = 0; j < myWidth; j++) {
+                int state = new Random(3).nextInt();
+                if(s.equals(SimType.GOL)){
+                    state = new Random(3).nextInt();
+                }
+                grid[i][j] = makeCell(s, state);
+                addToMap(grid[i][j]);
+            }
+        }
+        return grid;
+    }
+
+    private Cell makeCell(SimType s, int state){
+        if (s.equals(SimType.PERC)) {
+            return new PercCell(state);
+        } else if (s.equals(SimType.GOL)) {
+            return new GoLCell(state);
+        } else if (s.equals(SimType.RPS)) {
+            return new RPSCell(state);
+        } else if (s.equals(SimType.SEG)) {
+            return new SegCell(state);
+        } else if (s.equals(SimType.FIRE)) {
+            return new FireCell(state);
+        } else if (s.equals(SimType.PP)) {
+            return new PPCell(state);
+        }
+        return null; //TODO: throw error
+    }
+
     public SimType getType() {
         return myGameType;
     }
 
     public void setNextStates() {
-        Map<Integer, List<Cell>> mapCopy = myCellStates.entrySet().stream()
-                .collect(Collectors.toMap(e -> e.getKey(), e -> List.copyOf(e.getValue())));
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
                 Cell[] neighbors = setNeighbors(i, j);
@@ -107,6 +126,7 @@ public class Grid {
 
     public void updateStates() {
         myCellStates.clear();
+        mapCopy.clear();
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
                 getCell(i, j).updateCell();
@@ -118,6 +138,8 @@ public class Grid {
     private void addToMap(Cell cell) {
         myCellStates.putIfAbsent(cell.getState(), new ArrayList<>());
         myCellStates.get(cell.getState()).add(cell);
+        mapCopy.putIfAbsent(cell.getState(), new ArrayList<>());
+        mapCopy.get(cell.getState()).add(cell);
     }
 
     public Cell getCell(int row, int col) {
@@ -160,5 +182,13 @@ public class Grid {
 
     public Edge getEdge() {
         return myEdge;
+    }
+
+    public void setVal(double d){
+        for(int i = 0; i < getHeight(); i++){
+            for(int j = 0; j < getWidth(); j++){
+                getCell(i, j).setSpecialValue((int)d);
+            }
+        }
     }
 }

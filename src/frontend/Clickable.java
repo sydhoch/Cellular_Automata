@@ -7,20 +7,15 @@ import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static Enums.SimType.*;
-
-public class Clickable {
-    private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
-    private static final String SIDEBAR_RESOURCE = "SideBar";
+public class Clickable implements DisplayObject{
     private static final String PAUSE_RESUME_LABEL = "PauseResumeButton";
     private static final String RESTART_LABEL = "RestartButton";
     private static final String STEP_THROUGH_LABEL = "StepThroughButton";
@@ -29,13 +24,9 @@ public class Clickable {
     private static final String FILE_MIDDLE_NAME = "-grid-";
     private static final String CSV_EXTENSION = ".csv";
     private static final int MIN_SPEED = 0;
-    private static final int MAX_SPEED= 2;
+    private static final int MAX_SPEED = 2;
     private static final int NUM_SHAPES = 4;
-
-    private static final int[] COLUMN_POSITION = {510, 610, 710, 740, 770};
-    private static final int[] ROW_POSITION = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500, 520, 540};
     private static final String[][] PAINT_COLORS = {{"BLUE", "CYAN", "SKYBLUE"}, {"RED", "MISTYROSE", "MAROON"}, {"GREEN", "DARKGREEN", "LIGHTGREEN"}};
-    private static final SimType[] SIMULATION_TYPES = {FIRE, GOL, PERC, PP, RPS, SEG};
 
     private Grid myGrid;
     private Timeline myAnimation;
@@ -46,13 +37,13 @@ public class Clickable {
     private Shape myShape;
 
     public Clickable(Grid grid, Timeline animation) {
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SIDEBAR_RESOURCE);
+        myResources = ResourceBundle.getBundle(RESOURCES);
         myGrid = grid;
         myAnimation = animation;
         myStepThrough = false;
         myColors = PAINT_COLORS[0];
         myShape = grid.getShape();
-        makeButtons();
+        setObjects();
     }
 
     private void addLoadingButtons() {
@@ -60,7 +51,7 @@ public class Clickable {
             for (int j = 0; j < 3; j++) {
                 SimType s = SIMULATION_TYPES[i];
                 int num = j;
-                addButton(COLUMN_POSITION[2 + j], ROW_POSITION[1 + i], String.valueOf(j), e -> setGrid(s, num+1));
+                addButton(COLUMN_POSITION[2 + j], ROW_POSITION[1 + i], String.valueOf(j), e -> setGrid(s, num + 1));
             }
         }
     }
@@ -89,18 +80,18 @@ public class Clickable {
         }
     }
 
-    private void addShapeButtons(){
-        for(int i = 0; i < NUM_SHAPES; i++){
+    private void addShapeButtons() {
+        for (int i = 0; i < NUM_SHAPES; i++) {
             int num = i;
-            addButton(COLUMN_POSITION[0], ROW_POSITION[22+i], SHAPE_LABEL + i, e -> changeShape(num));
+            addButton(COLUMN_POSITION[0], ROW_POSITION[22 + i], SHAPE_LABEL + i, e -> changeShape(num));
         }
     }
 
-    private void changeShape(int i){
+    private void changeShape(int i) {
         myShape = Shape.valueOf(myResources.getString(SHAPE_LABEL + i).toUpperCase());
     }
 
-    public Shape getShape(){
+    public Shape getShape() {
         return myShape;
     }
 
@@ -121,14 +112,14 @@ public class Clickable {
 
     private void setGrid(SimType simType, int simNum) {
         String gridName = simType.toString().toLowerCase() + FILE_MIDDLE_NAME + simNum + CSV_EXTENSION;
-        myGrid = new Grid(gridName, myGrid.getArr(), myGrid.getShape(), myGrid.getEdge());
+        myGrid = new Grid(gridName, myGrid.getArr(), myGrid.getShape(), myGrid.getEdge(), myGrid.getType());
     }
 
     public Grid getGrid() {
         return myGrid;
     }
 
-    private void makeButtons() {
+    public void setObjects() {
         myButtons = new ArrayList<>();
         addLoadingButtons();
         addTimelineButtons();
@@ -137,7 +128,7 @@ public class Clickable {
         addShapeButtons();
     }
 
-    List<Node> getButtons(){
+    public List<Node> getObjects() {
         return myButtons;
     }
 
@@ -165,6 +156,7 @@ public class Clickable {
     private double getSpeed() {
         return myAnimation.getRate();
     }
+
 
     boolean isStepThrough() {
         return myStepThrough;

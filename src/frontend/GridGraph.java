@@ -1,25 +1,22 @@
 package frontend;
 
 import grid.Grid;
-import javafx.scene.chart.Axis;
+import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Slider;
+import javafx.scene.text.Text;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
-public class GridGraph {
+public class GridGraph implements DisplayObject {
+    private static final String VALUE_LABEL = "SimValue";
     private LineChart<NumberAxis, NumberAxis> myLineChart;
-    private static final String DEFAULT_RESOURCE_PACKAGE = "/Resources/";
-    private static final String CELL_TYPES = "SideBar";
     private static final String X_LABEL = "Time";
     private static final String Y_LABEL = "Cells";
     private static final int AXIS_START = 0;
-    private static final int X_AXIS_END = 10;
-    private static final int X_AXIS_STEP = 1;
     private static final int Y_AXIS_STEP = 5;
     private static final int MAX_STATES = 3;
     private static final int X_POS = 0;
@@ -27,21 +24,21 @@ public class GridGraph {
     private static final int HEIGHT = 200;
     private static final int WIDTH = 500;
 
-
-
     private ResourceBundle myResources;
     private Grid myGrid;
     private Map<Integer, XYChart.Series> myData;
+    private List<Node> mySlider;
+
 
     GridGraph(Grid g) {
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + CELL_TYPES);
+        myResources = ResourceBundle.getBundle(RESOURCES);
         myGrid = g;
-        setUpGraph();
+        setObjects();
         updateGraph(0);
     }
 
-    private void setUpGraph() {
-        NumberAxis xAxis = new NumberAxis(AXIS_START, X_AXIS_END, X_AXIS_STEP);
+    public void setObjects() {
+        NumberAxis xAxis = new NumberAxis();
         xAxis.setLabel(X_LABEL);
         NumberAxis yAxis = new NumberAxis(AXIS_START, myGrid.getHeight() * myGrid.getWidth(), Y_AXIS_STEP);
         yAxis.setLabel(Y_LABEL);
@@ -60,10 +57,7 @@ public class GridGraph {
             myData.get(i).setName(myResources.getString(myGrid.getType().toString() + i));
             myLineChart.getData().add(myData.get(i));
         }
-    }
-
-    LineChart<NumberAxis, NumberAxis> getGraph() {
-        return myLineChart;
+        mySlider = addSettings();
     }
 
     void updateGraph(int step) {
@@ -75,4 +69,26 @@ public class GridGraph {
             }
         }
     }
+
+    private List<Node> addSettings() {
+        List<Node> sliderObjs = new ArrayList<>();
+        if (myGrid.getType().hasSpecialValue()) {
+            sliderObjs.add(new Text(COLUMN_POSITION[0], ROW_POSITION[27], myResources.getString(VALUE_LABEL + myGrid.getType().toString())));
+            Slider slider = new Slider(myGrid.getType().getMinVal(), myGrid.getType().getMaxVal(), myGrid.getCell(0, 0).getSpecialValue());
+            slider.setLayoutX(COLUMN_POSITION[0]);
+            slider.setLayoutY(ROW_POSITION[28]);
+            slider.setMajorTickUnit(10);
+            slider.setShowTickLabels(true);
+            slider.setOnMouseClicked(e -> myGrid.setVal(slider.getValue()));
+            sliderObjs.add(slider);
+        }
+        return sliderObjs;
+    }
+
+    public List<Node> getObjects() {
+        List<Node> l = mySlider;
+        l.add(myLineChart);
+        return l;
+    }
+
 }

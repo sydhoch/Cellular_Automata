@@ -24,9 +24,9 @@ public class Neighborhood {
         myNeighbors = new ArrayList<>();
         myEdgeNeighbors = new ArrayList<>();
         myVertexNeighbors = new ArrayList<>();
+        myGrid = grid;
         myRow = row;
         myCol = col;
-        myGrid = grid;
         setShape(shape);
         setNeighbors(edge);
         setArr(arr);
@@ -52,7 +52,7 @@ public class Neighborhood {
     //sets ALL neighbors (complete)--> fills in edge and vertex neighbor lists
     private void setNeighbors(Edge edge) {
         setEdgeNeighbors(edge);
-        setTriangleVertexes(edge);
+        setVertexNeighbors(edge);
     }
 
     private void setVertexNeighbors(Edge edge) {
@@ -65,33 +65,33 @@ public class Neighborhood {
     }
 
     private void setSquareVertexes(Edge edge) {
-        handleToroidal(-1, -1, edge);
-        handleToroidal(-1, 1, edge);
-        handleToroidal(1, 1, edge);
-        handleToroidal(1, -1, edge);
+        handleToroidal(-1, -1, edge,myVertexNeighbors);
+        handleToroidal(-1, 1, edge,myVertexNeighbors);
+        handleToroidal(1, 1, edge,myVertexNeighbors);
+        handleToroidal(1, -1, edge,myVertexNeighbors);
     }
 
     private void setTriangleVertexes(Edge edge) {
-        handleToroidal(0, -2, edge);
-        handleToroidal(-1, -2, edge);
-        handleToroidal(-1, 0, edge);
-        handleToroidal(0, 2, edge);
-        handleToroidal(1, 2, edge);
-        handleToroidal(1, 0, edge);
+        handleToroidal(0, -2, edge,myVertexNeighbors);
+        handleToroidal(-1, -2, edge,myVertexNeighbors);
+        handleToroidal(-1, 0, edge,myVertexNeighbors);
+        handleToroidal(0, 2, edge,myVertexNeighbors);
+        handleToroidal(1, 2, edge,myVertexNeighbors);
+        handleToroidal(1, 0, edge,myVertexNeighbors);
         if (myCol % 2 == 0) {
-            handleToroidal(-1, -3, edge);
-            handleToroidal(-1, 1, edge);
-            handleToroidal(1, 1, edge);
+            handleToroidal(-1, -3, edge,myVertexNeighbors);
+            handleToroidal(-1, 1, edge,myVertexNeighbors);
+            handleToroidal(1, 1, edge,myVertexNeighbors);
         } else {
-            handleToroidal(-1, -1, edge);
-            handleToroidal(1, 3, edge);
-            handleToroidal(1, -1, edge);
+            handleToroidal(-1, -1, edge,myVertexNeighbors);
+            handleToroidal(1, 3, edge,myVertexNeighbors);
+            handleToroidal(1, -1, edge,myVertexNeighbors);
         }
     }
 
     private void setEdgeNeighbors(Edge edge) {
-        handleToroidal(0, -1, edge);
-        handleToroidal(0, 1, edge);
+        handleToroidal(0, -1, edge,myEdgeNeighbors);
+        handleToroidal(0, 1, edge,myEdgeNeighbors);
         if (myNumEdgeNeighbors == 3) {
             setTriangleEdges(edge);
         }
@@ -105,86 +105,86 @@ public class Neighborhood {
 
     private void setTriangleEdges(Edge edge) {
         if (myCol % 2 == 0) {
-            handleToroidal(-1, -1, edge);
+            handleToroidal(-1, -1, edge,myEdgeNeighbors);
         } else {
-            handleToroidal(1, 1, edge);
+            handleToroidal(1, 1, edge,myEdgeNeighbors);
         }
     }
 
     private void setSquareEdges(Edge edge) {
-        handleToroidal(1, 0, edge);
-        handleToroidal(-1, 0, edge);
+        handleToroidal(1, 0, edge,myEdgeNeighbors);
+        handleToroidal(-1, 0, edge,myEdgeNeighbors);
     }
 
     private void setHexagonEdges(Edge edge) {
         setSquareEdges(edge);
-        handleToroidal(-1, -1, edge);
-        handleToroidal(1, 1, edge);
+        handleToroidal(-1, -1, edge,myEdgeNeighbors);
+        handleToroidal(1, 1, edge,myEdgeNeighbors);
     }
 
-    private void handleToroidal(int rn, int cn, Edge edge) {
-        int row = 0;
-        int col = 0;
-        boolean toroidalRow = handleVal(row, myRow, rn, myGrid.getHeight());
-        boolean toroidalCol = handleVal(col, myCol, cn, myGrid.getWidth());
-        if ((!toroidalRow && !toroidalCol) || edge == Edge.TOROIDAL) {
-            myEdgeNeighbors.add(myGrid.getCell(row, col));
+    private void handleToroidal(int rn, int cn, Edge edge,List<Cell> neighbors) {
+        boolean toroidalRow=false;
+        boolean toroidalCol=false;
+        try{
+            neighbors.add(myGrid.getCell(myRow+rn, myCol+cn));
         }
+        catch(IndexOutOfBoundsException e){
+            int row = handleVal(myRow, rn, myGrid.getHeight());
+            int col = handleVal(myCol, cn, myGrid.getWidth());
+            if(edge==Edge.TOROIDAL){
+                neighbors.add(myGrid.getCell(row, col));
+            }
+            if(edge==Edge.TOROIDAL_ROW_ONLY){
+                try{
+                    neighbors.add(myGrid.getCell(row, myCol+cn));
+                }
+                catch(IndexOutOfBoundsException f){}
+            }
+        }
+
     }
 
-    private boolean handleVal(int neighborVal, int val, int n, int maxVal) {
-        boolean needsToroidal = false;
+    public int handleVal(int val, int n, int maxVal) {
         if (n == -1 && val == 0) {
-            neighborVal = maxVal - 1;
-            needsToroidal = true;
+            return maxVal - 1;
+        }
+        if(val==maxVal-n){
+
         }
         if (n == 1 && val == maxVal - 1) {
-            neighborVal = 0;
-            needsToroidal = true;
+            return 0;
         }
-        if (n == -2) {
-            if (val == 1) {
-                neighborVal = maxVal - 1;
-                needsToroidal = true;
-            }
-            if (val == 0) {
-                neighborVal = maxVal - 2;
-                needsToroidal = true;
-            }
+        if (n == -2 && val==1) {
+            return maxVal - 1;
         }
-        if (n == 2) {
-            if (val == maxVal - 2) {
-                neighborVal = 0;
-            }
-            if (val == maxVal - 1) {
-                neighborVal = 1;
-            }
+        if (n==-2 && val == 0) {
+                return maxVal - 2;
         }
-        if (n == -3) {
-            if (val == 2) {
-                neighborVal = maxVal - 1;
-            }
-            if (val == 1) {
-                neighborVal = maxVal - 2;
-            }
-            if (val == 1) {
-                neighborVal = maxVal - 3;
-            }
+        if (n == 2 && val == maxVal - 2) {
+            return 0;
         }
-        if (n == 3) {
-            if (val == maxVal - 3) {
-                neighborVal = 0;
-            }
-            if (val == maxVal - 2) {
-                neighborVal = 1;
-            }
-            if (val == maxVal - 1) {
-                neighborVal = 2;
-            }
-        } else {
-            neighborVal = val + n;
+        if (n == 2 && val == maxVal - 1) {
+            return 1;
         }
-        return needsToroidal;
+        if (n == -3 && val==2) {
+            return maxVal - 1;
+        }
+        if (n==-3 && val == 1) {
+            return maxVal - 2;
+        }
+        if (n==-3 && val == 0) {
+            return maxVal - 3;
+        }
+        if (n == 3 && val==maxVal-3) {
+            return 0;
+        }
+        if (n == 3 && val==maxVal-2) {
+            return 1;
+        }
+        if (n == 3 && val==maxVal-1) {
+            return 2;
+        }
+        return val+n;
     }
 
 
