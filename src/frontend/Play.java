@@ -38,7 +38,7 @@ public class Play {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "/Resources/";
     private static final String STYLESHEET = "default.css";
-    private  String CONFIGURATION_FILE = "Fire3";
+    private  String CONFIGURATION_FILE = "Perc3";
     private static final String SIM_TYPE_LABEL = "TypeOfSimulation";
 
     private static final String FILE_CONFIG_LABEL = "CSVFileName";
@@ -46,7 +46,7 @@ public class Play {
     private static final String CELL_SHAPE_CONFIG_LABEL = "CellShape";
     private static final String EDGE_CONFIG_LABEL = "EdgePolicies";
     private static final int STEP_COUNT_START = 1;
-    private static final int MAX_STATES = 3;
+    private static final int MAX_STATES = 20;
     private static final String COLOR_LABEL = "Color";
 
     private String[] myColors;
