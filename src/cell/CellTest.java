@@ -2,6 +2,7 @@ package cell;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +51,10 @@ public class CellTest {
          s0 = new SegCell(0);
          s1 = new SegCell(1);
          s2 = new SegCell(2);
+         map.put(0,new ArrayList<>());
+         map.put(1,new ArrayList<>());
+         map.get(0).add(s0);
+         map.get(1).add(s1);
 
          f0 = new FireCell(0);
          f1 = new FireCell(1);

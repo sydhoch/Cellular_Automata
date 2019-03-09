@@ -51,6 +51,7 @@ Assumptions or Simplifications:
 - Images can only be implemented as rectangular. They cannot represent triangle or hexagon cells.
 - Because a user only needs to change Play, assume that all of the parameters for grid are entered
 - correctly means no errors should be generated. 
+- imageViews in grid don't have outline
 
 Known Bugs:
 - The hexagon display doesn't always fill the screen properly.
