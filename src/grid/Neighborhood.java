@@ -124,8 +124,6 @@ public class Neighborhood {
     }
 
     private void handleToroidal(int rn, int cn, Edge edge,List<Cell> neighbors) {
-        boolean toroidalRow=false;
-        boolean toroidalCol=false;
         try{
             neighbors.add(myGrid.getCell(myRow+rn, myCol+cn));
         }

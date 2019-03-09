@@ -15,7 +15,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class NeighborhoodTest2 {
+class NeighborhoodTest {
     private GoLCell g0;
     private GoLCell g1;
     private GoLCell g2;
