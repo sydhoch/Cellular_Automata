@@ -52,14 +52,14 @@ class ExceptionsTests {
      void insertWrongPropertiesFileSetsDefault() {
 
          CONFIGURATION_FILE = "doesntexist";
-         assertThrows(InvalidValueException.class, () -> Play.readConfigFile());
+         assertThrows(InvalidValueException.class, () -> myGrid.getWidth());
      }
 
 
     @Test
     void insertNonexistentCsvFileSetsDefault() {
          myFileName = "doesntexist.csv";
-        assertThrows(InvalidValueException.class, () -> Play.readConfigFile());
+        assertThrows(InvalidValueException.class, () -> myGrid.getWidth());
     }
 
  }
