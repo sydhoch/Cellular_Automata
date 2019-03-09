@@ -59,6 +59,9 @@ Extra credit:
 
 ### Notes
 
+A well designed test and basic implementation allowed for a robust complete version.
+
 
 ### Impressions
-
+This was a good upgrade from the previous project. After learning more about how to be a better teammate,
+we were able to be better programmers. 
