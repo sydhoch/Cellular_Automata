@@ -150,7 +150,17 @@ public class Grid {
 
 
     public Cell[] setNeighbors(int row, int col) {
-        Neighborhood neighbors = new Neighborhood(row, col, myShape, myArr, myEdge, this);
+        Neighborhood neighbors;
+        if(myShape ==Shape.HEXAGON){
+            neighbors = new HexagonNeighborhood(row,col,myArr,myEdge,this);
+        }
+        if(myShape==Shape.TRIANGLE){
+            neighbors=new TriangleNeighborhood(row,col,myArr,myEdge,this);
+        }
+        else{
+            neighbors=new RectangleNeighborhood(row,col,myArr,myEdge,this);
+        }
+        //Neighborhood neighbors = new Neighborhood(row, col, myShape, myArr, myEdge, this);
         return neighbors.getNeighbors();
     }
 
