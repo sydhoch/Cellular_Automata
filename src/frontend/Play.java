@@ -38,9 +38,8 @@ public class Play {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "/Resources/";
     private static final String STYLESHEET = "default.css";
-    private  String CONFIGURATION_FILE = "Perc3";
     private static final String SIM_TYPE_LABEL = "TypeOfSimulation";
-
+    private static final String DEFAULT_GRID_FILE = "gol-grid-1.csv";
     private static final String FILE_CONFIG_LABEL = "CSVFileName";
     private static final String NEIGHBORHOOD_CONFIG_LABEL = "NeighborhoodType";
     private static final String CELL_SHAPE_CONFIG_LABEL = "CellShape";
@@ -64,6 +63,8 @@ public class Play {
     private Shape myShape;
     private CellDisplay myCellDisplay;
     private SimType myType;
+    private String myConfigurationFile = "PERC3";
+
 
     protected Play() {
         try {
@@ -89,14 +90,13 @@ public class Play {
             CONFIGURATION_FILE = "Gol";
             throw new InvalidValueException("This Configuration File does not exist.");
         }
-
         else {
-            myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + CONFIGURATION_FILE);
+            myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + myConfigurationFile);
         }
 
         myFileName = myConfiguration.getString(FILE_CONFIG_LABEL);
         if ((myFileName).equals("")) {
-            myFileName="gol-grid-1.csv";
+            myFileName=DEFAULT_GRID_FILE;
             throw new InvalidValueException("Please declare a csv file.");
         }
 
@@ -164,8 +164,14 @@ public class Play {
     }
 
     private void updateButtons() {
-        if (myGrid != mySideBar.getGrid()) {
-            myGrid = mySideBar.getGrid();
+        if (mySideBar.getGrid() == null) {
+            try {
+                myConfigurationFile = mySideBar.getPropertyName();
+                readConfigFile();
+            }
+            catch (InvalidValueException e){
+                myGrid = new Grid(DEFAULT_GRID_FILE, Arrangement.COMPLETE, Shape.RECTANGLE, Edge.TOROIDAL, SimType.GOL);
+            }
             myRoot.getChildren().removeAll(myGridGraph.getObjects());
             myGridGraph = new GridGraph(myGrid);
             myRoot.getChildren().addAll(myGridGraph.getObjects());
