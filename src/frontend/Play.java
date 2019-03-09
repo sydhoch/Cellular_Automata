@@ -95,12 +95,12 @@ public class Play {
         }
 
         myFileName = myConfiguration.getString(FILE_CONFIG_LABEL);
-        if ((myFileName).equals(null)) {
+        if ((myFileName).equals("")) {
             myFileName="gol-grid-1.csv";
+            throw new InvalidValueException("Please declare a csv file.");
         }
 
-        myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + CONFIGURATION_FILE);
-        myFileName = myConfiguration.getString(FILE_CONFIG_LABEL);
+
         myType = SimType.valueOf(myConfiguration.getString(SIM_TYPE_LABEL).toUpperCase());
         Arrangement neighborhoodType = Arrangement.valueOf(myConfiguration.getString(NEIGHBORHOOD_CONFIG_LABEL).toUpperCase());
         myShape = Shape.valueOf(myConfiguration.getString(CELL_SHAPE_CONFIG_LABEL).toUpperCase());
