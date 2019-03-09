@@ -86,9 +86,9 @@ public class Play {
         setButtons();
     }
 
-    private void readConfigFile() throws InvalidValueException {
-        if(myConfigurationFile.equals(null)) {
-            myConfigurationFile = "Gol";
+    public static void readConfigFile() throws InvalidValueException {
+        if(CONFIGURATION_FILE.equals(null)) {
+            CONFIGURATION_FILE = "Gol";
             throw new InvalidValueException("This Configuration File does not exist.");
         }
         else {
@@ -102,7 +102,18 @@ public class Play {
 
 
         myType = SimType.valueOf(myConfiguration.getString(SIM_TYPE_LABEL).toUpperCase());
+        if (myType.equals(null)) {
+        //if ((myType != SimType.FIRE) || (myType != SimType.PP) || (myType != SimType.GOL) || (myType != SimType.PERC)|| (myType != SimType.SEG) || (myType != SimType.RPS) ) {
+           myType = SimType.GOL;
+            throw new InvalidValueException("Simulation Type Incorrect. The correct values are GOL, FIRE, RPS, PERC, SEG, and PP.");
+        }
+
+
         Arrangement neighborhoodType = Arrangement.valueOf(myConfiguration.getString(NEIGHBORHOOD_CONFIG_LABEL).toUpperCase());
+        if(neighborhoodType == null) {
+            neighborhoodType = Arrangement.COMPLETE;
+            throw new InvalidValueException("Neighborhood Type Incorrect. Choose frome Complete, Cardinal, or Vertex");
+        }
         myShape = Shape.valueOf(myConfiguration.getString(CELL_SHAPE_CONFIG_LABEL).toUpperCase());
         myGridOutline = Boolean.parseBoolean(myConfiguration.getString(GRID_OUTLINE_CONFIG_LABEL).toLowerCase());
         Edge edgePolicy = Edge.valueOf(myConfiguration.getString(EDGE_CONFIG_LABEL).toUpperCase());

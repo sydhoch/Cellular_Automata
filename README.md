@@ -17,6 +17,7 @@ Hours Spent: 150 (add in your hours)
 Sara: I did all of the front end work, taking the lead on all of the classes in the frontend package. I also wrote the Grid class and some of the Neighborhood class.
 
 Sydney: I made all of the Cell classes, set up the neighbors in the neighborhood class, wrote tests for cell class and neighborhood classes, made grids able to implement the grid outline feature, worked on the grid class, made the simulation driver class, and did some refactoring of the play class.
+
 Arilia: I handled a lot of the configuration specifications, made most .properties and .csv files, and handled error checking. 
 I wrote the Test implementation of grid.
 
@@ -57,11 +58,13 @@ Known Bugs:
 - The hexagon display doesn't always fill the screen properly.
 
 Extra credit:
-- 
 
 
 ### Notes
 
+A well designed test and basic implementation allowed for a robust complete version.
 
 ### Impressions
-This project was a really good challenge for implementing good design. 
+This project was a really good challenge for implementing strong design tactics. 
+This was a good upgrade from the previous project. After learning more about how to be a better teammate,
+we were able to be better programmers. 

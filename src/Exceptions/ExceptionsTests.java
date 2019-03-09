@@ -22,7 +22,7 @@ class ExceptionsTests {
     private static final String EDGE_CONFIG_LABEL = "EdgePolicies";
     private static final String SIM_TYPE_LABEL = "TypeOfSimulation";
     private static final String DEFAULT_RESOURCE_PACKAGE = "Resources/";
-    private static final String CONFIGURATION_FILE = "BadExample";
+    private  String CONFIGURATION_FILE = "BadExample";
 
     private String myFileName;
     private Grid myGrid;
@@ -45,19 +45,21 @@ class ExceptionsTests {
 
      @Test
      void checkWidthAndHeight() {
-
          assertThrows(InvalidValueException.class,() -> myGrid.getWidth());
      }
 
      @Test
      void insertWrongPropertiesFileSetsDefault() {
-         assertThrows(InvalidValueException.class, () -> myGrid.getWidth());
+
+         CONFIGURATION_FILE = "doesntexist";
+         assertThrows(InvalidValueException.class, () -> Play.readConfigFile());
      }
 
 
     @Test
     void insertNonexistentCsvFileSetsDefault() {
-        assertThrows(InvalidValueException.class, () -> myGrid.getWidth());
+         myFileName = "doesntexist.csv";
+        assertThrows(InvalidValueException.class, () -> Play.readConfigFile());
     }
 
  }
