@@ -38,7 +38,7 @@ public class Play {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "/Resources/";
     private static final String STYLESHEET = "default.css";
-    private  String CONFIGURATION_FILE = "Perc3";
+    private  static String CONFIGURATION_FILE = "Perc3";
     private static final String SIM_TYPE_LABEL = "TypeOfSimulation";
 
     private static final String FILE_CONFIG_LABEL = "CSVFileName";
@@ -84,7 +84,7 @@ public class Play {
         setButtons();
     }
 
-    public static void readConfigFile() throws InvalidValueException {
+    private void readConfigFile() throws InvalidValueException {
         if(CONFIGURATION_FILE.equals(null)) {
             CONFIGURATION_FILE = "Gol";
             throw new InvalidValueException("This Configuration File does not exist.");
