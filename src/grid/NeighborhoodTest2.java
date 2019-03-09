@@ -47,66 +47,9 @@ class NeighborhoodTest2 {
         boolean expectedOne = (onecount==3);
         assertEquals(true,expectedOne && expectedZero);
     }
+    
 
-    @Test
-    void getNeighborsRectangleCompleteToroidalRowZero() {
-        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.RECTANGLE, Edge.TOROIDAL, SimType.GOL);
-        Neighborhood neighbors = new Neighborhood(0,1,Shape.RECTANGLE,Arrangement.COMPLETE,Edge.TOROIDAL,myGrid);
-        Cell[] neigh = neighbors.getNeighbors();
-        int onecount = 0;
-        int zerocount=0;
-        for(int i=0;i<neigh.length;i++){
-            if(neigh[i].getState()==0){
-                zerocount ++;
-            }
-            else{
-                onecount++;
-            }
-        }
-        boolean expectedZero = (zerocount == 4);
-        boolean expectedOne = (onecount==4);
-        assertEquals(true,expectedOne && expectedZero);
-    }
 
-    @Test
-    void getNeighborsRectangleCompleteToroidalColZero() {
-        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.RECTANGLE, Edge.TOROIDAL, SimType.GOL);
-        Neighborhood neighbors = new Neighborhood(1,0,Shape.RECTANGLE,Arrangement.COMPLETE,Edge.TOROIDAL,myGrid);
-        Cell[] neigh = neighbors.getNeighbors();
-        int onecount = 0;
-        int zerocount=0;
-        for(int i=0;i<neigh.length;i++){
-            if(neigh[i].getState()==0){
-                zerocount ++;
-            }
-            else{
-                onecount++;
-            }
-        }
-        boolean expectedZero = (zerocount == 4);
-        boolean expectedOne = (onecount==4);
-        assertEquals(true,expectedOne && expectedZero);
-    }
-
-    @Test
-    void getNeighborsRectangleCompleteToroidalRowColZero() {
-        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.RECTANGLE, Edge.TOROIDAL, SimType.GOL);
-        Neighborhood neighbors = new Neighborhood(0,0,Shape.RECTANGLE,Arrangement.COMPLETE,Edge.TOROIDAL,myGrid);
-        Cell[] neigh = neighbors.getNeighbors();
-        int onecount = 0;
-        int zerocount=0;
-        for(int i=0;i<neigh.length;i++){
-            if(neigh[i].getState()==0){
-                zerocount ++;
-            }
-            else{
-                onecount++;
-            }
-        }
-        boolean expectedZero = (zerocount == 5);
-        boolean expectedOne = (onecount==3);
-        assertEquals(true,expectedOne && expectedZero);
-    }
     @Test
     void getNeighborsRectangleCardinalFINITERowColZero() {
         Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.CARDINAL, Shape.RECTANGLE, Edge.FINITE, SimType.GOL);
@@ -149,7 +92,7 @@ class NeighborhoodTest2 {
     @Test
     void getNeighborsRectangleFINITECompleteMax() {
         Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.RECTANGLE, Edge.FINITE, SimType.GOL);
-        Neighborhood neighbors = new Neighborhood(2,2,Shape.RECTANGLE,Arrangement.COMPLETE,Edge.FINITE,myGrid);
+        Neighborhood neighbors = new Neighborhood(3,3,Shape.RECTANGLE,Arrangement.COMPLETE,Edge.FINITE,myGrid);
         Cell[] neigh = neighbors.getNeighbors();
         int onecount = 0;
         int zerocount=0;

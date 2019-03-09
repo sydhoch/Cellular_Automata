@@ -16,6 +16,8 @@ Hours Spent: 75 (add in your hours)
 ### Primary Roles
 Sara: I did all of the front end work, taking the lead on all of the classes in the frontend package. I also wrote the Grid class and some of the Neighborhood class.
 
+Sydney: I made all of the Cell classes, set up the neighbors in the neighborhood class, wrote tests for cell class and neighborhood classes, made grids able to implement the grid outline feature, worked on the grid class, made the simulation driver class, and did some refactoring of the play class.
+
 ### Resources Used
 - http://www-cs-students.stanford.edu/~amitp/game-programming/grids/
 - https://www.tutorialspoint.com/javafx/javafx_charts.htm
