@@ -1,3 +1,6 @@
+/**@author Arilia Frederick**/
+
+
 package grid;
 
 import Enums.Arrangement;
