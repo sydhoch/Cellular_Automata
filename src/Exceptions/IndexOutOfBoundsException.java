@@ -1,3 +1,5 @@
+/**@author Arilia Frederick**/
+
 package Exceptions;
 
 public class IndexOutOfBoundsException extends Exception {
