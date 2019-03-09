@@ -148,9 +148,7 @@ public class Neighborhood {
         if (n == -1 && val == 0) {
             return maxVal - 1;
         }
-        if(val==maxVal-n){
-
-        }
+        Integer[] arr = {1,2,3};
         if (n == 1 && val == maxVal - 1) {
             return 0;
         }

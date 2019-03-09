@@ -11,8 +11,8 @@ public class TriangleDisplay extends ShapeDisplay {
     private int myCellWidth;
     private Paint[] myColors;
 
-    public TriangleDisplay(int size, int height, int width, String[] colors){
-        super(size, height, width, colors);
+    public TriangleDisplay(int size, int height, int width, String[] colors,boolean gridOutline){
+        super(size, height, width, colors,gridOutline);
         myColors = convertColors(getColors());;
     }
 
@@ -43,6 +43,7 @@ public class TriangleDisplay extends ShapeDisplay {
         }
         Polygon tri = new Polygon(pointX, pointY, leftX, leftY, rightX, rightY);
         tri.setFill(myColors[state]);
+        handleGridOutline(tri);
         return tri;
     }
 

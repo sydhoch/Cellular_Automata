@@ -15,8 +15,8 @@ public class ImageDisplay extends CellDisplay{
     private int myCellWidth;
     private String[] myImageLabels;
 
-    public ImageDisplay(int size, int height, int width, String[] images){
-        super(size, height, width, images);
+    public ImageDisplay(int size, int height, int width, String[] images,boolean gridOutline){
+        super(size, height, width, images,gridOutline);
         myImageLabels = getColors();
         setSize(size, height, width);
         myImages = ResourceBundle.getBundle(IMAGE_RESOURCE_PACKAGE);

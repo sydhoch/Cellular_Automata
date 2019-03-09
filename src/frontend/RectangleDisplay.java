@@ -1,6 +1,7 @@
 package frontend;
 
 import javafx.scene.Node;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
@@ -12,8 +13,8 @@ public class RectangleDisplay extends ShapeDisplay {
     private Paint[] myColors;
 
 
-    public RectangleDisplay(int size, int height, int width, String[] colors){
-        super(size, height, width, colors);
+    public RectangleDisplay(int size, int height, int width, String[] colors,boolean gridOutline){
+        super(size, height, width, colors,gridOutline);
         myColors = convertColors(getColors());
     }
 
@@ -27,6 +28,11 @@ public class RectangleDisplay extends ShapeDisplay {
         myColors = convertColors(getColors());
         Rectangle rect = new Rectangle(myCellWidth * j, myCellHeight * i, myCellWidth, myCellHeight);
         rect.setFill(myColors[state]);
+        handleGridOutline(rect);
+//        if(getGridOutline()){
+//            rect.setStroke(Color.BLACK);
+//            rect.setStrokeWidth(2);
+//        }
         return rect;
     }
 

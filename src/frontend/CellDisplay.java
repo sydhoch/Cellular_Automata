@@ -10,6 +10,7 @@ package frontend;
 import javafx.scene.Group;
 import javafx.scene.Node;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +19,13 @@ public abstract class CellDisplay {
     private int myGridHeight;
     private int myGridWidth;
     private String[] myColors;
+    private boolean myGridOutline;
 
     public CellDisplay() {
     }
 
-    public CellDisplay(int size, int height, int width, String[] colors) {
+    public CellDisplay(int size, int height, int width, String[] colors,boolean gridOutline) {
+        myGridOutline=gridOutline;
         mySize = size;
         myColors = colors;
         myGridHeight = height;
@@ -51,5 +54,9 @@ public abstract class CellDisplay {
     protected abstract void remove(Node n, List<Node> toRemove);
 
     protected abstract void setSize(int size, int height, int width);
+
+    protected boolean getGridOutline(){
+        return myGridOutline;
+    }
 
 }

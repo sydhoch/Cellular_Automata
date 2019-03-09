@@ -1,16 +1,17 @@
 package frontend;
 
-import Enums.Shape;
+//import Enums.Shape;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-
+import javafx.scene.shape.*;
+import java.awt.Rectangle;
 import java.util.List;
 
 public abstract class ShapeDisplay extends CellDisplay {
 
-    public ShapeDisplay(int size, int height, int width, String[] colors){
-        super(size, height, width, colors);
+    public ShapeDisplay(int size, int height, int width, String[] colors,boolean gridOutline){
+        super(size, height, width, colors,gridOutline);
 
     }
     protected Paint[] convertColors(String[] colors){
@@ -27,4 +28,11 @@ public abstract class ShapeDisplay extends CellDisplay {
     }
     protected abstract Node setView(int i, int j, int state);
     protected abstract void remove(Node n, List<Node> toRemove);
+
+    protected void handleGridOutline(Shape shape){
+        if(getGridOutline()){
+            shape.setStroke(Color.BLACK);
+            shape.setStrokeWidth(2);
+        }
+    }
 }

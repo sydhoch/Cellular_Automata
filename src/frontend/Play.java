@@ -44,6 +44,7 @@ public class Play {
     private static final String NEIGHBORHOOD_CONFIG_LABEL = "NeighborhoodType";
     private static final String CELL_SHAPE_CONFIG_LABEL = "CellShape";
     private static final String EDGE_CONFIG_LABEL = "EdgePolicies";
+    private static final String GRID_OUTLINE_CONFIG_LABEL = "GridOutline";
     private static final int STEP_COUNT_START = 1;
     private static final int MAX_STATES = 3;
     private static final String COLOR_LABEL = "Color";
@@ -63,6 +64,7 @@ public class Play {
     private Shape myShape;
     private CellDisplay myCellDisplay;
     private SimType myType;
+    private boolean myGridOutline;
 
     protected Play() {
         try {
@@ -88,6 +90,8 @@ public class Play {
             throw new InvalidValueException("This Configuration File does not exist.");
         }
         myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + CONFIGURATION_FILE);
+        myGridOutline = Boolean.parseBoolean(myConfiguration.getString(GRID_OUTLINE_CONFIG_LABEL).toLowerCase());
+        System.out.println(myGridOutline);
         myFileName = myConfiguration.getString(FILE_CONFIG_LABEL);
         myType = SimType.valueOf(myConfiguration.getString(SIM_TYPE_LABEL).toUpperCase());
         Arrangement neighborhoodType = Arrangement.valueOf(myConfiguration.getString(NEIGHBORHOOD_CONFIG_LABEL).toUpperCase());
@@ -103,13 +107,13 @@ public class Play {
             for(int i = 0; i < images.length; i++){
                 images[i] = myGrid.getType().toString().toUpperCase() + i;
             }
-            return new ImageDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), images);
+            return new ImageDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), images,myGridOutline);
         } else if (s.equals(Shape.TRIANGLE)) {
-            return new TriangleDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myColors);
+            return new TriangleDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myColors,myGridOutline);
         } else if (s.equals(Shape.HEXAGON)) {
-            return new HexagonDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myColors);
+            return new HexagonDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myColors,myGridOutline);
         } else {
-            return new RectangleDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myColors);
+            return new RectangleDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myColors,myGridOutline);
         }
     }
 

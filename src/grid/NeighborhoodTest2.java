@@ -108,6 +108,25 @@ class NeighborhoodTest2 {
         assertEquals(true,expectedOne && expectedZero);
     }
     @Test
+    void getNeighborsRectangleCardinalFINITERowColZero() {
+        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.CARDINAL, Shape.RECTANGLE, Edge.FINITE, SimType.GOL);
+        Neighborhood neighbors = new Neighborhood(0,0,Shape.RECTANGLE,Arrangement.CARDINAL,Edge.FINITE,myGrid);
+        Cell[] neigh = neighbors.getNeighbors();
+        int onecount = 0;
+        int zerocount=0;
+        for(int i=0;i<neigh.length;i++){
+            if(neigh[i].getState()==0){
+                zerocount ++;
+            }
+            else{
+                onecount++;
+            }
+        }
+        boolean expectedZero = (zerocount == 2);
+        boolean expectedOne = (onecount==0);
+        assertEquals(true,expectedOne && expectedZero);
+    }
+    @Test
     void getNeighborsRectangleCompleteToroidalMax() {
         Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.RECTANGLE, Edge.TOROIDAL, SimType.GOL);
         Neighborhood neighbors = new Neighborhood(2,2,Shape.RECTANGLE,Arrangement.COMPLETE,Edge.TOROIDAL,myGrid);
@@ -144,7 +163,67 @@ class NeighborhoodTest2 {
         }
         boolean expectedZero = (zerocount == 1);
         boolean expectedOne = (onecount==2);
-        assertEquals(true,expectedOne && expectedZero);
+        assertTrue(expectedOne && expectedZero);
+    }
+
+    @Test
+    void getNeighborsHexFINITECompleteMax() {
+        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.HEXAGON, Edge.FINITE, SimType.GOL);
+        Neighborhood neighbors = new Neighborhood(1,1,Shape.HEXAGON,Arrangement.COMPLETE,Edge.FINITE,myGrid);
+        Cell[] neigh = neighbors.getNeighbors();
+        int onecount = 0;
+        int zerocount=0;
+        for(int i=0;i<neigh.length;i++){
+            if(neigh[i].getState()==0){
+                zerocount ++;
+            }
+            else{
+                onecount++;
+            }
+        }
+        boolean expectedZero = (zerocount == 4);
+        boolean expectedOne = (onecount==2);
+        assertTrue(expectedOne && expectedZero);
+    }
+
+    @Test
+    void getNeighborsTriangleFINITECompleteMax() {
+        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.TRIANGLE, Edge.FINITE, SimType.GOL);
+        Neighborhood neighbors = new Neighborhood(1,1,Shape.TRIANGLE,Arrangement.COMPLETE,Edge.FINITE,myGrid);
+        Cell[] neigh = neighbors.getNeighbors();
+        int onecount = 0;
+        int zerocount=0;
+        for(int i=0;i<neigh.length;i++){
+            if(neigh[i].getState()==0){
+                zerocount ++;
+            }
+            else{
+                onecount++;
+            }
+        }
+        boolean expectedZero = (zerocount == 6);
+        boolean expectedOne = (onecount==3);
+        assertTrue(expectedOne && expectedZero);
+    }
+
+    @Test
+    void getNeighborsTriangleTOROIDALCompleteMax() {
+        Grid myGrid = new Grid("gol-grid-3.csv", Arrangement.COMPLETE, Shape.TRIANGLE, Edge.TOROIDAL, SimType.GOL);
+        Neighborhood neighbors = new Neighborhood(1,1,Shape.TRIANGLE,Arrangement.COMPLETE,Edge.TOROIDAL,myGrid);
+        Cell[] neigh = neighbors.getNeighbors();
+        int onecount = 0;
+        int zerocount=0;
+        for(int i=0;i<neigh.length;i++){
+            if(neigh[i].getState()==0){
+                zerocount ++;
+            }
+            else{
+                onecount++;
+            }
+        }
+        boolean expectedZero = (zerocount == 8);
+        boolean expectedOne = (onecount==4);
+        assertTrue(expectedOne && expectedZero);
     }
 
 //    @Test
