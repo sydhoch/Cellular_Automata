@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class SegCell extends Cell{
 
-    private static final double THRESHOLD = .30;
+    private double myThreshold = .30;
     private double mySatisfaction;
 
     public SegCell(int state){
@@ -60,5 +60,15 @@ public class SegCell extends Cell{
     }
 
 
-    private boolean isSatisfied(){ return mySatisfaction>THRESHOLD; }
+    private boolean isSatisfied(){ return mySatisfaction>myThreshold; }
+
+    @Override
+    public void setSpecialValue(int d){
+        myThreshold = .01*d;
+    }
+
+    @Override
+    public int getSpecialValue(){
+        return (int)(myThreshold*100);
+    }
 }

@@ -10,7 +10,7 @@ public class FireCell extends Cell{
     //1 = tree
     //2 = burning
 
-    private static final double PROB_CATCH = .15;
+    private double myProbCatch = .15;
 
     public FireCell(int state){
         super(state);
@@ -24,13 +24,22 @@ public class FireCell extends Cell{
         if(this.getState()==1){
             for(int i=0;i<neighbors.length;i++){
                 if(neighbors[i].getState()==2){
-                    if(Math.random()>PROB_CATCH){
+                    if(Math.random()>myProbCatch){
                         this.setNextState(2);
                     }
                     break;
                 }
             }
         }
+    }
 
+    @Override
+    public void setSpecialValue(int d){
+        myProbCatch = .01*d;
+    }
+
+    @Override
+    public int getSpecialValue(){
+        return (int)(myProbCatch*100);
     }
 }
