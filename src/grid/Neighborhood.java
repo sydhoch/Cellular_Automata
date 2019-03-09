@@ -6,6 +6,7 @@ import Enums.Shape;
 import cell.Cell;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Neighborhood {
@@ -145,43 +146,15 @@ public class Neighborhood {
     }
 
     public int handleVal(int val, int n, int maxVal) {
-        if (n == -1 && val == 0) {
-            return maxVal - 1;
+        Integer[] pos = {1,2,3};
+        if(Arrays.asList(pos).contains(n) && val >=(maxVal-n)){
+            return n-(maxVal-val);
         }
-        Integer[] arr = {1,2,3};
-        if (n == 1 && val == maxVal - 1) {
-            return 0;
+        Integer[] neg = {-1,-2,-3};
+        if(Arrays.asList(neg).contains(n) && val < (n*-1)){
+            return maxVal-((-1*n)-val);
         }
-        if (n == -2 && val==1) {
-            return maxVal - 1;
-        }
-        if (n==-2 && val == 0) {
-                return maxVal - 2;
-        }
-        if (n == 2 && val == maxVal - 2) {
-            return 0;
-        }
-        if (n == 2 && val == maxVal - 1) {
-            return 1;
-        }
-        if (n == -3 && val==2) {
-            return maxVal - 1;
-        }
-        if (n==-3 && val == 1) {
-            return maxVal - 2;
-        }
-        if (n==-3 && val == 0) {
-            return maxVal - 3;
-        }
-        if (n == 3 && val==maxVal-3) {
-            return 0;
-        }
-        if (n == 3 && val==maxVal-2) {
-            return 1;
-        }
-        if (n == 3 && val==maxVal-1) {
-            return 2;
-        }
+
         return val+n;
     }
 

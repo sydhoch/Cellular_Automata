@@ -47,7 +47,7 @@ class NeighborhoodTest2 {
         boolean expectedOne = (onecount==3);
         assertEquals(true,expectedOne && expectedZero);
     }
-    
+
 
 
     @Test

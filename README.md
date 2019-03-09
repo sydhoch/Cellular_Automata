@@ -11,7 +11,7 @@ Start Date: February 20, 2019
 
 Finish Date: March 8, 2019
 
-Hours Spent: 75 (add in your hours)
+Hours Spent: 150 (add in your hours)
 
 ### Primary Roles
 Sara: I did all of the front end work, taking the lead on all of the classes in the frontend package. I also wrote the Grid class and some of the Neighborhood class.
@@ -43,10 +43,11 @@ Known Bugs:
 - The hexagon display doesn't always fill the screen properly.
 
 Extra credit:
+- 
 
 
 ### Notes
 
 
 ### Impressions
-
+This project was a really good challenge for implementing good design. 
