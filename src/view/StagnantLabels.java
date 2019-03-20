@@ -1,4 +1,4 @@
-package frontend;
+package view;
 
 import javafx.scene.Node;
 import javafx.scene.text.Text;

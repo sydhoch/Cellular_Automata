@@ -1,4 +1,4 @@
-package cell;
+package model.cell;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
@@ -15,7 +15,7 @@ public abstract class Cell extends Object{
     }
 
     /**
-     * updates the cell to its next state
+     * updates the model.grid.cell to its next state
      */
     public void updateCell(){
         myState = myNextState;
@@ -23,14 +23,14 @@ public abstract class Cell extends Object{
 
     /**
      *
-     * @returns the image of the cell
+     * @returns the image of the model.grid.cell
      */
 //    public Rectangle getRectangle(){
 //        return myCellImage;
 //    }
 
     /**
-     * Checks the neighbors and changes the state of the current cell if necessary
+     * Checks the neighbors and changes the state of the current model.grid.cell if necessary
      * @param neighbors
      */
     //public abstract void checkNeighborStatus(Cell[] neighbors);

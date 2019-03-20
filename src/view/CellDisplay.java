@@ -5,7 +5,7 @@
  * @author Sydney Hochberg
  * @author Arilia Frederick
  */
-package frontend;
+package view;
 
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -19,10 +19,7 @@ public abstract class CellDisplay {
     private int myGridWidth;
     private String[] myColors;
 
-    public CellDisplay() {
-    }
-
-    public CellDisplay(int size, int height, int width, String[] colors) {
+    protected CellDisplay(int size, int height, int width, String[] colors) {
         mySize = size;
         myColors = colors;
         myGridHeight = height;
@@ -30,7 +27,7 @@ public abstract class CellDisplay {
         setSize(mySize, myGridHeight, myGridWidth);
     }
 
-    protected void removeFromScreen(Group myRoot) {
+    public void removeFromScreen(Group myRoot) {
         List<Node> toRemove = new ArrayList<>();
         for (Node n : myRoot.getChildren()) {
             remove(n, toRemove);
@@ -38,18 +35,18 @@ public abstract class CellDisplay {
         myRoot.getChildren().removeAll(toRemove);
     }
 
-    protected String[] getColors() {
+    String[] getColors() {
         return myColors;
     }
 
-    protected void changeColors(String[] colors) {
+    public void changeColors(String[] colors) {
         myColors = colors;
     }
 
-    protected abstract Node setView(int i, int j, int state);
+    public abstract Node setView(int i, int j, int state);
 
-    protected abstract void remove(Node n, List<Node> toRemove);
+    public abstract void remove(Node n, List<Node> toRemove);
 
-    protected abstract void setSize(int size, int height, int width);
+    public abstract void setSize(int size, int height, int width);
 
 }

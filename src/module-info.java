@@ -7,9 +7,9 @@ module FrontEnd {
     requires javafx.web;
     requires org.junit.jupiter.api;
 
-    exports frontend;
-    exports grid;
-    exports cell;
+    exports view;
+    exports model.grid;
+    exports model.cell;
     exports Enums;
     exports Resources;
 }

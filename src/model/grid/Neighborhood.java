@@ -1,9 +1,9 @@
-package grid;
+package model.grid;
 
 import Enums.Arrangement;
 import Enums.Edge;
 import Enums.Shape;
-import cell.Cell;
+import model.cell.Cell;
 
 import java.util.ArrayList;
 import java.util.List;

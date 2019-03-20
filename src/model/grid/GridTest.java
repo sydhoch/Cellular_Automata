@@ -1,13 +1,10 @@
 /**@author Arilia Frederick**/
 
 
-package grid;
+package model.grid;
 
 
 import Enums.SimType;
-import cell.Cell;
-import cell.GoLCell;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -23,7 +20,7 @@ class GridTest {
 
     @Test
     void testReadFile() { //TODO: Edit test
-//        Grid myGrid = new Grid("gol-grid-3.csv", COMPLETE, RECTANGLE, TOROIDAL, SimType.GOL);
+//        Grid myGrid = new Grid("gol-model.grid-3.csv", COMPLETE, RECTANGLE, TOROIDAL, SimType.GOL);
 //        Cell[][] expected = {{new GoLCell(1), new GoLCell(0), new GoLCell(1)}, {new GoLCell(0), new GoLCell(1), new GoLCell(1)}, {new GoLCell(0), new GoLCell(0), new GoLCell(0)}};
 //        Cell[][] actual = myGrid.getGrid();
 //        for (int i = 0; i < 3; i++) {

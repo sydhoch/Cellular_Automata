@@ -1,5 +1,6 @@
-package frontend;
+package controller;
 
+import controller.Play;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

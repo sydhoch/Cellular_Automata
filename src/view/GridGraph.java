@@ -1,6 +1,6 @@
-package frontend;
+package view;
 
-import grid.Grid;
+import model.grid.Grid;
 import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -30,7 +30,7 @@ public class GridGraph implements DisplayObject {
     private List<Node> mySlider;
 
 
-    GridGraph(Grid g) {
+    public GridGraph(Grid g) {
         myResources = ResourceBundle.getBundle(RESOURCES);
         myGrid = g;
         setObjects();
@@ -60,7 +60,7 @@ public class GridGraph implements DisplayObject {
         mySlider = addSettings();
     }
 
-    void updateGraph(int step) {
+    public void updateGraph(int step) {
         for (int i = 0; i < MAX_STATES; i++) {
             if (myGrid.getCellsInState(i) == null) {
                 myData.get(i).getData().add(new XYChart.Data<>(step, 0));

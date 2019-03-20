@@ -1,8 +1,8 @@
-package frontend;
+package view;
 
 import Enums.Shape;
 import Enums.SimType;
-import grid.Grid;
+import model.grid.Grid;
 import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
@@ -94,11 +94,11 @@ public class Clickable implements DisplayObject{
         return myShape;
     }
 
-    void setColors(String[] paints) {
+    public void setColors(String[] paints) {
         myColors = paints;
     }
 
-    String[] getColors() {
+    public String[] getColors() {
         return myColors;
     }
 
@@ -161,7 +161,7 @@ public class Clickable implements DisplayObject{
     }
 
 
-    boolean isStepThrough() {
+    public boolean isStepThrough() {
         return myStepThrough;
     }
 
