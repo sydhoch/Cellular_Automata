@@ -172,7 +172,8 @@ public class Grid {
         return myHeight;
     }
 
-    public Cell[][] getGrid() {
+    //only used in the test class
+    protected Cell[][] getGrid() {
         return myGrid;
     }
 
