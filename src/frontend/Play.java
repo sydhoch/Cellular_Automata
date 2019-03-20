@@ -38,7 +38,7 @@ public class Play {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "/Resources/";
     private static final String STYLESHEET = "default.css";
-    private  static String CONFIGURATION_FILE = "Perc3";
+    private static final String DEFAULT_CONFIGURATION_FILE = "Perc3";
 
     private static final String SIM_TYPE_LABEL = "TypeOfSimulation";
     private static final String DEFAULT_GRID_FILE = "gol-grid-1.csv";
@@ -68,7 +68,6 @@ public class Play {
     private SimType myType;
     private boolean myGridOutline;
     private String myConfigurationFile;
-    private String myDefaultConfig
 
     protected Play(String defaultFile) {
         setInitialConfigFile(defaultFile);
@@ -95,14 +94,11 @@ public class Play {
     }
 
     private void readConfigFile() throws InvalidValueException {
-        if(CONFIGURATION_FILE.equals(null)) {
-            CONFIGURATION_FILE = "Gol";
+        if(myConfigurationFile.equals(null)){
+            myConfigurationFile = DEFAULT_CONFIGURATION_FILE;
             throw new InvalidValueException("This Configuration File does not exist.");
         }
         else {
-            if(myConfigurationFile==null){
-                
-            }
             myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + myConfigurationFile);
         }
         myFileName = myConfiguration.getString(FILE_CONFIG_LABEL);
