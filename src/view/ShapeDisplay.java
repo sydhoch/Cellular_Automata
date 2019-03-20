@@ -1,6 +1,5 @@
-package frontend;
+package view;
 
-import Enums.Shape;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -13,6 +12,7 @@ public abstract class ShapeDisplay extends CellDisplay {
         super(size, height, width, colors);
 
     }
+
     protected Paint[] convertColors(String[] colors){
         Paint[] p = new Paint[colors.length];
         for(int i = 0; i < colors.length; i++) {
@@ -25,6 +25,6 @@ public abstract class ShapeDisplay extends CellDisplay {
         }
         return p;
     }
-    protected abstract Node setView(int i, int j, int state);
-    protected abstract void remove(Node n, List<Node> toRemove);
+    public abstract Node setView(int i, int j, int state);
+    public abstract void remove(Node n, List<Node> toRemove);
 }

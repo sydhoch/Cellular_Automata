@@ -1,21 +1,17 @@
-package grid;
+package model.grid;
 
 import Enums.Arrangement;
 import Enums.Edge;
 import Enums.Shape;
 import Enums.SimType;
-import cell.Cell;
-import cell.GoLCell;
-import grid.Grid;
-import grid.Neighborhood;
+import model.cell.Cell;
+import model.cell.GoLCell;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-class NeighborhoodTest {
+class NeighborhoodTest2 {
     private GoLCell g0;
     private GoLCell g1;
     private GoLCell g2;

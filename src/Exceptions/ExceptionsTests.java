@@ -6,9 +6,7 @@ import Enums.Arrangement;
 import Enums.Edge;
 import Enums.Shape;
 import Enums.SimType;
-import frontend.Play;
-import grid.Grid;
-import Resources.*;
+import model.grid.Grid;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 

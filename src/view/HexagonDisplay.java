@@ -1,4 +1,4 @@
-package frontend;
+package view;
 
 import javafx.scene.Node;
 import javafx.scene.paint.Paint;
@@ -11,13 +11,11 @@ public class HexagonDisplay extends ShapeDisplay {
     private double myCellWidth;
     private Paint[] myColors;
     private int myHeight;
-    private int myWidth;
 
     public HexagonDisplay(int size, int height, int width, String[] colors) {
         super(size, height, width, colors);
         myColors = convertColors(getColors());
         myHeight = height;
-        myWidth = width;
     }
 
     protected Node setView(int x, int y, int state) {
@@ -46,7 +44,7 @@ public class HexagonDisplay extends ShapeDisplay {
     }
 
     @Override
-    protected void setSize(int size, int height, int width) {
+    public void setSize(int size, int height, int width) {
         myCellHeight = size/(height+(width-1)*.5);
         myCellWidth = size/(width+(width-1)*.5);
     }
