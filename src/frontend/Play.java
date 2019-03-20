@@ -67,9 +67,11 @@ public class Play {
     private CellDisplay myCellDisplay;
     private SimType myType;
     private boolean myGridOutline;
-    private String myConfigurationFile = "PERC3";
+    private String myConfigurationFile;
+    private String myDefaultConfig
 
-    protected Play() {
+    protected Play(String defaultFile) {
+        setInitialConfigFile(defaultFile);
         try {
             readConfigFile();
         } catch (InvalidValueException e) {
@@ -88,12 +90,19 @@ public class Play {
         setButtons();
     }
 
+    private void setInitialConfigFile(String file){
+        myConfigurationFile = file;
+    }
+
     private void readConfigFile() throws InvalidValueException {
         if(CONFIGURATION_FILE.equals(null)) {
             CONFIGURATION_FILE = "Gol";
             throw new InvalidValueException("This Configuration File does not exist.");
         }
         else {
+            if(myConfigurationFile==null){
+                
+            }
             myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + myConfigurationFile);
         }
         myFileName = myConfiguration.getString(FILE_CONFIG_LABEL);

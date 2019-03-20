@@ -59,7 +59,7 @@ public abstract class Neighborhood {
 
     }
 
-    public int handleVal(int val, int n, int maxVal) {
+    private int handleVal(int val, int n, int maxVal) {
         Integer[] pos = {1,2,3};
         if(Arrays.asList(pos).contains(n) && val >=(maxVal-n)){
             return n-(maxVal-val);

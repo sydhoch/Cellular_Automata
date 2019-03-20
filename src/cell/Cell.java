@@ -23,7 +23,7 @@ public abstract class Cell extends Object{
      * which may change the next state depending on the states of the neighbors.
      * @param state
      */
-    public Cell(int state){
+    protected Cell(int state){
         myState = state;
         setNextState(state);
     }
