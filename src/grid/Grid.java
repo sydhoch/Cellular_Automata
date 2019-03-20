@@ -162,10 +162,6 @@ public class Grid {
         return myHeight;
     }
 
-    public Cell[][] getGrid() {
-        return myGrid;
-    }
-
     public List<Cell> getCellsInState(int state) {
         return myCellStates.get(state);
     }
@@ -178,13 +174,6 @@ public class Grid {
         return myShape;
     }
 
-    public Arrangement getArr() {
-        return myArr;
-    }
-
-    public Edge getEdge() {
-        return myEdge;
-    }
 
     public void setVal(double d){
         for(int i = 0; i < getHeight(); i++){
