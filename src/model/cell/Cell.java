@@ -1,7 +1,8 @@
-package cell;
+package model.cell;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
+
 
 /**
  * The abstract class Cell represents one of the cells in the grid.
@@ -29,7 +30,7 @@ public abstract class Cell extends Object{
     }
 
     /**
-     * updates the cell to its next state
+     * updates the model.grid.cell to its next state
      */
     public void updateCell(){
         myState = myNextState;
@@ -37,17 +38,22 @@ public abstract class Cell extends Object{
 
     /**
      *
-     * @returns the image of the cell
+     * @returns the image of the model.grid.cell
      */
 //    public Rectangle getRectangle(){
 //        return myCellImage;
 //    }
 
     /**
+<<<<<<< HEAD:src/cell/Cell.java
      * Checks the neighbors and changes the state of the current cell if necessary
      * @param neighbors is used to see the states of the cell's neighbors
      * @param cellStates is used in simulations that need to see the states of cells who are not the cells neighbors
      *                    The key is a cell state and the value is all of the cells in that state
+=======
+     * Checks the neighbors and changes the state of the current model.grid.cell if necessary
+     * @param neighbors
+>>>>>>> master:src/model/cell/Cell.java
      */
     public abstract void checkNeighborStatus(Cell[] neighbors, Map<Integer, List<Cell>> cellStates);
 

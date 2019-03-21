@@ -1,4 +1,4 @@
-package frontend;
+package view;
 
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
@@ -14,18 +14,14 @@ public class HexagonDisplay extends ShapeDisplay {
     private double myCellWidth;
     private Paint[] myColors;
     private int myHeight;
-    private int myWidth;
-    private boolean myGridOutline;
 
     public HexagonDisplay(int size, int height, int width, String[] colors, boolean gridOutline) {
         super(size, height, width, colors,gridOutline);
         myColors = convertColors(getColors());
         myHeight = height;
-        myWidth = width;
-        myGridOutline=gridOutline;
     }
 
-    protected Node setView(int x, int y, int state) {
+    public Node setView(int x, int y, int state) {
         myColors = convertColors(getColors());
         double point1X = .25*myCellWidth+ y*myCellWidth;
         double point1Y = myCellHeight*(myHeight-x+1)- y*myCellHeight/2;
@@ -52,12 +48,12 @@ public class HexagonDisplay extends ShapeDisplay {
     }
 
     @Override
-    protected void setSize(int size, int height, int width) {
+    public void setSize(int size, int height, int width) {
         myCellHeight = size/(height+(width-1)*.5);
         myCellWidth = size/(width+(width-1)*.5);
     }
 
-    protected void remove(Node n, List<Node> toRemove) {
+    public void remove(Node n, List<Node> toRemove) {
         if (n instanceof Polygon) {
             toRemove.add(n);
         }

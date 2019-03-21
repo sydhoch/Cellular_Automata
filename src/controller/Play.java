@@ -1,19 +1,19 @@
 /**
- * This class runs the simulation. It depends on all of the cell, grid, frontend classes, and the resource bundles.
+ * This class runs the simulation. It depends on all of the model.grid.cell, model.grid, view classes, and the resource bundles.
  * It catches exceptions in the configuration files and sets default values instead.
  *
  * @author Sara Behn
  * @author Sydney Hochberg
  * @author Arilia Frederick
  */
-package frontend;
+package controller;
 
 import Enums.Arrangement;
 import Enums.Edge;
 import Enums.Shape;
 import Enums.SimType;
 import Exceptions.InvalidValueException;
-import grid.Grid;
+import model.grid.Grid;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -22,6 +22,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
+import view.*;
 
 import java.util.ResourceBundle;
 
@@ -94,11 +95,11 @@ public class Play {
     }
 
     private void readConfigFile() throws InvalidValueException {
-        if(myConfigurationFile.equals(null)){
-            myConfigurationFile = DEFAULT_CONFIGURATION_FILE;
-            throw new InvalidValueException("This Configuration File does not exist.");
+        try{
+            myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + myConfigurationFile);
         }
-        else {
+        catch(NullPointerException e){
+            myConfigurationFile = DEFAULT_CONFIGURATION_FILE;
             myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + myConfigurationFile);
         }
         myFileName = myConfiguration.getString(FILE_CONFIG_LABEL);

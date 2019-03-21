@@ -1,4 +1,4 @@
-package frontend;
+package view;
 
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
@@ -18,13 +18,13 @@ public class RectangleDisplay extends ShapeDisplay {
         myColors = convertColors(getColors());
     }
 
-    protected void remove(Node n, List<Node> toRemove) {
+    public void remove(Node n, List<Node> toRemove) {
         if (n instanceof Rectangle) {
             toRemove.add(n);
         }
     }
 
-    protected Node setView(int i, int j, int state){
+    public Node setView(int i, int j, int state){
         myColors = convertColors(getColors());
         Rectangle rect = new Rectangle(myCellWidth * j, myCellHeight * i, myCellWidth, myCellHeight);
         rect.setFill(myColors[state]);
@@ -36,7 +36,7 @@ public class RectangleDisplay extends ShapeDisplay {
         return rect;
     }
 
-    protected void setSize(int size, int height, int width){
+    public void setSize(int size, int height, int width){
         myCellHeight = size / height;
         myCellWidth = size / width;
     }

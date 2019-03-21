@@ -1,4 +1,4 @@
-package grid;
+package model.grid;
 
 import Enums.Arrangement;
 import Enums.Edge;

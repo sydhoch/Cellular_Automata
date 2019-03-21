@@ -1,23 +1,21 @@
 /**@author Arilia Frederick**/
 
 
-package grid;
+package model.grid;
 
 import Enums.Arrangement;
 import Enums.Edge;
 import Enums.Shape;
 import Enums.SimType;
 import Exceptions.InvalidValueException;
-import cell.*;
-import frontend.Play;
+import model.cell.*;
+import controller.Play;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 public class Grid {
     private static final int RANDOM_GRID_SIZE = 5;
-
     private int myWidth;
     private int myHeight;
     private Cell[][] myGrid;
@@ -27,7 +25,7 @@ public class Grid {
     private Arrangement myArr;
     private Edge myEdge;
     private Map<Integer, List<Cell>> myCellStates;
-    Map<Integer, List<Cell>> mapCopy;
+    private Map<Integer, List<Cell>> mapCopy;
 
     public Grid(String file, Arrangement neighborPolicy, Shape cellShape, Edge edgePolicy, SimType s)  {
         myCellStates = new HashMap<>();
@@ -98,19 +96,24 @@ public class Grid {
     }
 
     private Cell makeCell(SimType s, int state){
-        if (s.equals(SimType.PERC)) {
-            return new PercCell(state);
-        } else if (s.equals(SimType.GOL)) {
-            return new GoLCell(state);
-        } else if (s.equals(SimType.RPS)) {
-            return new RPSCell(state);
-        } else if (s.equals(SimType.SEG)) {
-            return new SegCell(state);
-        } else if (s.equals(SimType.FIRE)) {
-            return new FireCell(state);
-        } else {
-            return new PPCell(state);
-        }
+        Cell newCell = s.getNewCell();
+        newCell.setNextState(state);
+        newCell.updateCell();
+
+//        if (s.equals(SimType.PERC)) {
+//            return new PercCell(state);
+//        } else if (s.equals(SimType.GOL)) {
+//            return new GoLCell(state);
+//        } else if (s.equals(SimType.RPS)) {
+//            return new RPSCell(state);
+//        } else if (s.equals(SimType.SEG)) {
+//            return new SegCell(state);
+//        } else if (s.equals(SimType.FIRE)) {
+//            return new FireCell(state);
+//        } else {
+//            return new PPCell(state);
+//        }
+        return newCell;
     }
 
     public SimType getType() {
@@ -172,11 +175,6 @@ public class Grid {
         return myHeight;
     }
 
-    //only used in the test class
-    protected Cell[][] getGrid() {
-        return myGrid;
-    }
-
     public List<Cell> getCellsInState(int state) {
         return myCellStates.get(state);
     }
@@ -189,13 +187,6 @@ public class Grid {
         return myShape;
     }
 
-    public Arrangement getArr() {
-        return myArr;
-    }
-
-    public Edge getEdge() {
-        return myEdge;
-    }
 
     public void setVal(double d){
         for(int i = 0; i < getHeight(); i++){
