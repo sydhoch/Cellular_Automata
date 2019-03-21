@@ -6,11 +6,11 @@ import java.util.Random;
 
 public class PPCell extends Cell {
     private static final int BABY = 3; //number at which new fish is born & how long shark can live without food
-    private static final int INITIAL_SHARK_ENERGY=2;
+    private int myInitialEnergy=2;
     public PPCell(int state){
         super(state);
         setTimeAlive(0);
-        setEnergy(INITIAL_SHARK_ENERGY);
+        setEnergy(myInitialEnergy);
     }
     //0 = empty
     //1 = fish
@@ -78,9 +78,19 @@ public class PPCell extends Cell {
         }
         else{
             if(this.getState()==2){
-                this.setEnergy(BABY-1);
+                this.setEnergy(myInitialEnergy);
             }
             this.setTimeAlive(0);
         }
+    }
+
+    @Override
+    public void setSpecialValue(int d){
+        myInitialEnergy = d;
+    }
+
+    @Override
+    public int getSpecialValue(){
+        return myInitialEnergy;
     }
 }

@@ -60,7 +60,7 @@ public class SegCell extends Cell{
     }
 
 
-    private boolean isSatisfied(){ return mySatisfaction>myThreshold; }
+    protected boolean isSatisfied(){ return mySatisfaction>myThreshold; }
 
     @Override
     public void setSpecialValue(int d){

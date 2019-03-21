@@ -1,8 +1,11 @@
 package view;
 
 import javafx.scene.Node;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 import java.util.List;
 
@@ -11,11 +14,21 @@ public class HexagonDisplay extends ShapeDisplay {
     private double myCellWidth;
     private Paint[] myColors;
     private int myHeight;
+<<<<<<< HEAD:src/view/HexagonDisplay.java
+=======
+    private int myWidth;
+    private boolean myGridOutline;
+>>>>>>> da42c476fed530810561b29f4a9f02f9a64f929e:src/frontend/HexagonDisplay.java
 
-    public HexagonDisplay(int size, int height, int width, String[] colors) {
-        super(size, height, width, colors);
+    public HexagonDisplay(int size, int height, int width, String[] colors, boolean gridOutline) {
+        super(size, height, width, colors,gridOutline);
         myColors = convertColors(getColors());
         myHeight = height;
+<<<<<<< HEAD:src/view/HexagonDisplay.java
+=======
+        myWidth = width;
+        myGridOutline=gridOutline;
+>>>>>>> da42c476fed530810561b29f4a9f02f9a64f929e:src/frontend/HexagonDisplay.java
     }
 
     protected Node setView(int x, int y, int state) {
@@ -40,6 +53,7 @@ public class HexagonDisplay extends ShapeDisplay {
                 point5X, point5Y,
                 point6X, point6Y);
         hex.setFill(myColors[state]);
+        handleGridOutline(hex);
         return hex;
     }
 

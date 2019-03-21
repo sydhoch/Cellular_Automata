@@ -39,7 +39,7 @@ public class Play {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "/Resources/";
     private static final String STYLESHEET = "default.css";
-    private  static String CONFIGURATION_FILE = "Perc3";
+    private static final String DEFAULT_CONFIGURATION_FILE = "Perc3";
 
     private static final String SIM_TYPE_LABEL = "TypeOfSimulation";
     private static final String DEFAULT_GRID_FILE = "gol-grid-1.csv";
@@ -47,6 +47,7 @@ public class Play {
     private static final String NEIGHBORHOOD_CONFIG_LABEL = "NeighborhoodType";
     private static final String CELL_SHAPE_CONFIG_LABEL = "CellShape";
     private static final String EDGE_CONFIG_LABEL = "EdgePolicies";
+    private static final String GRID_OUTLINE_CONFIG_LABEL = "GridOutline";
     private static final int STEP_COUNT_START = 1;
     private static final int MAX_STATES = 20;
     private static final String COLOR_LABEL = "Color";
@@ -66,10 +67,11 @@ public class Play {
     private Shape myShape;
     private CellDisplay myCellDisplay;
     private SimType myType;
-    private String myConfigurationFile = "PERC3";
+    private boolean myGridOutline;
+    private String myConfigurationFile;
 
-
-    protected Play() {
+    protected Play(String defaultFile) {
+        setInitialConfigFile(defaultFile);
         try {
             readConfigFile();
         } catch (InvalidValueException e) {
@@ -88,15 +90,18 @@ public class Play {
         setButtons();
     }
 
+    private void setInitialConfigFile(String file){
+        myConfigurationFile = file;
+    }
+
     private void readConfigFile() throws InvalidValueException {
-        if(CONFIGURATION_FILE.equals(null)) {
-            CONFIGURATION_FILE = "Gol";
+        if(myConfigurationFile.equals(null)){
+            myConfigurationFile = DEFAULT_CONFIGURATION_FILE;
             throw new InvalidValueException("This Configuration File does not exist.");
         }
         else {
             myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + myConfigurationFile);
         }
-
         myFileName = myConfiguration.getString(FILE_CONFIG_LABEL);
         if ((myFileName).equals("")) {
             myFileName=DEFAULT_GRID_FILE;
@@ -118,6 +123,7 @@ public class Play {
             throw new InvalidValueException("Neighborhood Type Incorrect. Choose frome Complete, Cardinal, or Vertex");
         }
         myShape = Shape.valueOf(myConfiguration.getString(CELL_SHAPE_CONFIG_LABEL).toUpperCase());
+        myGridOutline = Boolean.parseBoolean(myConfiguration.getString(GRID_OUTLINE_CONFIG_LABEL).toLowerCase());
         Edge edgePolicy = Edge.valueOf(myConfiguration.getString(EDGE_CONFIG_LABEL).toUpperCase());
         myGrid = new Grid(myFileName, neighborhoodType, myShape, edgePolicy, myType);
 
@@ -130,13 +136,13 @@ public class Play {
             for(int i = 0; i < images.length; i++){
                 images[i] = myGrid.getType().toString().toUpperCase() + i;
             }
-            return new ImageDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), images);
+            return new ImageDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), images,myGridOutline);
         } else if (s.equals(Shape.TRIANGLE)) {
-            return new TriangleDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myColors);
+            return new TriangleDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myColors,myGridOutline);
         } else if (s.equals(Shape.HEXAGON)) {
-            return new HexagonDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myColors);
+            return new HexagonDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myColors,myGridOutline);
         } else {
-            return new RectangleDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myColors);
+            return new RectangleDisplay(SIM_SIZE, myGrid.getHeight(), myGrid.getWidth(), myColors,myGridOutline);
         }
     }
 
