@@ -70,8 +70,8 @@ public class Play {
     private boolean myGridOutline;
     private String myConfigurationFile;
 
-    protected Play(String defaultFile) {
-        setInitialConfigFile(defaultFile);
+    protected Play() {
+        //setInitialConfigFile(defaultFile);
         try {
             readConfigFile();
         } catch (InvalidValueException e) {

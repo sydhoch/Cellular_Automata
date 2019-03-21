@@ -8,10 +8,10 @@ import javafx.stage.Stage;
 public class SimulationDriver extends Application{
 
     private static final String TITLE = "Cell Simulation";
-    //private Play simulation = new Play(null);
+    private Play simulation = new Play();
 
     public void start(Stage stage){
-        Play simulation = new Play(null);
+        Play simulation = new Play();
         Scene myScene = simulation.getScene();
         stage.setScene(myScene);
         stage.setTitle(TITLE);
