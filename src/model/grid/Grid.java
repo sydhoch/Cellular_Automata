@@ -96,24 +96,24 @@ public class Grid {
     }
 
     private Cell makeCell(SimType s, int state){
-        Cell newCell = s.getNewCell();
-        newCell.setNextState(state);
-        newCell.updateCell();
+//        Cell newCell = s.getNewCell();
+//        newCell.setNextState(state);
+//        newCell.updateCell();
 
-//        if (s.equals(SimType.PERC)) {
-//            return new PercCell(state);
-//        } else if (s.equals(SimType.GOL)) {
-//            return new GoLCell(state);
-//        } else if (s.equals(SimType.RPS)) {
-//            return new RPSCell(state);
-//        } else if (s.equals(SimType.SEG)) {
-//            return new SegCell(state);
-//        } else if (s.equals(SimType.FIRE)) {
-//            return new FireCell(state);
-//        } else {
-//            return new PPCell(state);
-//        }
-        return newCell;
+        if (s.equals(SimType.PERC)) {
+            return new PercCell(state);
+        } else if (s.equals(SimType.GOL)) {
+            return new GoLCell(state);
+        } else if (s.equals(SimType.RPS)) {
+            return new RPSCell(state);
+        } else if (s.equals(SimType.SEG)) {
+            return new SegCell(state);
+        } else if (s.equals(SimType.FIRE)) {
+            return new FireCell(state);
+        } else {
+            return new PPCell(state);
+        }
+        //return newCell;
     }
 
     public SimType getType() {

@@ -10,6 +10,7 @@ module FrontEnd {
     exports view;
     exports model.grid;
     exports model.cell;
+    exports controller;
     exports Enums;
     exports Resources;
 }

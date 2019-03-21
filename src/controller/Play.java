@@ -24,6 +24,7 @@ import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 import view.*;
 
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import static javafx.scene.input.KeyCode.SPACE;
@@ -70,8 +71,8 @@ public class Play {
     private boolean myGridOutline;
     private String myConfigurationFile;
 
-    protected Play() {
-        //setInitialConfigFile(defaultFile);
+    protected Play(String defaultFile) {
+        setInitialConfigFile(defaultFile);
         try {
             readConfigFile();
         } catch (InvalidValueException e) {
@@ -98,7 +99,7 @@ public class Play {
         try{
             myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + myConfigurationFile);
         }
-        catch(NullPointerException e){
+        catch(MissingResourceException e){
             myConfigurationFile = DEFAULT_CONFIGURATION_FILE;
             myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + myConfigurationFile);
         }
