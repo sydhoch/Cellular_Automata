@@ -7,7 +7,6 @@ import javafx.stage.Stage;
 public class SimulationDriver extends Application{
 
     private static final String TITLE = "Cell Simulation";
-    private String myFile;
     private Play simulation;
 
     public void start(Stage stage){
@@ -19,7 +18,6 @@ public class SimulationDriver extends Application{
         simulation.startAnimation();
     }
     public void changeDefault(String file){
-        myFile = file;
-        Play sim = new Play(myFile);
+        simulation = new Play(file);
     }
 }
