@@ -1,9 +1,4 @@
 package view;
-
-<<<<<<< HEAD:src/view/ShapeDisplay.java
-=======
-//import Enums.Shape;
->>>>>>> da42c476fed530810561b29f4a9f02f9a64f929e:src/frontend/ShapeDisplay.java
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -30,12 +25,8 @@ public abstract class ShapeDisplay extends CellDisplay {
         }
         return p;
     }
-<<<<<<< HEAD:src/view/ShapeDisplay.java
     public abstract Node setView(int i, int j, int state);
     public abstract void remove(Node n, List<Node> toRemove);
-=======
-    protected abstract Node setView(int i, int j, int state);
-    protected abstract void remove(Node n, List<Node> toRemove);
 
     protected void handleGridOutline(Shape shape){
         if(getGridOutline()){
@@ -43,5 +34,4 @@ public abstract class ShapeDisplay extends CellDisplay {
             shape.setStrokeWidth(2);
         }
     }
->>>>>>> da42c476fed530810561b29f4a9f02f9a64f929e:src/frontend/ShapeDisplay.java
 }

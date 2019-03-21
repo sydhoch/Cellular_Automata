@@ -14,24 +14,14 @@ public class HexagonDisplay extends ShapeDisplay {
     private double myCellWidth;
     private Paint[] myColors;
     private int myHeight;
-<<<<<<< HEAD:src/view/HexagonDisplay.java
-=======
-    private int myWidth;
-    private boolean myGridOutline;
->>>>>>> da42c476fed530810561b29f4a9f02f9a64f929e:src/frontend/HexagonDisplay.java
 
     public HexagonDisplay(int size, int height, int width, String[] colors, boolean gridOutline) {
         super(size, height, width, colors,gridOutline);
         myColors = convertColors(getColors());
         myHeight = height;
-<<<<<<< HEAD:src/view/HexagonDisplay.java
-=======
-        myWidth = width;
-        myGridOutline=gridOutline;
->>>>>>> da42c476fed530810561b29f4a9f02f9a64f929e:src/frontend/HexagonDisplay.java
     }
 
-    protected Node setView(int x, int y, int state) {
+    public Node setView(int x, int y, int state) {
         myColors = convertColors(getColors());
         double point1X = .25*myCellWidth+ y*myCellWidth;
         double point1Y = myCellHeight*(myHeight-x+1)- y*myCellHeight/2;
@@ -63,7 +53,7 @@ public class HexagonDisplay extends ShapeDisplay {
         myCellWidth = size/(width+(width-1)*.5);
     }
 
-    protected void remove(Node n, List<Node> toRemove) {
+    public void remove(Node n, List<Node> toRemove) {
         if (n instanceof Polygon) {
             toRemove.add(n);
         }

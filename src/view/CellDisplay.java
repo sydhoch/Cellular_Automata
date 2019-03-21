@@ -21,15 +21,12 @@ public abstract class CellDisplay {
     private String[] myColors;
     private boolean myGridOutline;
 
-<<<<<<< HEAD:src/view/CellDisplay.java
-    protected CellDisplay(int size, int height, int width, String[] colors) {
-=======
+
     public CellDisplay() {
     }
 
-    public CellDisplay(int size, int height, int width, String[] colors,boolean gridOutline) {
+    protected CellDisplay(int size, int height, int width, String[] colors,boolean gridOutline) {
         myGridOutline=gridOutline;
->>>>>>> da42c476fed530810561b29f4a9f02f9a64f929e:src/frontend/CellDisplay.java
         mySize = size;
         myColors = colors;
         myGridHeight = height;

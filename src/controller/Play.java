@@ -24,6 +24,7 @@ import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 import view.*;
 
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import static javafx.scene.input.KeyCode.SPACE;
@@ -95,11 +96,11 @@ public class Play {
     }
 
     private void readConfigFile() throws InvalidValueException {
-        if(myConfigurationFile.equals(null)){
-            myConfigurationFile = DEFAULT_CONFIGURATION_FILE;
-            throw new InvalidValueException("This Configuration File does not exist.");
+        try{
+            myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + myConfigurationFile);
         }
-        else {
+        catch(MissingResourceException e){
+            myConfigurationFile = DEFAULT_CONFIGURATION_FILE;
             myConfiguration = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + myConfigurationFile);
         }
         myFileName = myConfiguration.getString(FILE_CONFIG_LABEL);
